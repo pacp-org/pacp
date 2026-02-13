@@ -2,6 +2,31 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
+function collectJsonFilesRecursively(rootDir: string): string[] {
+  const files: string[] = [];
+  const stack: string[] = [rootDir];
+
+  while (stack.length > 0) {
+    const current = stack.pop();
+    if (!current) {
+      continue;
+    }
+    const entries = fs.readdirSync(current, { withFileTypes: true });
+    for (const entry of entries) {
+      const absolute = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(absolute);
+        continue;
+      }
+      if (entry.isFile() && entry.name.endsWith(".json")) {
+        files.push(absolute);
+      }
+    }
+  }
+
+  return files.sort();
+}
+
 function main(): void {
   const examplesDir = path.resolve(__dirname, "../../../spec/1.0.0/examples");
   if (!fs.existsSync(examplesDir)) {
@@ -9,11 +34,7 @@ function main(): void {
     process.exit(0);
   }
 
-  const entries = fs
-    .readdirSync(examplesDir, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
-    .map((entry) => entry.name)
-    .sort();
+  const entries = collectJsonFilesRecursively(examplesDir);
 
   if (entries.length === 0) {
     console.log("Nenhum exemplo JSON encontrado para validar.");
@@ -21,8 +42,7 @@ function main(): void {
   }
 
   let hasErrors = false;
-  for (const name of entries) {
-    const absolute = path.join(examplesDir, name);
+  for (const absolute of entries) {
     const relativeForCli = path.relative(process.cwd(), absolute);
     const stats = fs.statSync(absolute);
 

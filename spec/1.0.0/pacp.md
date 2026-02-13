@@ -160,12 +160,12 @@ Dependencies e constraints DEVE ser avaliadas antes do cálculo de preço.
 
 Os exemplos oficiais desta versão são:
 
-- `spec/1.0.0/examples/minimal.json`
-- `spec/1.0.0/examples/matrix_lookup.json`
-- `spec/1.0.0/examples/max_of.json`
-- `spec/1.0.0/examples/dependencies.json`
-- `spec/1.0.0/examples/multi_price_list.json`
-- `spec/1.0.0/examples/extensions.json`
+- `spec/1.0.0/examples/geral/minimal.json`
+- `spec/1.0.0/examples/iluminacao/matrix_lookup.json`
+- `spec/1.0.0/examples/moveis/max_of.json`
+- `spec/1.0.0/examples/tapetes/dependencies.json`
+- `spec/1.0.0/examples/geral/multi_price_list.json`
+- `spec/1.0.0/examples/geral/extensions.json`
 
 ## 14. Glossário
 
