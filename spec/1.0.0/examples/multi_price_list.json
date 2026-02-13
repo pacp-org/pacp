@@ -1,0 +1,48 @@
+{
+  "spec": "1.0.0",
+  "catalog": {
+    "id": "cat_price_list",
+    "name": "Catalogo Multi Lista",
+    "default_price_list_id": "pl_retail",
+    "price_lists": [
+      { "id": "pl_retail", "currency": "BRL", "label": "Varejo" },
+      { "id": "pl_b2b", "currency": "BRL", "label": "B2B", "context_match": { "channel": "B2B" } }
+    ]
+  },
+  "context": {
+    "price_list_id": "pl_b2b",
+    "region": "BR-SP",
+    "channel": "B2B",
+    "customer": "CUST-001"
+  },
+  "products": [
+    {
+      "id": "prod_placa",
+      "name": "Placa",
+      "base_price": 40,
+      "attributes": [
+        { "id": "material" }
+      ],
+      "options": [
+        { "id": "opt_material_acm", "attributeId": "material", "value": "ACM" }
+      ],
+      "rulesetIds": ["rs_price_list"]
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_price_list",
+      "target": "TOTAL",
+      "rules": [
+        {
+          "id": "rule_pick_by_price_list",
+          "operation": "PICK",
+          "components": [
+            { "label": "retail", "value": 12 },
+            { "label": "b2b", "value": 9 }
+          ]
+        }
+      ]
+    }
+  ]
+}

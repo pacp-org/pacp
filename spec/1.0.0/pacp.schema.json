@@ -1,0 +1,433 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pacp.dev/spec/1.0.0/pacp.schema.json",
+  "title": "PACP v1.0.0",
+  "type": "object",
+  "required": ["spec", "catalog", "products", "rulesets"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^x-": true
+  },
+  "properties": {
+    "spec": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "catalog": {
+      "$ref": "#/$defs/catalog"
+    },
+    "context": {
+      "$ref": "#/$defs/context"
+    },
+    "pricing": {
+      "$ref": "#/$defs/pricing"
+    },
+    "dictionaries": {
+      "type": "object",
+      "additionalProperties": true,
+      "patternProperties": {
+        "^x-": true
+      }
+    },
+    "products": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/product"
+      }
+    },
+    "rulesets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/ruleset"
+      }
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/table"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dependency"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint"
+      }
+    }
+  },
+  "$defs": {
+    "catalog": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "default_price_list_id": { "type": "string", "minLength": 1 },
+        "price_lists": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/priceList" }
+        }
+      }
+    },
+    "priceList": {
+      "type": "object",
+      "required": ["id", "currency"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "currency": { "type": "string", "minLength": 3, "maxLength": 3 },
+        "context_match": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/scalarValue" }
+        }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "price_list_id": { "type": "string", "minLength": 1 },
+        "region": { "type": "string" },
+        "channel": { "type": "string" },
+        "customer": { "type": "string" }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "calculation_mode": {
+          "type": "string",
+          "enum": ["CASCADE", "TABLE_LOOKUP", "OVERRIDE_BY_VARIANT", "COST_PLUS"]
+        }
+      }
+    },
+    "product": {
+      "type": "object",
+      "required": ["id", "options"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string" },
+        "base_price": { "type": "number" },
+        "attributes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/attributeRef" }
+        },
+        "options": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/option" }
+        },
+        "rulesetIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "attributeRef": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" }
+      }
+    },
+    "option": {
+      "type": "object",
+      "required": ["id", "attributeId", "value"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "attributeId": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "value": { "$ref": "#/$defs/scalarValue" }
+      }
+    },
+    "ruleset": {
+      "type": "object",
+      "required": ["id", "target", "rules"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "target": {
+          "type": "string",
+          "enum": ["BASE", "SUBTOTAL", "TOTAL"]
+        },
+        "rules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/rule" }
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "required": ["id", "operation"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "priority": { "type": "integer" },
+        "enabled": { "type": "boolean" },
+        "when": { "$ref": "#/$defs/condition" },
+        "operation": {
+          "type": "string",
+          "enum": ["ADD", "PERCENT_OF", "OVERRIDE", "LOOKUP", "MAX_OF", "MIN_OF", "PICK", "ROUND", "CAP", "FLOOR"]
+        },
+        "value": { "type": "number" },
+        "percent": { "type": "number" },
+        "tableId": { "type": "string", "minLength": 1 },
+        "components": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/component" }
+        },
+        "precision": { "type": "integer", "minimum": 0 },
+        "max": { "type": "number" },
+        "min": { "type": "number" },
+        "fallback": { "type": "number" },
+        "optionId": { "type": "string" },
+        "optionIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "operation": { "const": "ADD" } } },
+          "then": { "required": ["value"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "PERCENT_OF" } } },
+          "then": { "required": ["percent"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "OVERRIDE" } } },
+          "then": { "required": ["value"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "LOOKUP" } } },
+          "then": { "required": ["tableId"] }
+        },
+        {
+          "if": { "properties": { "operation": { "enum": ["MAX_OF", "MIN_OF", "PICK"] } } },
+          "then": { "required": ["components"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "ROUND" } } },
+          "then": { "required": ["precision"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "CAP" } } },
+          "then": { "required": ["max"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "FLOOR" } } },
+          "then": { "required": ["min"] }
+        }
+      ]
+    },
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "label": { "type": "string" },
+        "value": { "type": "number" },
+        "tableId": { "type": "string" },
+        "optionId": { "type": "string" }
+      },
+      "anyOf": [
+        { "required": ["value"] },
+        { "required": ["tableId"] }
+      ]
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "all": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/predicate" }
+        },
+        "any": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/predicate" }
+        }
+      }
+    },
+    "predicate": {
+      "type": "object",
+      "required": ["fact", "operator"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "fact": { "type": "string" },
+        "operator": {
+          "type": "string",
+          "enum": ["EQ", "NEQ", "IN", "NOT_IN", "GT", "GTE", "LT", "LTE", "EXISTS"]
+        },
+        "value": { "$ref": "#/$defs/scalarValue" },
+        "values": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/scalarValue" }
+        }
+      }
+    },
+    "table": {
+      "type": "object",
+      "required": ["id", "type", "dimensions", "rows"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["LOOKUP"] },
+        "keys": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              { "type": "string" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "optionId": { "type": "string" },
+                  "id": { "type": "string" },
+                  "name": { "type": "string" }
+                }
+              }
+            ]
+          }
+        },
+        "dimensions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/dimension" }
+        },
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/tableRow" }
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "required": ["key", "source"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "key": { "type": "string" },
+        "source": { "type": "string", "enum": ["ATTRIBUTE", "CONTEXT", "LITERAL"] },
+        "attributeId": { "type": "string" },
+        "contextKey": { "type": "string" },
+        "literal": { "$ref": "#/$defs/scalarValue" }
+      }
+    },
+    "tableRow": {
+      "type": "object",
+      "required": ["key", "value"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "key": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/scalarValue" }
+        },
+        "value": { "type": "number" }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "required": ["id", "type"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["REQUIRES", "IMPLIES", "AVAILABLE_OPTIONS_WHEN"] },
+        "productId": { "type": "string" },
+        "optionId": { "type": "string" },
+        "requiresOptionIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allowedOptionIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "when": { "$ref": "#/$defs/condition" }
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "required": ["id", "type", "when", "message"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "type": { "type": "string", "enum": ["DENY"] },
+        "productId": { "type": "string" },
+        "optionIds": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "when": { "$ref": "#/$defs/condition" },
+        "message": { "type": "string", "minLength": 1 }
+      }
+    },
+    "scalarValue": {
+      "type": ["string", "number", "boolean"]
+    }
+  }
+}
