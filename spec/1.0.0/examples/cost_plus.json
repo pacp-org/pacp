@@ -1,0 +1,34 @@
+{
+  "spec": "1.0.0",
+  "catalog": {
+    "id": "cat_cost_plus",
+    "name": "Catalogo Cost Plus"
+  },
+  "pricing": {
+    "calculation_mode": "COST_PLUS"
+  },
+  "products": [
+    {
+      "id": "prod_servico",
+      "name": "Servico Tecnico",
+      "base_price": 80,
+      "options": [
+        { "id": "opt_padrao", "attributeId": "tier", "value": "STD" }
+      ],
+      "rulesetIds": ["rs_markup"]
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_markup",
+      "target": "TOTAL",
+      "rules": [
+        {
+          "id": "rule_percent_margin",
+          "operation": "PERCENT_OF",
+          "percent": 20
+        }
+      ]
+    }
+  ]
+}

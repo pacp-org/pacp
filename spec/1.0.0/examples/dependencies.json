@@ -1,0 +1,75 @@
+{
+  "spec": "1.0.0",
+  "catalog": {
+    "id": "cat_dep",
+    "name": "Catalogo Dependencias"
+  },
+  "products": [
+    {
+      "id": "prod_camiseta",
+      "name": "Camiseta",
+      "base_price": 30,
+      "attributes": [
+        { "id": "print" },
+        { "id": "rush" }
+      ],
+      "options": [
+        { "id": "opt_print_color", "attributeId": "print", "value": "COLOR" },
+        { "id": "opt_rush_yes", "attributeId": "rush", "value": "YES" }
+      ],
+      "rulesetIds": ["rs_dep_price"]
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "dep_requires_rush",
+      "type": "REQUIRES",
+      "productId": "prod_camiseta",
+      "optionId": "opt_print_color",
+      "requiresOptionIds": ["opt_rush_yes"]
+    },
+    {
+      "id": "dep_available_rush",
+      "type": "AVAILABLE_OPTIONS_WHEN",
+      "productId": "prod_camiseta",
+      "allowedOptionIds": ["opt_rush_yes"],
+      "when": {
+        "all": [
+          { "fact": "print", "operator": "EQ", "value": "COLOR" }
+        ]
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "id": "ct_deny_color_without_rush",
+      "type": "DENY",
+      "productId": "prod_camiseta",
+      "optionIds": ["opt_print_color"],
+      "when": {
+        "all": [
+          { "fact": "rush", "operator": "NEQ", "value": "YES" }
+        ]
+      },
+      "message": "Impressao colorida exige rush ativo."
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_dep_price",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_add_color_print",
+          "operation": "ADD",
+          "value": 8,
+          "when": {
+            "all": [
+              { "fact": "print", "operator": "EQ", "value": "COLOR" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
