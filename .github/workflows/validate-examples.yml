@@ -1,0 +1,35 @@
+name: Validate PACP Examples
+
+on:
+  push:
+    paths:
+      - "spec/**"
+      - "tools/validator/**"
+      - ".github/workflows/validate-examples.yml"
+  pull_request:
+    paths:
+      - "spec/**"
+      - "tools/validator/**"
+      - ".github/workflows/validate-examples.yml"
+
+jobs:
+  validate-examples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: "tools/validator/package-lock.json"
+
+      - name: Install validator dependencies
+        working-directory: tools/validator
+        run: npm ci
+
+      - name: Validate official examples
+        working-directory: tools/validator
+        run: npm run validate:examples

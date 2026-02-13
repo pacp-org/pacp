@@ -33,13 +33,13 @@ npm run build
 ### Validar um arquivo
 
 ```bash
-npm run validate -- ../../spec/1.0.0/examples/minimal.json
+npm run validate -- ../../spec/1.0.0/examples/geral/minimal.json
 ```
 
 ou:
 
 ```bash
-npx --prefix tools/validator pacp-validate spec/1.0.0/examples/minimal.json
+npx --prefix tools/validator pacp-validate spec/1.0.0/examples/geral/minimal.json
 ```
 
 ### Validar exemplos oficiais
