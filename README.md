@@ -2,6 +2,8 @@
 
 PACP define um contrato aberto para modelar catálogo e precificação de forma determinística, sem exigir expansão massiva de SKUs.
 
+Também cobre cenários de venda por unidade comercial (ex.: caixa) a partir de quantidade solicitada em outra unidade (ex.: m2), com cálculo mínimo vendável via `CEIL`, além de controle de lote por produto quando aplicável.
+
 ## Estrutura principal
 
 - `spec/1.0.0/pacp.md`: especificação normativa v1.0.0.
@@ -48,6 +50,11 @@ npx --prefix tools/validator pacp-validate spec/1.0.0/examples/geral/minimal.jso
 cd tools/validator
 npm run validate:examples
 ```
+
+O validador também executa checks semânticos para:
+- lote obrigatório configurado por produto;
+- coerência entre `requested_unit` e `sales_unit.requested_unit`;
+- consistência do cálculo mínimo vendável (`CEIL`) em exemplos com `x-expected_required_sell_units`.
 
 ## Documentação complementar
 

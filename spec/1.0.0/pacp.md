@@ -44,6 +44,24 @@ O documento PODE conter `tables`, `dependencies`, `constraints`, `context`, `pri
 - Cada `option` DEVE referenciar o atributo via `attributeId`.
 - PACP descreve motor + dados; produtores de dados NÃO DEVE gerar combinações completas de variantes para obedecer ao padrão.
 
+### 4.1 Lote por produto (`lot_policy`)
+
+- Produto PODE declarar `lot_policy` para indicar política de controle de lote.
+- Quando `lot_policy.required=true`, o lote DEVE ser informado no orçamento antes do cálculo.
+- `lot_policy.source` DEVE definir origem do lote:
+  - `CONTEXT`: lote vem de `context[lot_policy.contextKey]`.
+  - `ATTRIBUTE`: lote vem de seleção de atributo (`lot_policy.attributeId`).
+- Para `lot_policy.source=CONTEXT`, ausência do lote obrigatório DEVE bloquear a execução na fase de constraints.
+
+### 4.2 Unidade solicitada e unidade vendável (`sales_unit`)
+
+- Produto PODE declarar `sales_unit` para converter quantidade solicitada em unidade vendável.
+- `sales_unit.requested_unit` DEVE definir a unidade de orçamento (ex.: `m2`, `L`, `kg`).
+- `sales_unit.sell_unit` DEVE definir a unidade comercial vendável (ex.: `box`, `galao`, `saco`).
+- `sales_unit.quantity_per_sell_unit` DEVE ser maior que zero e representa quanto da unidade solicitada cabe em 1 unidade vendável.
+- `sales_unit.rounding` em v1.0.0 DEVE ser `CEIL`.
+- `sales_unit.min_sell_units`, quando informado, DEVE ser respeitado como piso mínimo de venda.
+
 ## 5. Precificação
 
 ### 5.1 Targets
@@ -60,15 +78,35 @@ A execução DEVE seguir esta ordem:
 
 1. Validação estrutural (schema + checks básicos).
 2. Avaliação de `constraints` e `dependencies` (bloqueio de combinação).
-3. Inicialização do preço base.
-4. Aplicação de rulesets de `BASE`.
-5. Formação de subtotal.
-6. Aplicação de rulesets de `SUBTOTAL`.
-7. Formação de total.
-8. Aplicação de rulesets de `TOTAL`.
-9. Pós-processamento de arredondamento/limites (`ROUND`, `CAP`, `FLOOR`), quando configurado.
+3. Validação de dados de entrada de lote e quantidade solicitada (quando o produto exigir).
+4. Normalização da quantidade mínima vendável (`sales_unit`) com arredondamento normativo.
+5. Inicialização do preço base.
+6. Aplicação de rulesets de `BASE`.
+7. Formação de subtotal.
+8. Aplicação de rulesets de `SUBTOTAL`.
+9. Formação de total.
+10. Aplicação de rulesets de `TOTAL`.
+11. Pós-processamento de arredondamento/limites (`ROUND`, `CAP`, `FLOOR`), quando configurado.
 
 Se qualquer constraint bloquear a entrada, o motor DEVE interromper o cálculo e retornar bloqueio determinístico.
+
+### 5.5 Cálculo normativo de quantidade mínima vendável
+
+Quando `sales_unit` estiver configurado para um produto, o motor DEVE:
+
+1. Ler `context.requested_quantity` e `context.requested_unit`.
+2. Validar que `context.requested_unit` é igual a `sales_unit.requested_unit`.
+3. Calcular:
+
+`required_sell_units = CEIL(context.requested_quantity / sales_unit.quantity_per_sell_unit)`
+
+4. Quando `sales_unit.min_sell_units` existir, aplicar:
+
+`required_sell_units = MAX(required_sell_units, sales_unit.min_sell_units)`
+
+5. Usar `required_sell_units` como quantidade mínima vendável determinística para o orçamento.
+
+Em v1.0.0, motores NÃO DEVE usar `FLOOR` ou arredondamento comercial para este cálculo.
 
 ### 5.3 Stacking e conflitos
 
@@ -131,13 +169,16 @@ Constraints representam bloqueio duro de combinação:
 - `DENY`: se condição for verdadeira, o cálculo NÃO DEVE continuar.
 
 Dependencies e constraints DEVE ser avaliadas antes do cálculo de preço.
+Validações de lote obrigatório e unidade solicitada incompatível com `sales_unit` DEVE ocorrer nesta mesma fase de bloqueio.
 
 ## 9. Price Lists e Context
 
 - `catalog.price_lists[]` DEVE permitir múltiplas listas (ex.: varejo, atacado, B2B).
-- `context` PODE incluir `price_list_id`, `region`, `channel`, `customer`.
+- `context` PODE incluir `price_list_id`, `region`, `channel`, `customer`, `lot_id`, `requested_quantity`, `requested_unit`.
 - Quando `context.price_list_id` existir, o motor DEVE usar essa lista.
 - Quando não existir, o motor DEVE aplicar fallback determinístico (`default_price_list_id` ou lista padrão definida pelo catálogo).
+- Quando o produto tiver `lot_policy.required=true` e `source=CONTEXT`, o motor DEVE exigir `context[lot_policy.contextKey]`.
+- Quando o produto tiver `sales_unit`, o motor DEVE exigir `context.requested_quantity` e `context.requested_unit`.
 
 ## 10. Extensibilidade (`x-*`)
 
@@ -166,12 +207,18 @@ Os exemplos oficiais desta versão são:
 - `spec/1.0.0/examples/tapetes/dependencies.json`
 - `spec/1.0.0/examples/geral/multi_price_list.json`
 - `spec/1.0.0/examples/geral/extensions.json`
+- `spec/1.0.0/examples/pisos-e-revestimentos/cost_plus.json`
+- `spec/1.0.0/examples/geral/unit_conversion_volume.json`
 
 ## 14. Glossário
 
 - `ruleset`: conjunto de regras aplicadas sobre um `target`.
 - `target`: estágio/valor da precificação (`BASE`, `SUBTOTAL`, `TOTAL`).
 - `context`: dados externos de execução (região, canal, cliente, lista de preço).
+- `lot_policy`: política de lote no nível de produto.
+- `sales_unit`: política de conversão de unidade solicitada para unidade vendável.
+- `requested_quantity`: quantidade informada no orçamento na unidade solicitada.
+- `required_sell_units`: quantidade mínima vendável calculada com `CEIL`.
 - `constraint`: bloqueio de combinação.
 - `dependency`: relacionamento lógico entre opções.
 
@@ -184,6 +231,8 @@ Um arquivo é PACP compliant quando:
 - [ ] Define `products` e `options` sem ambiguidade.
 - [ ] Declara `rulesets` com `target` válido.
 - [ ] Separa constraints/dependencies da fase de cálculo.
+- [ ] Define política de lote obrigatório quando aplicável (`lot_policy`).
+- [ ] Define conversão para unidade vendável quando aplicável (`sales_unit` + `CEIL`).
 - [ ] Define ordem de aplicação e desempate determinístico.
 - [ ] Suporta `price_lists` e `context` quando usados.
 - [ ] Permite e preserva extensões `x-*`.

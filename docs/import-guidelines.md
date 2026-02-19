@@ -14,18 +14,23 @@ Ajudar equipes a converter planilhas e fontes legadas para PACP sem perder consi
 ## Mapeamento recomendado
 
 - Colunas de produto -> `products[]`.
+- Colunas de lote obrigatório -> `products[].lot_policy`.
+- Colunas de embalagem/unidade comercial -> `products[].sales_unit`.
 - Colunas de atributo -> `products[].attributes[]`.
 - Valores de seleção -> `products[].options[]`.
 - Planilhas de preço matricial -> `tables[]` com `dimensions` e `rows`.
 - Regras de negócio -> `rulesets[]` e `rules[]`.
 - Regras de bloqueio -> `constraints[]`.
 - Dependências entre seleções -> `dependencies[]`.
+- Colunas de orçamento (quantidade e unidade) -> `context.requested_quantity` e `context.requested_unit`.
 
 ## Checklist pré-publicação
 
 - IDs únicos por coleção.
 - Referências (`productId`, `tableId`, `rulesetId`, `optionId`) válidas.
 - Nenhuma célula obrigatória vazia no JSON final.
+- Produto com lote obrigatório possui entrada de lote no `context`.
+- Produto com `sales_unit` possui `requested_quantity` e `requested_unit` compatíveis.
 - Exemplos representativos validados no CLI.
 
 ## Estratégia incremental

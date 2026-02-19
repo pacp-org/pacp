@@ -10,7 +10,8 @@ Este diretório contém exemplos curtos e didáticos para cobrir cenários reais
 - `moveis/max_of.json`: agregação `MAX_OF` entre componentes.
 - `iluminacao/matrix_lookup.json`: tabela `LOOKUP` com dimensões e célula.
 - `tapetes/dependencies.json`: separação de `dependencies` e `constraints`.
-- `pisos-e-revestimentos/cost_plus.json`: exemplo `COST_PLUS`.
+- `pisos-e-revestimentos/cost_plus.json`: `COST_PLUS` com lote obrigatório e conversão `m2` -> `box`.
+- `geral/unit_conversion_volume.json`: conversão genérica `L` -> `galao` com arredondamento `CEIL`.
 
 Cada pasta representa um setor de referência. Os exemplos são pequenos e reaproveitáveis para outros domínios.
 
