@@ -316,6 +316,126 @@ function checkRulesSemanticBasics(doc: Record<string, unknown>, issues: Issue[])
   }
 }
 
+function checkLotAndSalesUnitSemantics(doc: Record<string, unknown>, issues: Issue[]): void {
+  const products = getArray<Record<string, unknown>>(doc.products);
+  const context = (doc.context && typeof doc.context === "object" && !Array.isArray(doc.context))
+    ? (doc.context as Record<string, unknown>)
+    : {};
+
+  for (let pIndex = 0; pIndex < products.length; pIndex += 1) {
+    const product = products[pIndex];
+    const productPath = `/products[${pIndex}]`;
+    const productId = typeof product.id === "string" ? product.id : `index_${pIndex}`;
+
+    const lotPolicy = (product.lot_policy && typeof product.lot_policy === "object" && !Array.isArray(product.lot_policy))
+      ? (product.lot_policy as Record<string, unknown>)
+      : null;
+
+    if (lotPolicy && lotPolicy.required === true) {
+      const source = typeof lotPolicy.source === "string" ? lotPolicy.source : "CONTEXT";
+
+      if (source === "CONTEXT") {
+        const contextKey = typeof lotPolicy.contextKey === "string" ? lotPolicy.contextKey : "lot_id";
+        const lotValue = context[contextKey];
+        if (typeof lotValue !== "string" || lotValue.trim().length === 0) {
+          issues.push({
+            code: "MISSING_REQUIRED_LOT",
+            path: `/context/${contextKey}`,
+            message: `Produto "${productId}" exige lote obrigatorio via context.${contextKey}`
+          });
+        }
+      }
+
+      if (source === "ATTRIBUTE") {
+        const attributeId = lotPolicy.attributeId;
+        const options = getArray<Record<string, unknown>>(product.options);
+        const hasLotOption = typeof attributeId === "string" && options.some((option) => option.attributeId === attributeId);
+        if (!hasLotOption) {
+          issues.push({
+            code: "INVALID_LOT_POLICY",
+            path: `${productPath}/lot_policy/attributeId`,
+            message: `Produto "${productId}" exige option com attributeId de lote configurado em lot_policy`
+          });
+        }
+      }
+    }
+
+    const salesUnit = (product.sales_unit && typeof product.sales_unit === "object" && !Array.isArray(product.sales_unit))
+      ? (product.sales_unit as Record<string, unknown>)
+      : null;
+
+    if (!salesUnit) {
+      continue;
+    }
+
+    const requestedQuantity = context.requested_quantity;
+    const requestedUnit = context.requested_unit;
+    const expectedRequestedUnit = salesUnit.requested_unit;
+    const quantityPerSellUnit = salesUnit.quantity_per_sell_unit;
+    const rounding = salesUnit.rounding;
+    const minSellUnits = salesUnit.min_sell_units;
+
+    if (typeof requestedQuantity !== "number" || !Number.isFinite(requestedQuantity) || requestedQuantity <= 0) {
+      issues.push({
+        code: "MISSING_REQUESTED_QUANTITY",
+        path: "/context/requested_quantity",
+        message: `Produto "${productId}" possui sales_unit e exige context.requested_quantity > 0`
+      });
+    }
+
+    if (typeof requestedUnit !== "string" || requestedUnit.trim().length === 0) {
+      issues.push({
+        code: "MISSING_REQUESTED_UNIT",
+        path: "/context/requested_unit",
+        message: `Produto "${productId}" possui sales_unit e exige context.requested_unit`
+      });
+    }
+
+    if (
+      typeof requestedUnit === "string"
+      && typeof expectedRequestedUnit === "string"
+      && requestedUnit !== expectedRequestedUnit
+    ) {
+      issues.push({
+        code: "REQUESTED_UNIT_MISMATCH",
+        path: "/context/requested_unit",
+        message: `Produto "${productId}" exige requested_unit="${expectedRequestedUnit}", recebido "${requestedUnit}"`
+      });
+    }
+
+    if (rounding !== "CEIL") {
+      issues.push({
+        code: "INVALID_SALES_UNIT_ROUNDING",
+        path: `${productPath}/sales_unit/rounding`,
+        message: `Produto "${productId}" deve usar rounding="CEIL" em sales_unit`
+      });
+    }
+
+    const hasValidQtyPerSellUnit =
+      typeof quantityPerSellUnit === "number" && Number.isFinite(quantityPerSellUnit) && quantityPerSellUnit > 0;
+    const hasValidRequestedQuantity =
+      typeof requestedQuantity === "number" && Number.isFinite(requestedQuantity) && requestedQuantity > 0;
+    const hasValidMinSellUnits =
+      typeof minSellUnits === "number" && Number.isInteger(minSellUnits) && minSellUnits > 0;
+
+    if (hasValidQtyPerSellUnit && hasValidRequestedQuantity) {
+      let requiredSellUnits = Math.ceil(requestedQuantity / quantityPerSellUnit);
+      if (hasValidMinSellUnits) {
+        requiredSellUnits = Math.max(requiredSellUnits, minSellUnits as number);
+      }
+
+      const expectedSellUnits = context["x-expected_required_sell_units"];
+      if (typeof expectedSellUnits === "number" && Number.isFinite(expectedSellUnits) && expectedSellUnits !== requiredSellUnits) {
+        issues.push({
+          code: "EXPECTED_SELL_UNITS_MISMATCH",
+          path: "/context/x-expected_required_sell_units",
+          message: `Esperado ${expectedSellUnits}, calculado ${requiredSellUnits} para produto "${productId}"`
+        });
+      }
+    }
+  }
+}
+
 function validatePacp(filePath: string): number {
   const absoluteFilePath = path.resolve(process.cwd(), filePath);
   const schemaPath = path.resolve(__dirname, "../../../spec/1.0.0/pacp.schema.json");
@@ -370,6 +490,7 @@ function validatePacp(filePath: string): number {
     checkBrokenReferences(objectDoc, ids, issues);
     checkLookupKeys(objectDoc, ids, issues);
     checkRulesSemanticBasics(objectDoc, issues);
+    checkLotAndSalesUnitSemantics(objectDoc, issues);
   }
 
   if (issues.length > 0) {
