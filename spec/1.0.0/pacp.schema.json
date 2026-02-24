@@ -2,67 +2,118 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://pacp.dev/spec/1.0.0/pacp.schema.json",
   "title": "PACP v1.0.0",
-  "type": "object",
-  "required": ["spec", "catalog", "products", "rulesets"],
-  "additionalProperties": false,
-  "patternProperties": {
-    "^x-": true
-  },
-  "properties": {
-    "spec": {
-      "type": "string",
-      "const": "1.0.0"
+  "oneOf": [
+    {
+      "$ref": "#/$defs/catalogDocument"
     },
-    "catalog": {
-      "$ref": "#/$defs/catalog"
-    },
-    "context": {
-      "$ref": "#/$defs/context"
-    },
-    "pricing": {
-      "$ref": "#/$defs/pricing"
-    },
-    "dictionaries": {
+    {
+      "$ref": "#/$defs/productDocument"
+    }
+  ],
+  "$defs": {
+    "catalogDocument": {
       "type": "object",
-      "additionalProperties": true,
+      "required": ["spec", "document_type", "catalog", "product_refs", "rulesets"],
+      "additionalProperties": false,
       "patternProperties": {
         "^x-": true
+      },
+      "properties": {
+        "spec": {
+          "type": "string",
+          "const": "1.0.0"
+        },
+        "document_type": {
+          "type": "string",
+          "const": "CATALOG"
+        },
+        "catalog": {
+          "$ref": "#/$defs/catalog"
+        },
+        "product_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/productRef"
+          }
+        },
+        "context": {
+          "$ref": "#/$defs/context"
+        },
+        "pricing": {
+          "$ref": "#/$defs/pricing"
+        },
+        "dictionaries": {
+          "type": "object",
+          "additionalProperties": true,
+          "patternProperties": {
+            "^x-": true
+          }
+        },
+        "rulesets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/ruleset"
+          }
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/table"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dependency"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/constraint"
+          }
+        }
       }
     },
-    "products": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "$ref": "#/$defs/product"
+    "productDocument": {
+      "type": "object",
+      "required": ["spec", "document_type", "catalog_id", "product"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "spec": {
+          "type": "string",
+          "const": "1.0.0"
+        },
+        "document_type": {
+          "type": "string",
+          "const": "PRODUCT"
+        },
+        "catalog_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "product": {
+          "$ref": "#/$defs/product"
+        }
       }
     },
-    "rulesets": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "$ref": "#/$defs/ruleset"
+    "productRef": {
+      "type": "object",
+      "required": ["id", "path"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 }
       }
     },
-    "tables": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/table"
-      }
-    },
-    "dependencies": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/dependency"
-      }
-    },
-    "constraints": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/constraint"
-      }
-    }
-  },
-  "$defs": {
     "catalog": {
       "type": "object",
       "required": ["id"],

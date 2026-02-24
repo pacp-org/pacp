@@ -2,6 +2,10 @@
 
 Este diretório contém exemplos curtos e didáticos para cobrir cenários reais de precificação sem expansão massiva de SKUs.
 
+Cada exemplo usa:
+- 1 manifesto `CATALOG` (arquivo principal do cenário).
+- 1 ou mais documentos `PRODUCT` em subpasta `products/` (um arquivo por produto).
+
 ## Estrutura por setor
 
 - `geral/minimal.json`: produto simples com regra `ADD`.

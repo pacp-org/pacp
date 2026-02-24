@@ -51,6 +51,22 @@ cd tools/validator
 npm run validate:examples
 ```
 
+### Sincronizar `product_refs` automaticamente
+
+Atualiza `product_refs` de um manifesto `CATALOG` com base nos arquivos `PRODUCT` da pasta `products/` (ordem lexicográfica determinística):
+
+```bash
+cd tools/validator
+npm run sync:product-refs -- ../../spec/1.0.0/examples/geral/minimal.json
+```
+
+Opcionalmente, informe um diretório de produtos diferente (relativo ao manifesto):
+
+```bash
+cd tools/validator
+node dist/sync-product-refs.js ../../spec/1.0.0/examples/geral/minimal.json products
+```
+
 O validador também executa checks semânticos para:
 - lote obrigatório configurado por produto;
 - coerência entre `requested_unit` e `sales_unit.requested_unit`;

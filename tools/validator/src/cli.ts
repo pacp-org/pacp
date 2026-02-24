@@ -21,6 +21,8 @@ type CollectedIds = {
   options: Set<string>;
 };
 
+type DocumentType = "CATALOG" | "PRODUCT";
+
 function usage(): void {
   console.error("Uso: pacp-validate <arquivo.json>");
 }
@@ -51,6 +53,10 @@ function formatAjvError(error: ErrorObject): Issue {
 
 function getArray<T = unknown>(value: unknown): T[] {
   return Array.isArray(value) ? (value as T[]) : [];
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === "object" && !Array.isArray(value);
 }
 
 function collectIdsAndDuplicates(doc: Record<string, unknown>, issues: Issue[]): CollectedIds {
@@ -436,6 +442,164 @@ function checkLotAndSalesUnitSemantics(doc: Record<string, unknown>, issues: Iss
   }
 }
 
+function checkProductDocumentSemanticBasics(doc: Record<string, unknown>, issues: Issue[]): void {
+  if (!isRecord(doc.product)) {
+    return;
+  }
+
+  const product = doc.product;
+  const productId = typeof product.id === "string" ? product.id : "unknown_product";
+  const options = getArray<Record<string, unknown>>(product.options);
+  const seenOptionIds = new Set<string>();
+
+  for (let i = 0; i < options.length; i += 1) {
+    const optionId = options[i]?.id;
+    if (typeof optionId !== "string" || optionId.trim().length === 0) {
+      continue;
+    }
+    if (seenOptionIds.has(optionId)) {
+      issues.push({
+        code: "DUPLICATE_ID",
+        path: `/product/options[${i}]/id`,
+        message: `ID duplicado de option encontrado no produto "${productId}": "${optionId}"`
+      });
+      continue;
+    }
+    seenOptionIds.add(optionId);
+  }
+
+  const lotPolicy = isRecord(product.lot_policy) ? product.lot_policy : null;
+  if (lotPolicy?.source === "ATTRIBUTE") {
+    const attributeId = lotPolicy.attributeId;
+    const hasLotOption = typeof attributeId === "string" && options.some((option) => option.attributeId === attributeId);
+    if (!hasLotOption) {
+      issues.push({
+        code: "INVALID_LOT_POLICY",
+        path: "/product/lot_policy/attributeId",
+        message: `Produto "${productId}" exige option com attributeId de lote configurado em lot_policy`
+      });
+    }
+  }
+}
+
+function loadProductsFromRefs(
+  catalogDoc: Record<string, unknown>,
+  catalogFilePath: string,
+  issues: Issue[]
+): Record<string, unknown>[] {
+  const loadedProducts: Record<string, unknown>[] = [];
+  const refs = getArray<Record<string, unknown>>(catalogDoc.product_refs);
+  const seenRefIds = new Set<string>();
+  const catalogId = isRecord(catalogDoc.catalog) && typeof catalogDoc.catalog.id === "string"
+    ? catalogDoc.catalog.id
+    : null;
+
+  for (let i = 0; i < refs.length; i += 1) {
+    const ref = refs[i];
+    const refId = ref.id;
+    const refPath = ref.path;
+    const refPathPointer = `/product_refs[${i}]`;
+
+    if (typeof refId !== "string" || refId.trim().length === 0) {
+      continue;
+    }
+    if (seenRefIds.has(refId)) {
+      issues.push({
+        code: "DUPLICATE_ID",
+        path: `${refPathPointer}/id`,
+        message: `ID duplicado encontrado em product_refs: "${refId}"`
+      });
+      continue;
+    }
+    seenRefIds.add(refId);
+
+    if (typeof refPath !== "string" || refPath.trim().length === 0) {
+      continue;
+    }
+
+    const absoluteRefPath = path.resolve(path.dirname(catalogFilePath), refPath);
+    if (!fs.existsSync(absoluteRefPath)) {
+      issues.push({
+        code: "MISSING_PRODUCT_FILE",
+        path: `${refPathPointer}/path`,
+        message: `Arquivo de produto nao encontrado: "${refPath}"`
+      });
+      continue;
+    }
+
+    let refDocData: JsonValue;
+    try {
+      refDocData = readJsonFile(absoluteRefPath);
+    } catch (error) {
+      issues.push({
+        code: "INVALID_PRODUCT_FILE_JSON",
+        path: `${refPathPointer}/path`,
+        message: `Falha ao ler arquivo de produto "${refPath}": ${(error as Error).message}`
+      });
+      continue;
+    }
+
+    if (!isRecord(refDocData)) {
+      issues.push({
+        code: "INVALID_PRODUCT_FILE_TYPE",
+        path: `${refPathPointer}/path`,
+        message: `Arquivo de produto "${refPath}" deve conter objeto JSON`
+      });
+      continue;
+    }
+
+    if (String(refDocData.document_type ?? "").toUpperCase() !== "PRODUCT") {
+      issues.push({
+        code: "INVALID_PRODUCT_FILE_TYPE",
+        path: `${refPathPointer}/path`,
+        message: `Arquivo de produto "${refPath}" deve declarar document_type="PRODUCT"`
+      });
+      continue;
+    }
+
+    if (typeof refDocData.spec !== "string" || refDocData.spec !== "1.0.0") {
+      issues.push({
+        code: "INVALID_PRODUCT_FILE_SPEC",
+        path: `${refPathPointer}/path`,
+        message: `Arquivo de produto "${refPath}" deve declarar spec="1.0.0"`
+      });
+      continue;
+    }
+
+    if (catalogId && refDocData.catalog_id !== catalogId) {
+      issues.push({
+        code: "INVALID_PRODUCT_CATALOG_ID",
+        path: `${refPathPointer}/path`,
+        message: `Arquivo de produto "${refPath}" possui catalog_id divergente de catalog.id`
+      });
+      continue;
+    }
+
+    if (!isRecord(refDocData.product)) {
+      issues.push({
+        code: "INVALID_PRODUCT_FILE_PRODUCT",
+        path: `${refPathPointer}/path`,
+        message: `Arquivo de produto "${refPath}" deve conter objeto product`
+      });
+      continue;
+    }
+
+    const productId = refDocData.product.id;
+    if (productId !== refId) {
+      issues.push({
+        code: "PRODUCT_REF_MISMATCH",
+        path: `${refPathPointer}/id`,
+        message: `product_refs.id="${refId}" difere de product.id="${String(productId)}" em "${refPath}"`
+      });
+      continue;
+    }
+
+    loadedProducts.push(refDocData.product);
+  }
+
+  return loadedProducts;
+}
+
 function validatePacp(filePath: string): number {
   const absoluteFilePath = path.resolve(process.cwd(), filePath);
   const schemaPath = path.resolve(__dirname, "../../../spec/1.0.0/pacp.schema.json");
@@ -486,11 +650,20 @@ function validatePacp(filePath: string): number {
 
   if (docData && typeof docData === "object" && !Array.isArray(docData)) {
     const objectDoc = docData as Record<string, unknown>;
-    const ids = collectIdsAndDuplicates(objectDoc, issues);
-    checkBrokenReferences(objectDoc, ids, issues);
-    checkLookupKeys(objectDoc, ids, issues);
-    checkRulesSemanticBasics(objectDoc, issues);
-    checkLotAndSalesUnitSemantics(objectDoc, issues);
+    const documentType = String(objectDoc.document_type ?? "").toUpperCase() as DocumentType | "";
+
+    if (documentType === "CATALOG") {
+      const mergedDoc: Record<string, unknown> = { ...objectDoc };
+      mergedDoc.products = loadProductsFromRefs(objectDoc, absoluteFilePath, issues);
+
+      const ids = collectIdsAndDuplicates(mergedDoc, issues);
+      checkBrokenReferences(mergedDoc, ids, issues);
+      checkLookupKeys(mergedDoc, ids, issues);
+      checkRulesSemanticBasics(mergedDoc, issues);
+      checkLotAndSalesUnitSemantics(mergedDoc, issues);
+    } else if (documentType === "PRODUCT") {
+      checkProductDocumentSemanticBasics(objectDoc, issues);
+    }
   }
 
   if (issues.length > 0) {

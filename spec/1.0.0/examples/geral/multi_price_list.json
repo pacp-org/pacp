@@ -1,5 +1,6 @@
 {
   "spec": "1.0.0",
+  "document_type": "CATALOG",
   "catalog": {
     "id": "cat_price_list",
     "name": "Catalogo Multi Lista",
@@ -15,18 +16,10 @@
     "channel": "B2B",
     "customer": "CUST-001"
   },
-  "products": [
+  "product_refs": [
     {
       "id": "prod_placa",
-      "name": "Placa",
-      "base_price": 40,
-      "attributes": [
-        { "id": "material" }
-      ],
-      "options": [
-        { "id": "opt_material_acm", "attributeId": "material", "value": "ACM" }
-      ],
-      "rulesetIds": ["rs_price_list"]
+      "path": "products/prod_placa.json"
     }
   ],
   "rulesets": [
