@@ -21,14 +21,25 @@ PACP (Padrão Aberto de Catálogo e Precificação) define um contrato de dados 
 
 ## 2. Modelo de dados (visão geral)
 
-Um documento PACP v1.0.0 DEVE ser um JSON válido contra `spec/1.0.0/pacp.schema.json` e DEVE conter, no mínimo:
+PACP v1.0.0 define dois tipos de documento JSON válidos contra `spec/1.0.0/pacp.schema.json`:
+
+- `document_type=CATALOG`: manifesto do catálogo.
+- `document_type=PRODUCT`: definição isolada de um produto.
+
+Um manifesto `CATALOG` DEVE conter, no mínimo:
 
 - `spec`: versão da spec (`1.0.0`).
 - `catalog`: metadados do catálogo e listas de preço.
-- `products`: produtos e suas opções.
+- `product_refs`: referências para arquivos de produto.
 - `rulesets`: regras de precificação.
 
-O documento PODE conter `tables`, `dependencies`, `constraints`, `context`, `pricing`, `dictionaries` e extensões `x-*`.
+Um documento `PRODUCT` DEVE conter, no mínimo:
+
+- `spec`: versão da spec (`1.0.0`).
+- `catalog_id`: ID do catálogo ao qual pertence.
+- `product`: produto único e suas opções.
+
+Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `context`, `pricing`, `dictionaries` e extensões `x-*`. Documentos `PRODUCT` PODEM conter extensões `x-*`.
 
 ## 3. Dicionários e IDs
 
@@ -39,7 +50,9 @@ O documento PODE conter `tables`, `dependencies`, `constraints`, `context`, `pri
 
 ## 4. Produtos
 
-- `products[]` DEVE conter produtos com `id`.
+- Cada produto DEVE existir em um arquivo próprio com `document_type=PRODUCT`.
+- Manifestos `CATALOG` DEVEM referenciar produtos por `product_refs[]`, incluindo `id` e `path`.
+- `product_refs[].path` DEVE ser resolvido de forma determinística a partir do diretório do manifesto.
 - Produtos PODEM declarar `attributes[]` (atributos disponíveis) e `options[]` (valores selecionáveis).
 - Cada `option` DEVE referenciar o atributo via `attributeId`.
 - PACP descreve motor + dados; produtores de dados NÃO DEVE gerar combinações completas de variantes para obedecer ao padrão.
@@ -210,10 +223,14 @@ Os exemplos oficiais desta versão são:
 - `spec/1.0.0/examples/pisos-e-revestimentos/cost_plus.json`
 - `spec/1.0.0/examples/geral/unit_conversion_volume.json`
 
+Cada manifesto acima referencia seus produtos em subpastas `products/`, com um arquivo JSON por produto.
+
 ## 14. Glossário
 
 - `ruleset`: conjunto de regras aplicadas sobre um `target`.
 - `target`: estágio/valor da precificação (`BASE`, `SUBTOTAL`, `TOTAL`).
+- `manifesto CATALOG`: documento principal com regras globais e referências de produto.
+- `documento PRODUCT`: documento unitário com um único produto referenciável.
 - `context`: dados externos de execução (região, canal, cliente, lista de preço).
 - `lot_policy`: política de lote no nível de produto.
 - `sales_unit`: política de conversão de unidade solicitada para unidade vendável.
@@ -228,7 +245,9 @@ Um arquivo é PACP compliant quando:
 
 - [ ] Declara `spec` compatível com `1.0.0`.
 - [ ] Possui `catalog.id` e IDs únicos por coleção.
-- [ ] Define `products` e `options` sem ambiguidade.
+- [ ] Usa `document_type` válido (`CATALOG` ou `PRODUCT`).
+- [ ] Em `CATALOG`, define `product_refs` e paths resolvíveis.
+- [ ] Em `PRODUCT`, define exatamente um `product` com `id` e `options` sem ambiguidade.
 - [ ] Declara `rulesets` com `target` válido.
 - [ ] Separa constraints/dependencies da fase de cálculo.
 - [ ] Define política de lote obrigatório quando aplicável (`lot_policy`).

@@ -1,23 +1,14 @@
 {
   "spec": "1.0.0",
+  "document_type": "CATALOG",
   "catalog": {
     "id": "cat_dep",
     "name": "Catalogo Dependencias"
   },
-  "products": [
+  "product_refs": [
     {
       "id": "prod_camiseta",
-      "name": "Camiseta",
-      "base_price": 30,
-      "attributes": [
-        { "id": "print" },
-        { "id": "rush" }
-      ],
-      "options": [
-        { "id": "opt_print_color", "attributeId": "print", "value": "COLOR" },
-        { "id": "opt_rush_yes", "attributeId": "rush", "value": "YES" }
-      ],
-      "rulesetIds": ["rs_dep_price"]
+      "path": "products/prod_camiseta.json"
     }
   ],
   "dependencies": [

@@ -1,23 +1,14 @@
 {
   "spec": "1.0.0",
+  "document_type": "CATALOG",
   "catalog": {
     "id": "cat_matrix",
     "name": "Catalogo Matrix"
   },
-  "products": [
+  "product_refs": [
     {
       "id": "prod_banner",
-      "name": "Banner",
-      "base_price": 50,
-      "attributes": [
-        { "id": "width" },
-        { "id": "finish" }
-      ],
-      "options": [
-        { "id": "opt_width_1m", "attributeId": "width", "value": "1m" },
-        { "id": "opt_finish_matte", "attributeId": "finish", "value": "MATTE" }
-      ],
-      "rulesetIds": ["rs_lookup"]
+      "path": "products/prod_banner.json"
     }
   ],
   "tables": [

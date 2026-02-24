@@ -1,0 +1,31 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_cost_plus",
+  "product": {
+    "id": "prod_servico",
+    "name": "Porcelanato Acetinado",
+    "base_price": 80,
+    "lot_policy": {
+      "required": true,
+      "source": "CONTEXT",
+      "contextKey": "lot_id"
+    },
+    "sales_unit": {
+      "requested_unit": "m2",
+      "sell_unit": "box",
+      "quantity_per_sell_unit": 2.2,
+      "rounding": "CEIL",
+      "min_sell_units": 1
+    },
+    "attributes": [
+      { "id": "lote" },
+      { "id": "acabamento" }
+    ],
+    "options": [
+      { "id": "opt_lote_2026_a", "attributeId": "lote", "value": "LOT-2026-A" },
+      { "id": "opt_acab_acetinado", "attributeId": "acabamento", "value": "ACETINADO" }
+    ],
+    "rulesetIds": ["rs_markup"]
+  }
+}

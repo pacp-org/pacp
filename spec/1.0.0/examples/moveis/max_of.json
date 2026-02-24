@@ -1,21 +1,14 @@
 {
   "spec": "1.0.0",
+  "document_type": "CATALOG",
   "catalog": {
     "id": "cat_max",
     "name": "Catalogo MAX_OF"
   },
-  "products": [
+  "product_refs": [
     {
       "id": "prod_painel",
-      "name": "Painel",
-      "base_price": 100,
-      "attributes": [
-        { "id": "material" }
-      ],
-      "options": [
-        { "id": "opt_material_pvc", "attributeId": "material", "value": "PVC" }
-      ],
-      "rulesetIds": ["rs_max"]
+      "path": "products/prod_painel.json"
     }
   ],
   "tables": [
