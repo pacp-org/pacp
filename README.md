@@ -9,8 +9,23 @@ Também cobre cenários de venda por unidade comercial (ex.: caixa) a partir de 
 - `spec/1.0.0/pacp.md`: especificação normativa v1.0.0.
 - `spec/1.0.0/pacp.schema.json`: JSON Schema oficial.
 - `spec/1.0.0/examples/`: exemplos oficiais da versão.
+- `spec/latest.json`: ponteiro estável para a última spec publicada.
 - `docs/`: guias práticos de engine, importação, governança e princípios.
 - `tools/validator/`: CLI mínima para validação.
+
+## Canal `latest` para integração
+
+Para integrações que não querem fixar versão no código, use `spec/latest.json` como ponto de entrada estável.
+
+Ele informa a versão publicada no canal `latest` e os caminhos oficiais de:
+- spec (`pacp.md`);
+- schema (`pacp.schema.json`);
+- exemplos (`examples/`).
+
+Fluxo recomendado para sistemas:
+1. Ler `spec/latest.json`.
+2. Resolver `paths.schema`.
+3. Validar documentos contra o schema da versão publicada.
 
 ## Validador CLI (`pacp-validate`)
 

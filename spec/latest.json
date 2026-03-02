@@ -1,0 +1,10 @@
+{
+  "channel": "latest",
+  "published_at": "2026-03-02",
+  "spec_version": "1.0.0",
+  "paths": {
+    "spec": "spec/1.0.0/pacp.md",
+    "schema": "spec/1.0.0/pacp.schema.json",
+    "examples": "spec/1.0.0/examples/"
+  }
+}

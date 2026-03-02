@@ -5,10 +5,16 @@
   "product": {
     "id": "prod_card",
     "name": "Cartao de Visita",
+    "reference": "CARD-REF-001",
+    "category": "Papelaria",
     "base_price": 10,
     "attributes": [
       { "id": "size" },
       { "id": "paper" }
+    ],
+    "attribute_values": [
+      { "attributeId": "size", "value": "A6" },
+      { "attributeId": "paper", "value": "COUCHE" }
     ],
     "options": [
       { "id": "opt_size_a6", "attributeId": "size", "value": "A6" },

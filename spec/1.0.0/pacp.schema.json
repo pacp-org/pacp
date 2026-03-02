@@ -13,7 +13,7 @@
   "$defs": {
     "catalogDocument": {
       "type": "object",
-      "required": ["spec", "document_type", "catalog", "product_refs", "rulesets"],
+      "required": ["spec", "document_type", "catalog", "rulesets"],
       "additionalProperties": false,
       "patternProperties": {
         "^x-": true
@@ -32,7 +32,6 @@
         },
         "product_refs": {
           "type": "array",
-          "minItems": 1,
           "items": {
             "$ref": "#/$defs/productRef"
           }
@@ -99,6 +98,30 @@
         },
         "product": {
           "$ref": "#/$defs/product"
+        },
+        "rulesets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ruleset"
+          }
+        },
+        "tables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/table"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/constraint"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dependency"
+          }
         }
       }
     },
@@ -111,7 +134,12 @@
       },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
-        "path": { "type": "string", "minLength": 1 }
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Relative path from catalog root to the product document file",
+          "examples": ["products/SOF-001.json", "products/MES-042.json"]
+        }
       }
     },
     "catalog": {
@@ -187,12 +215,18 @@
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string" },
+        "reference": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "minLength": 1 },
         "base_price": { "type": "number" },
         "lot_policy": { "$ref": "#/$defs/lotPolicy" },
         "sales_unit": { "$ref": "#/$defs/salesUnit" },
         "attributes": {
           "type": "array",
           "items": { "$ref": "#/$defs/attributeRef" }
+        },
+        "attribute_values": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/attributeValue" }
         },
         "options": {
           "type": "array",
@@ -275,6 +309,19 @@
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "label": { "type": "string" }
+      }
+    },
+    "attributeValue": {
+      "type": "object",
+      "required": ["attributeId", "value"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      },
+      "properties": {
+        "attributeId": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "value": { "$ref": "#/$defs/scalarValue" }
       }
     },
     "option": {
