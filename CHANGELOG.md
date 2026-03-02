@@ -18,6 +18,7 @@ Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 - Campo opcional `product.reference` para identificação de referência comercial/ERP do produto.
 - Campo opcional `product.category` para classificação simples de categoria no nível do produto.
 - Campo opcional `product.attribute_values` para declarar valores fixos de atributos no nível do produto.
+- Arquivo `spec/latest.json` como ponteiro estável para a última spec publicada.
 
 ### Compatibility (2026-03-02)
 
