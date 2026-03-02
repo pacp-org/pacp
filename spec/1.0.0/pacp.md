@@ -75,6 +75,30 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 - `sales_unit.rounding` em v1.0.0 DEVE ser `CEIL`.
 - `sales_unit.min_sell_units`, quando informado, DEVE ser respeitado como piso mínimo de venda.
 
+### 4.3 Campos opcionais adicionais de produto
+
+Em `PACP v1.0.0`, `product` PODE incluir:
+
+- `reference` (`string`): referência comercial/ERP estável do produto.
+- `category` (`string`): categoria textual principal do produto.
+
+Regras normativas:
+
+- `reference` e `category` NÃO DEVEM alterar semântica de cálculo de preço por si só.
+- `id` continua sendo o identificador canônico para referências internas PACP.
+- Quando `reference` existir, implementações PODEM usar para rastreabilidade e integração externa.
+- Quando `category` existir, implementações PODEM usar para filtros, organização e regras condicionais via fatos de contexto/produto.
+
+### 4.4 Valores de atributos por produto (`attribute_values`)
+
+Em `PACP v1.0.0`, `product.attribute_values` PODE ser usado para declarar valores fixos de atributos no nível do produto.
+
+- `attribute_values` é uma lista de pares atributo/valor.
+- Cada item DEVE conter `attributeId` e `value`.
+- `value` aceita tipos escalares (`string`, `number`, `boolean`).
+- `attribute_values` NÃO substitui `options`; é complementar.
+- `options` continua sendo o mecanismo para escolhas configuráveis no orçamento.
+
 ## 5. Precificação
 
 ### 5.1 Targets

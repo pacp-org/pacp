@@ -12,3 +12,14 @@ Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 - Guias operacionais em `docs/`.
 - CLI mínima de validação em `tools/validator/`.
 - Documentos de publicação na raiz (`LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `README.md`).
+
+### Added (2026-03-02)
+
+- Campo opcional `product.reference` para identificação de referência comercial/ERP do produto.
+- Campo opcional `product.category` para classificação simples de categoria no nível do produto.
+- Campo opcional `product.attribute_values` para declarar valores fixos de atributos no nível do produto.
+
+### Compatibility (2026-03-02)
+
+- Mudança backward-compatible: nenhum campo obrigatório foi alterado.
+- Documentos `v1.0.0` continuam válidos; os novos campos são opcionais.
