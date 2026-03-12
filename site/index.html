@@ -39,9 +39,12 @@
 <header class="hero">
   <div class="hero-badge">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    Padrão aberto &middot; JSON Schema &middot; CLI de validação
+    Para devs: JSON Schema + CLI
   </div>
-  <h1>Chega de planilha.<br><span class="gradient">Um padrão para catálogo e preço.</span></h1>
+  <h1>Chega de planilha.<br><span class="gradient">Chega de bagunça.</span></h1>
+  <div class="hero-typing" aria-label="Código JSON sendo digitado">
+    <span class="typing-text"></span><span class="typing-cursor">|</span>
+  </div>
   <p class="hero-sub">
     O PACP é um formato aberto que permite que qualquer sistema — ERP, e-commerce, configurador ou orçamento — fale a mesma língua na hora de descrever produtos e calcular preços. Sem gambiarra, sem retrabalho.
   </p>
@@ -663,6 +666,42 @@
       document.querySelector('.profile-content[data-profile="' + profile + '"]').classList.add('active');
     });
   });
+
+  var typingEl = document.querySelector('.typing-text');
+  if (typingEl) {
+    var phrases = [
+      '"sku": "MESA-JANTAR-240"',
+      '"pricing": { "operations": [...] }',
+      '"profile": "moveis"',
+      '$ pacp validate catalogo.json ✓'
+    ];
+    var phraseIdx = 0, charIdx = 0, deleting = false;
+    function typeStep() {
+      var phrase = phrases[phraseIdx];
+      if (!deleting) {
+        typingEl.textContent = phrase.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx >= phrase.length) {
+          deleting = true;
+          setTimeout(typeStep, 1800);
+          return;
+        }
+        setTimeout(typeStep, 55);
+      } else {
+        typingEl.textContent = phrase.substring(0, charIdx);
+        charIdx--;
+        if (charIdx < 0) {
+          deleting = false;
+          charIdx = 0;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          setTimeout(typeStep, 400);
+          return;
+        }
+        setTimeout(typeStep, 30);
+      }
+    }
+    setTimeout(typeStep, 800);
+  }
 
   var reveals = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {

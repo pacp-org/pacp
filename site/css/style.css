@@ -245,10 +245,35 @@ html:not(.no-js) .reveal.visible {
 }
 
 .hero h1 .gradient {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 50%, #fde68a 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 25%, #fde68a 50%, var(--accent-light) 75%, var(--accent) 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+.hero-typing {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  min-height: 1.5em;
+}
+
+.typing-cursor {
+  animation: blink 0.7s step-end infinite;
+  color: var(--accent);
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 .hero-sub {
