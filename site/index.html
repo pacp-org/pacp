@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,341 +9,676 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.remove('no-js');</script>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-brand">PACP<span>.</span></a>
-    <ul class="nav-links">
+    <a href="#" class="nav-brand">PACP<span>.</span><span class="nav-version">v1.0.0</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#problema">O problema</a></li>
       <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#precificacao">Motor de preços</a></li>
       <li><a href="#profiles">Profiles</a></li>
-      <li><a href="#integrar">Integrar</a></li>
-      <li><a href="https://github.com/pacp-org/pacp" target="_blank">GitHub</a></li>
+      <li><a href="#integrar">Começar</a></li>
+      <li>
+        <a href="https://github.com/pacp-org/pacp" target="_blank" rel="noopener noreferrer" class="nav-gh">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </li>
     </ul>
   </div>
 </nav>
 
-<!-- HERO -->
+<main>
 <header class="hero">
-  <h1>Padrão Aberto de<br><span>Catálogo e Precificação</span></h1>
-  <p>
-    Contrato JSON para modelar catálogos e calcular preços de forma determinística.
-    Um formato, qualquer sistema, resultado idêntico.
+  <div class="hero-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    Padrão aberto &middot; JSON Schema &middot; CLI de validação
+  </div>
+  <h1>Chega de planilha.<br><span class="gradient">Um padrão para catálogo e preço.</span></h1>
+  <p class="hero-sub">
+    O PACP é um formato aberto que permite que qualquer sistema — ERP, e-commerce, configurador ou orçamento — fale a mesma língua na hora de descrever produtos e calcular preços. Sem gambiarra, sem retrabalho.
   </p>
   <div class="hero-actions">
-    <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.md" class="btn btn-primary" target="_blank">Ler a spec v1.0.0</a>
-    <a href="https://github.com/pacp-org/pacp/blob/main/docs/integration-guide.md" class="btn btn-outline" target="_blank">Guia de integração</a>
+    <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.md" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Ler a spec v1.0.0</a>
+    <a href="https://github.com/pacp-org/pacp/blob/main/docs/integration-guide.md" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Guia de integração</a>
+  </div>
+  <div class="hero-trust">
+    <div class="hero-trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Open Source — MIT
+    </div>
+    <div class="hero-trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Resultado determinístico
+    </div>
+    <div class="hero-trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Qualquer plataforma
+    </div>
   </div>
 </header>
 
-<!-- O QUE É -->
-<section id="como-funciona">
-  <p class="section-label">Visão geral</p>
-  <h2 class="section-title">O que o PACP resolve</h2>
-  <p class="section-desc">
-    Elimina planilhas ad-hoc e integrações proprietárias entre ERPs, e-commerces, configuradores e orçamentistas.
-  </p>
-
-  <div class="grid-3">
-    <div class="card">
-      <div class="card-icon">&#x1F4CB;</div>
-      <h3>Catálogo como contrato</h3>
-      <p>Dois tipos de documento JSON — CATALOG (manifesto com regras) e PRODUCT (por arquivo). Estrutura clara, validável por schema.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">&#x1F9EE;</div>
-      <h3>Motor de regras, não variantes</h3>
-      <p>Modele atributos, opções e regras condicionais. O preço é calculado sob demanda — sem explodir milhares de SKUs.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">&#x1F3AF;</div>
-      <h3>Determinístico</h3>
-      <p>Mesma entrada, mesmo resultado. Ordem de regras, desempate e fallbacks são definidos de forma normativa.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">&#x1F4E6;</div>
-      <h3>Produto autocontido</h3>
-      <p>SKU, fabricante, marca, imagens, peso, dimensões — tudo no JSON do produto. Sem depender de PIM externo.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">&#x1F527;</div>
-      <h3>Extensível por vertical</h3>
-      <p>Extension profiles padronizam campos específicos de cada setor (móveis, pisos, iluminação) com validação formal.</p>
-    </div>
-    <div class="card">
-      <div class="card-icon">&#x2705;</div>
-      <h3>Validação automática</h3>
-      <p>CLI que valida schema, referências, semântica de operações, lote, unidade e campos de profiles.</p>
+<section class="section-full alt" id="problema">
+  <div class="section-inner reveal">
+    <p class="section-label">O problema</p>
+    <h2 class="section-title">Você já viveu isso?</h2>
+    <p class="section-desc">
+      Toda vez que um fabricante manda uma tabela de preços, começa a dor de cabeça. Formatos diferentes, regras escondidas em planilhas, cálculos que ninguém consegue reproduzir. O PACP nasceu para acabar com isso.
+    </p>
+    <div class="problem-grid">
+      <div class="problem-col before">
+        <p class="problem-col-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          Sem o PACP
+        </p>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Cada fornecedor manda a tabela em um formato diferente
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Regras de preço escondidas em células de Excel
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Dois sistemas calculam preços diferentes para o mesmo produto
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Milhares de SKUs para cobrir todas as combinações
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Integração ponto a ponto entre cada par de sistemas
+          </li>
+        </ul>
+      </div>
+      <div class="problem-col after">
+        <p class="problem-col-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="16 10 11 15 8 12"/></svg>
+          Com o PACP
+        </p>
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Um formato JSON padronizado para todos
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Regras de preço explícitas e auditáveis
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Resultado idêntico em qualquer sistema — determinístico
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Motor de regras calcula sob demanda — sem explodir SKUs
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            Qualquer sistema lê o mesmo contrato
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ARQUITETURA -->
-<section>
-  <p class="section-label">Arquitetura</p>
-  <h2 class="section-title">Estrutura de um catálogo PACP</h2>
-  <p class="section-desc">
-    Um catálogo é um manifesto JSON que referencia produtos, regras de precificação, tabelas e profiles.
-  </p>
+<section class="section-full" id="como-funciona">
+  <div class="section-inner reveal">
+    <p class="section-label">Como funciona</p>
+    <h2 class="section-title">Um contrato inteligente para seu catálogo</h2>
+    <p class="section-desc">
+      Em vez de planilhas soltas, você descreve seu catálogo e suas regras de preço em arquivos JSON validáveis. Simples para quem lê, poderoso para quem integra.
+    </p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <h3>Catálogo como contrato</h3>
+        <p class="feature-desc">Um arquivo JSON descreve o catálogo inteiro: produtos, regras de preço, tabelas e restrições. Qualquer sistema consegue ler.</p>
+        <span class="feature-tech">CATALOG + PRODUCT docs</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Preço calculado, não cadastrado</h3>
+        <p class="feature-desc">Em vez de criar milhares de variações no cadastro, você define regras que calculam o preço na hora, conforme as opções do cliente.</p>
+        <span class="feature-tech">Rulesets + operations</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Sempre o mesmo resultado</h3>
+        <p class="feature-desc">A spec define a ordem exata de aplicação das regras, desempates e fallbacks. Dois sistemas diferentes vão chegar ao mesmo preço.</p>
+        <span class="feature-tech">Determinístico por spec</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h3>Produto completo no JSON</h3>
+        <p class="feature-desc">Nome, SKU, fabricante, marca, fotos, peso, dimensões — tudo dentro do arquivo do produto. Sem precisar de sistema externo.</p>
+        <span class="feature-tech">sku, gtin, images, weight...</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <h3>Extensível por setor</h3>
+        <p class="feature-desc">Campos específicos de cada indústria — móveis, iluminação, pisos, fiscal — são padronizados via Extension Profiles.</p>
+        <span class="feature-tech">profiles: ["moveis"]</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <h3>Validação automática</h3>
+        <p class="feature-desc">Um CLI valida tudo: schema, referências entre arquivos, lote, unidade de venda e campos de profiles. Erros aparecem antes, não depois.</p>
+        <span class="feature-tech">pacp-validate</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <div class="code-block">
-    <p class="code-label">Manifesto CATALOG</p>
-<pre>{
-  "spec": "1.0.0",
-  "document_type": "CATALOG",
-  "catalog": { "id": "cat_moveis_2026", "name": "Catálogo Móveis 2026" },
-  "profiles": ["moveis", "fiscal-br"],
-  "product_refs": [
-    { "id": "prod_painel", "path": "products/prod_painel.json" }
+<section class="section-full alt" id="arquitetura">
+  <div class="section-inner reveal">
+    <p class="section-label">Arquitetura</p>
+    <h2 class="section-title">Dois tipos de documento, um catálogo completo</h2>
+    <p class="section-desc">
+      O catálogo é um manifesto JSON que referencia os produtos. Cada produto vive no seu próprio arquivo — fácil de versionar, fácil de validar.
+    </p>
+    <div class="arch-split">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-title">catalogo.json</span>
+        </div>
+        <div class="terminal-body">
+<pre><span class="json-bracket">{</span>
+  <span class="json-key">"spec"</span>: <span class="json-str">"1.0.0"</span>,
+  <span class="json-key">"document_type"</span>: <span class="json-str">"CATALOG"</span>,
+  <span class="json-key">"catalog"</span>: <span class="json-bracket">{</span>
+    <span class="json-key">"id"</span>: <span class="json-str">"cat_moveis_2026"</span>,
+    <span class="json-key">"name"</span>: <span class="json-str">"Catálogo Móveis 2026"</span>
+  <span class="json-bracket">}</span>,
+  <span class="json-key">"profiles"</span>: [<span class="json-str">"moveis"</span>, <span class="json-str">"fiscal-br"</span>],
+  <span class="json-key">"product_refs"</span>: [
+    <span class="json-bracket">{</span> <span class="json-key">"id"</span>: <span class="json-str">"prod_painel"</span>,
+      <span class="json-key">"path"</span>: <span class="json-str">"products/prod_painel.json"</span> <span class="json-bracket">}</span>
   ],
-  "rulesets": [
-    {
-      "id": "rs_base", "target": "BASE",
-      "rules": [
-        { "id": "rule_material", "operation": "LOOKUP", "tableId": "tbl_material" }
-      ]
-    }
-  ],
-  "tables": [ ... ],
-  "constraints": [ ... ]
-}</pre>
-  </div>
-
-  <div class="code-block">
-    <p class="code-label">Documento PRODUCT</p>
-<pre>{
-  "spec": "1.0.0",
-  "document_type": "PRODUCT",
-  "catalog_id": "cat_moveis_2026",
-  "product": {
-    "id": "prod_painel",
-    "name": "Painel Ripado Elegance",
-    "sku": "PNL-ELG-001",
-    "manufacturer": "Moveis Artisan",
-    "brand": "Artisan Home",
-    "description": "Painel ripado em MDF com acabamento nogueira.",
-    "gtin": "7891234567890",
-    "base_price": 100,
-    "images": [{ "url": "https://cdn.ex/pnl-001.jpg", "type": "MAIN" }],
-    "weight": { "value": 12.5, "unit": "kg" },
-    "dimensions": { "width": 180, "height": 90, "depth": 3, "unit": "cm" },
-    "options": [
-      { "id": "opt_pvc", "attributeId": "material", "value": "PVC" }
-    ],
-    "x-finish": "Nogueira natural",
-    "x-warranty_months": 12
-  }
-}</pre>
-  </div>
-</section>
-
-<!-- PRECIFICAÇÃO -->
-<section>
-  <p class="section-label">Precificação</p>
-  <h2 class="section-title">Três estágios, dez operações</h2>
-  <p class="section-desc">
-    Regras atuam em ordem determinística sobre BASE, SUBTOTAL e TOTAL.
-  </p>
-
-  <div class="grid-3">
-    <div class="card">
-      <h3>BASE</h3>
-      <p>Ajustes no preço base: ADD, OVERRIDE, LOOKUP por material, tamanho, etc.</p>
-    </div>
-    <div class="card">
-      <h3>SUBTOTAL</h3>
-      <p>Agregadores e componentes: MAX_OF, MIN_OF, PICK entre alternativas.</p>
-    </div>
-    <div class="card">
-      <h3>TOTAL</h3>
-      <p>Margem, impostos, arredondamento: PERCENT_OF, ROUND, CAP, FLOOR.</p>
-    </div>
-  </div>
-
-  <div class="code-block" style="margin-top: 1.5rem">
-    <p class="code-label">Operações do motor</p>
-<pre>ADD          soma valor fixo             value: 10
-PERCENT_OF   percentual sobre alvo       percent: 20
-OVERRIDE     substitui valor corrente    value: 50
-LOOKUP       busca em tabela matricial   tableId: "tbl_preco"
-MAX_OF       maior entre componentes     components: [...]
-MIN_OF       menor entre componentes     components: [...]
-PICK         primeiro elegível           components: [...]
-ROUND        arredondamento              precision: 2
-CAP          teto máximo                 max: 500
-FLOOR        piso mínimo                 min: 10</pre>
-  </div>
-</section>
-
-<!-- PROFILES -->
-<section id="profiles">
-  <p class="section-label">Extension Profiles</p>
-  <h2 class="section-title">Campos padronizados por vertical</h2>
-  <p class="section-desc">
-    O core do produto traz campos universais. Profiles adicionam campos <code>x-*</code> validáveis por setor.
-  </p>
-
-  <div class="profiles-grid">
-    <div class="profile-card">
-      <h3>Móveis e Alta Decoração</h3>
-      <p class="profile-id">moveis</p>
-      <ul>
-        <li>x-assembly_required</li>
-        <li>x-load_capacity</li>
-        <li>x-material_composition</li>
-        <li>x-finish</li>
-        <li>x-warranty_months</li>
-        <li>x-style</li>
-        <li>x-indoor_outdoor</li>
-      </ul>
-    </div>
-
-    <div class="profile-card">
-      <h3>Iluminação</h3>
-      <p class="profile-id">iluminacao</p>
-      <ul>
-        <li>x-lumens</li>
-        <li>x-color_temp_k</li>
-        <li>x-ip_rating</li>
-        <li>x-voltage</li>
-        <li>x-dimmable</li>
-        <li>x-lamp_type</li>
-        <li>x-beam_angle_deg</li>
-        <li>x-cri</li>
-      </ul>
-    </div>
-
-    <div class="profile-card">
-      <h3>Pisos e Revestimentos</h3>
-      <p class="profile-id">pisos-revestimentos</p>
-      <ul>
-        <li>x-pei</li>
-        <li>x-water_absorption_pct</li>
-        <li>x-slip_resistance</li>
-        <li>x-rectified</li>
-        <li>x-surface_finish</li>
-        <li>x-nominal_size_cm</li>
-        <li>x-thickness_mm</li>
-        <li>x-usage</li>
-      </ul>
-    </div>
-
-    <div class="profile-card">
-      <h3>Fiscal Brasil</h3>
-      <p class="profile-id">fiscal-br</p>
-      <ul>
-        <li>x-ncm</li>
-        <li>x-origem</li>
-        <li>x-cest</li>
-        <li>x-cfop</li>
-        <li>x-unidade_tributaria</li>
-      </ul>
+  <span class="json-key">"rulesets"</span>: [ ... ],
+  <span class="json-key">"tables"</span>: [ ... ],
+  <span class="json-key">"constraints"</span>: [ ... ]
+<span class="json-bracket">}</span></pre>
+        </div>
+      </div>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-title">products/prod_painel.json</span>
+        </div>
+        <div class="terminal-body">
+<pre><span class="json-bracket">{</span>
+  <span class="json-key">"spec"</span>: <span class="json-str">"1.0.0"</span>,
+  <span class="json-key">"document_type"</span>: <span class="json-str">"PRODUCT"</span>,
+  <span class="json-key">"catalog_id"</span>: <span class="json-str">"cat_moveis_2026"</span>,
+  <span class="json-key">"product"</span>: <span class="json-bracket">{</span>
+    <span class="json-key">"id"</span>: <span class="json-str">"prod_painel"</span>,
+    <span class="json-key">"name"</span>: <span class="json-str">"Painel Ripado Elegance"</span>,
+    <span class="json-key">"sku"</span>: <span class="json-str">"PNL-ELG-001"</span>,
+    <span class="json-key">"base_price"</span>: <span class="json-num">100</span>,
+    <span class="json-key">"weight"</span>: <span class="json-bracket">{</span> <span class="json-key">"value"</span>: <span class="json-num">12.5</span>, <span class="json-key">"unit"</span>: <span class="json-str">"kg"</span> <span class="json-bracket">}</span>,
+    <span class="json-key">"x-finish"</span>: <span class="json-str">"Nogueira natural"</span>,
+    <span class="json-key">"x-warranty_months"</span>: <span class="json-num">12</span>
+  <span class="json-bracket">}</span>
+<span class="json-bracket">}</span></pre>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- INTEGRAR -->
-<section id="integrar">
-  <p class="section-label">Primeiros passos</p>
-  <h2 class="section-title">Como integrar</h2>
-  <p class="section-desc">
-    Do catálogo mínimo ao completo em 6 passos.
-  </p>
+<section class="section-full" id="precificacao">
+  <div class="section-inner reveal">
+    <p class="section-label">Motor de preços</p>
+    <h2 class="section-title">Três estágios, dez operações</h2>
+    <p class="section-desc">
+      O preço passa por um pipeline com ordem definida. Cada estágio aplica um tipo de ajuste. Não tem mágica: a spec define tudo.
+    </p>
 
-  <div class="steps">
-    <div class="step">
-      <div>
-        <h4>Catálogo mínimo</h4>
-        <p>1 produto, 1 regra ADD. Valide com o CLI.</p>
+    <div class="pipeline-section">
+      <div class="pipeline">
+        <div class="pipeline-stage">
+          <p class="pipeline-num">Estágio 1</p>
+          <h3>BASE</h3>
+          <p>Ajustes diretos no preço base do produto: somar valor, substituir, buscar em tabela por material ou tamanho.</p>
+        </div>
+        <div class="pipeline-stage">
+          <p class="pipeline-num">Estágio 2</p>
+          <h3>SUBTOTAL</h3>
+          <p>Agregadores que comparam componentes: pegar o maior preço, o menor, ou o primeiro que se encaixe.</p>
+        </div>
+        <div class="pipeline-stage">
+          <p class="pipeline-num">Estágio 3</p>
+          <h3>TOTAL</h3>
+          <p>Ajustes finais: margem percentual, impostos, arredondamento, teto máximo e piso mínimo.</p>
+        </div>
       </div>
-    </div>
-    <div class="step">
-      <div>
-        <h4>Campos descritivos</h4>
-        <p>Adicione sku, manufacturer, brand, images, weight, dimensions aos produtos.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div>
-        <h4>Declare profiles</h4>
-        <p>Adicione <code>"profiles": ["moveis"]"</code> e use os campos x-* do setor.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div>
-        <h4>Tabelas e condicionais</h4>
-        <p>Use LOOKUP para preços matriciais e <code>when</code> para regras condicionais.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div>
-        <h4>Constraints e dependencies</h4>
-        <p>Modele bloqueios de combinação e relações entre opções.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div>
-        <h4>Múltiplas listas de preço</h4>
-        <p>Ative price_lists para varejo, B2B, atacado via context.</p>
-      </div>
-    </div>
-  </div>
 
-  <div class="code-block" style="margin-top: 2rem">
-    <p class="code-label">Validador CLI</p>
-<pre>cd tools/validator
-npm ci &amp;&amp; npm run build
-
-# validar um arquivo
-npm run validate -- ../../spec/1.0.0/examples/moveis/max_of.json
-
-# validar todos os exemplos oficiais
-npm run validate:examples</pre>
-  </div>
-</section>
-
-<!-- RECURSOS -->
-<section>
-  <p class="section-label">Recursos</p>
-  <h2 class="section-title">Documentação e referências</h2>
-  <div class="grid-3">
-    <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.md" class="card" target="_blank">
-      <h3>Especificação v1.0.0</h3>
-      <p>Documento normativo completo com regras DEVE/NÃO DEVE.</p>
-    </a>
-    <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.schema.json" class="card" target="_blank">
-      <h3>JSON Schema</h3>
-      <p>Schema formal para validação automatizada de documentos PACP.</p>
-    </a>
-    <a href="https://github.com/pacp-org/pacp/tree/main/spec/1.0.0/examples" class="card" target="_blank">
-      <h3>Exemplos oficiais</h3>
-      <p>Catálogos reais de móveis, iluminação, pisos, com profiles e extensões.</p>
-    </a>
-    <a href="https://github.com/pacp-org/pacp/blob/main/docs/integration-guide.md" class="card" target="_blank">
-      <h3>Guia de integração</h3>
-      <p>Explicação detalhada da spec, passo a passo e exemplos por vertical.</p>
-    </a>
-    <a href="https://github.com/pacp-org/pacp/blob/main/docs/pricing-engine.md" class="card" target="_blank">
-      <h3>Guia do engine</h3>
-      <p>Pipeline de processamento, ordenação de regras e semântica de operações.</p>
-    </a>
-    <a href="https://github.com/pacp-org/pacp/tree/main/spec/1.0.0/profiles" class="card" target="_blank">
-      <h3>Extension Profiles</h3>
-      <p>Schemas JSON por vertical: móveis, iluminação, pisos, fiscal-br.</p>
-    </a>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-title">Operações disponíveis</span>
+        </div>
+        <div class="terminal-body" style="padding: 0">
+          <table class="ops-table">
+            <thead>
+              <tr>
+                <th>Operação</th>
+                <th>O que faz</th>
+                <th>Parâmetro</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="op-name">ADD</td><td class="op-desc">Soma um valor fixo ao preço</td><td class="op-param">value: 10</td></tr>
+              <tr><td class="op-name">PERCENT_OF</td><td class="op-desc">Aplica percentual sobre o valor atual</td><td class="op-param">percent: 20</td></tr>
+              <tr><td class="op-name">OVERRIDE</td><td class="op-desc">Substitui o valor corrente</td><td class="op-param">value: 50</td></tr>
+              <tr><td class="op-name">LOOKUP</td><td class="op-desc">Busca preço em tabela matricial</td><td class="op-param">tableId: "tbl_preco"</td></tr>
+              <tr><td class="op-name">MAX_OF</td><td class="op-desc">Maior valor entre componentes</td><td class="op-param">components: [...]</td></tr>
+              <tr><td class="op-name">MIN_OF</td><td class="op-desc">Menor valor entre componentes</td><td class="op-param">components: [...]</td></tr>
+              <tr><td class="op-name">PICK</td><td class="op-desc">Primeiro componente elegível</td><td class="op-param">components: [...]</td></tr>
+              <tr><td class="op-name">ROUND</td><td class="op-desc">Arredonda o resultado</td><td class="op-param">precision: 2</td></tr>
+              <tr><td class="op-name">CAP</td><td class="op-desc">Define um teto máximo</td><td class="op-param">max: 500</td></tr>
+              <tr><td class="op-name">FLOOR</td><td class="op-desc">Define um piso mínimo</td><td class="op-param">min: 10</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section class="section-full alt" id="profiles">
+  <div class="section-inner reveal">
+    <p class="section-label">Extension Profiles</p>
+    <h2 class="section-title">Campos padronizados por indústria</h2>
+    <p class="section-desc">
+      Todo produto tem campos universais (nome, SKU, peso, fotos). Mas cada setor precisa de informações específicas. Os Profiles resolvem isso com campos <code>x-*</code> validáveis.
+    </p>
+
+    <div class="profiles-tabs" role="tablist" aria-label="Profiles por indústria">
+      <button class="profile-tab active" data-profile="moveis" role="tab" aria-selected="true" aria-controls="panel-moveis">Móveis e Decoração</button>
+      <button class="profile-tab" data-profile="iluminacao" role="tab" aria-selected="false" aria-controls="panel-iluminacao">Iluminação</button>
+      <button class="profile-tab" data-profile="pisos" role="tab" aria-selected="false" aria-controls="panel-pisos">Pisos e Revestimentos</button>
+      <button class="profile-tab" data-profile="fiscal" role="tab" aria-selected="false" aria-controls="panel-fiscal">Fiscal Brasil</button>
+    </div>
+
+    <div class="profile-content active" data-profile="moveis" id="panel-moveis" role="tabpanel">
+      <div class="profile-panel">
+        <div class="profile-header">
+          <h3>Móveis e Alta Decoração</h3>
+          <span class="profile-id-tag">moveis</span>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-field">
+            <span class="profile-field-name">x-assembly_required</span>
+            <span class="profile-field-desc">Precisa montar?</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-load_capacity</span>
+            <span class="profile-field-desc">Capacidade de carga</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-material_composition</span>
+            <span class="profile-field-desc">Material principal</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-finish</span>
+            <span class="profile-field-desc">Tipo de acabamento</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-warranty_months</span>
+            <span class="profile-field-desc">Garantia em meses</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-style</span>
+            <span class="profile-field-desc">Estilo do produto</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-indoor_outdoor</span>
+            <span class="profile-field-desc">Interno, externo ou ambos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content" data-profile="iluminacao" id="panel-iluminacao" role="tabpanel">
+      <div class="profile-panel">
+        <div class="profile-header">
+          <h3>Iluminação</h3>
+          <span class="profile-id-tag">iluminacao</span>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-field">
+            <span class="profile-field-name">x-lumens</span>
+            <span class="profile-field-desc">Fluxo luminoso</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-color_temp_k</span>
+            <span class="profile-field-desc">Temperatura de cor (K)</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-ip_rating</span>
+            <span class="profile-field-desc">Grau de proteção IP</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-voltage</span>
+            <span class="profile-field-desc">Voltagem</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-dimmable</span>
+            <span class="profile-field-desc">Aceita dimmer?</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-lamp_type</span>
+            <span class="profile-field-desc">Tipo de lâmpada</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-beam_angle_deg</span>
+            <span class="profile-field-desc">Ângulo do facho</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-cri</span>
+            <span class="profile-field-desc">Índice de reprodução de cor</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content" data-profile="pisos" id="panel-pisos" role="tabpanel">
+      <div class="profile-panel">
+        <div class="profile-header">
+          <h3>Pisos e Revestimentos</h3>
+          <span class="profile-id-tag">pisos-revestimentos</span>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-field">
+            <span class="profile-field-name">x-pei</span>
+            <span class="profile-field-desc">Resistência à abrasão</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-water_absorption_pct</span>
+            <span class="profile-field-desc">Absorção de água (%)</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-slip_resistance</span>
+            <span class="profile-field-desc">Resistência ao deslizamento</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-rectified</span>
+            <span class="profile-field-desc">Retificado?</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-surface_finish</span>
+            <span class="profile-field-desc">Acabamento da superfície</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-nominal_size_cm</span>
+            <span class="profile-field-desc">Tamanho nominal</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-thickness_mm</span>
+            <span class="profile-field-desc">Espessura (mm)</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-usage</span>
+            <span class="profile-field-desc">Piso, parede ou ambos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content" data-profile="fiscal" id="panel-fiscal" role="tabpanel">
+      <div class="profile-panel">
+        <div class="profile-header">
+          <h3>Fiscal Brasil</h3>
+          <span class="profile-id-tag">fiscal-br</span>
+        </div>
+        <div class="profile-fields">
+          <div class="profile-field">
+            <span class="profile-field-name">x-ncm</span>
+            <span class="profile-field-desc">Classificação fiscal NCM</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-origem</span>
+            <span class="profile-field-desc">Origem da mercadoria</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-cest</span>
+            <span class="profile-field-desc">Código CEST</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-cfop</span>
+            <span class="profile-field-desc">Código CFOP</span>
+          </div>
+          <div class="profile-field">
+            <span class="profile-field-name">x-unidade_tributaria</span>
+            <span class="profile-field-desc">Unidade tributária</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-full" id="integrar">
+  <div class="section-inner reveal">
+    <p class="section-label">Primeiros passos</p>
+    <h2 class="section-title">Do zero ao catálogo completo</h2>
+    <p class="section-desc">
+      Integrar com o PACP é progressivo. Comece com o mínimo e vá adicionando conforme precisar. Em 6 etapas você tem um catálogo completo.
+    </p>
+
+    <div class="arch-split">
+      <div class="timeline">
+        <div class="timeline-step">
+          <h4>Comece simples</h4>
+          <p>Crie um catálogo com 1 produto e 1 regra de preço. Valide com o CLI para garantir que está tudo certo.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>Descreva seus produtos</h4>
+          <p>Adicione nome, SKU, fabricante, marca, fotos, peso e dimensões. O produto fica completo e autocontido.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>Ative os Profiles do seu setor</h4>
+          <p>Declare <code>"profiles": ["moveis"]</code> e use os campos específicos da sua indústria com validação automática.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>Tabelas e condicionais</h4>
+          <p>Use LOOKUP para preços que variam por combinação (material x tamanho) e regras condicionais com <code>when</code>.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>Restrições e dependências</h4>
+          <p>Bloqueie combinações inválidas com constraints e crie relações entre opções com dependencies.</p>
+        </div>
+        <div class="timeline-step">
+          <h4>Múltiplas listas de preço</h4>
+          <p>Ative listas para varejo, B2B e atacado. O contexto define qual usar na hora do cálculo.</p>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="terminal-dot r"></span>
+          <span class="terminal-dot y"></span>
+          <span class="terminal-dot g"></span>
+          <span class="terminal-title">Terminal</span>
+        </div>
+        <div class="terminal-body">
+<pre><span class="comment"># Instalar o validador</span>
+<span class="prompt">$</span> <span class="cmd">cd tools/validator</span>
+<span class="prompt">$</span> <span class="cmd">npm ci && npm run build</span>
+
+<span class="comment"># Validar um arquivo</span>
+<span class="prompt">$</span> <span class="cmd">npm run validate -- \</span>
+    <span class="cmd">../../spec/1.0.0/examples/moveis/max_of.json</span>
+
+<span class="json-str">  ✓ Schema válido</span>
+<span class="json-str">  ✓ Referências OK</span>
+<span class="json-str">  ✓ Semântica OK</span>
+
+<span class="comment"># Validar todos os exemplos oficiais</span>
+<span class="prompt">$</span> <span class="cmd">npm run validate:examples</span>
+
+<span class="json-str">  ✓ 12/12 exemplos válidos</span>
+</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-full alt">
+  <div class="section-inner reveal">
+    <p class="section-label">Recursos</p>
+    <h2 class="section-title">Documentação e referências</h2>
+    <p class="section-desc">
+      Tudo que você precisa para entender, implementar e validar o PACP.
+    </p>
+    <div class="resources-grid">
+      <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.md" class="resource-card" target="_blank" rel="noopener noreferrer">
+        <div class="resource-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>Especificação v1.0.0</h3>
+        <p>Documento normativo completo. A referência oficial com regras DEVE/NÃO DEVE.</p>
+        <span class="resource-link">Abrir no GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.schema.json" class="resource-card" target="_blank" rel="noopener noreferrer">
+        <div class="resource-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>JSON Schema</h3>
+        <p>Schema formal para validação automatizada. Use no seu pipeline de CI/CD.</p>
+        <span class="resource-link">Abrir no GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a href="https://github.com/pacp-org/pacp/tree/main/spec/1.0.0/examples" class="resource-card" target="_blank" rel="noopener noreferrer">
+        <div class="resource-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>Exemplos oficiais</h3>
+        <p>Catálogos reais de móveis, iluminação e pisos, com profiles e extensões.</p>
+        <span class="resource-link">Ver exemplos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a href="https://github.com/pacp-org/pacp/blob/main/docs/integration-guide.md" class="resource-card" target="_blank" rel="noopener noreferrer">
+        <div class="resource-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        </div>
+        <h3>Guia de integração</h3>
+        <p>Passo a passo detalhado com exemplos por vertical. Melhor ponto de entrada.</p>
+        <span class="resource-link">Abrir guia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a href="https://github.com/pacp-org/pacp/blob/main/docs/pricing-engine.md" class="resource-card" target="_blank" rel="noopener noreferrer">
+        <div class="resource-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </div>
+        <h3>Guia do engine</h3>
+        <p>Pipeline de processamento, ordenação de regras e semântica completa das operações.</p>
+        <span class="resource-link">Abrir guia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+      <a href="https://github.com/pacp-org/pacp/tree/main/spec/1.0.0/profiles" class="resource-card" target="_blank" rel="noopener noreferrer">
+        <div class="resource-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        </div>
+        <h3>Extension Profiles</h3>
+        <p>Schemas JSON por vertical: móveis, iluminação, pisos, fiscal-br.</p>
+        <span class="resource-link">Ver profiles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
 <footer class="footer">
-  <p>
-    PACP &mdash; Padrão Aberto de Catálogo e Precificação &middot;
-    <a href="https://github.com/pacp-org/pacp/blob/main/LICENSE" target="_blank">MIT License</a> &middot;
-    <a href="https://github.com/pacp-org/pacp" target="_blank">GitHub</a>
-  </p>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="footer-brand">PACP<span>.</span></span>
+      <span class="footer-copy">Padrão Aberto de Catálogo e Precificação</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/pacp-org/pacp/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+      <a href="https://github.com/pacp-org/pacp" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/pacp-org/pacp/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Contribuir</a>
+    </div>
+  </div>
 </footer>
+
+<script>
+(function() {
+  var hamburger = document.getElementById('hamburger');
+  var navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', function() {
+    var isOpen = navLinks.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  var tabs = document.querySelectorAll('.profile-tab');
+  var contents = document.querySelectorAll('.profile-content');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var profile = this.getAttribute('data-profile');
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      contents.forEach(function(c) { c.classList.remove('active'); });
+      this.classList.add('active');
+      this.setAttribute('aria-selected', 'true');
+      document.querySelector('.profile-content[data-profile="' + profile + '"]').classList.add('active');
+    });
+  });
+
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+  }
+})();
+</script>
 
 </body>
 </html>
