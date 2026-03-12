@@ -1,0 +1,48 @@
+name: Publish @pacp/spec to npm
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        working-directory: packages/pacp
+        run: npm ci
+
+      - name: Sync version from release tag
+        working-directory: packages/pacp
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+          if [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            npm version "$VERSION" --no-git-tag-version --allow-same-version
+            echo "Publishing @pacp/spec@$VERSION"
+          else
+            echo "Tag '$TAG' is not a valid semver, skipping publish"
+            exit 1
+          fi
+
+      - name: Build
+        working-directory: packages/pacp
+        run: npm run build
+
+      - name: Publish
+        working-directory: packages/pacp
+        run: npm publish --access=public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
