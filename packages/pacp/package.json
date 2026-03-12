@@ -1,0 +1,87 @@
+{
+  "name": "@pacp/spec",
+  "version": "1.0.0",
+  "description": "PACP - Padrão Aberto de Catálogo e Precificação. Schema, profiles e validador para catálogos de produtos.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./schema": {
+      "import": {
+        "types": "./dist/schema.d.ts",
+        "default": "./dist/schema.js"
+      },
+      "require": {
+        "types": "./dist/schema.d.cts",
+        "default": "./dist/schema.cjs"
+      }
+    },
+    "./profiles/*": {
+      "import": "./dist/profiles/*.js",
+      "require": "./dist/profiles/*.cjs"
+    },
+    "./schema.json": "./dist/pacp.schema.json",
+    "./profiles/moveis.json": "./dist/profiles/moveis.schema.json",
+    "./profiles/iluminacao.json": "./dist/profiles/iluminacao.schema.json",
+    "./profiles/pisos-revestimentos.json": "./dist/profiles/pisos-revestimentos.schema.json",
+    "./profiles/fiscal-br.json": "./dist/profiles/fiscal-br.schema.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "pacp",
+    "catalog",
+    "pricing",
+    "json-schema",
+    "moveis",
+    "pisos",
+    "iluminacao",
+    "open-standard",
+    "deterministic"
+  ],
+  "author": "PACP contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pacp-org/pacp.git",
+    "directory": "packages/pacp"
+  },
+  "homepage": "https://pacp-org.github.io/pacp/",
+  "devDependencies": {
+    "@types/node": "^25.4.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "ajv": ">=8.0.0",
+    "ajv-formats": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ajv": {
+      "optional": true
+    },
+    "ajv-formats": {
+      "optional": true
+    }
+  }
+}
