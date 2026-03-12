@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PACP - Padrão Aberto de Catálogo e Precificação</title>
+  <meta name="description" content="PACP é um padrão aberto para modelar catálogos de produtos e calcular preços de forma determinística. Projetado para Móveis, Pisos, Iluminação e Alta Decoração.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">PACP<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#como-funciona">Como funciona</a></li>
+      <li><a href="#profiles">Profiles</a></li>
+      <li><a href="#integrar">Integrar</a></li>
+      <li><a href="https://github.com/hoop-studio/pacp" target="_blank">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>Padrão Aberto de<br><span>Catálogo e Precificação</span></h1>
+  <p>
+    Contrato JSON para modelar catálogos e calcular preços de forma determinística.
+    Um formato, qualquer sistema, resultado idêntico.
+  </p>
+  <div class="hero-actions">
+    <a href="https://github.com/hoop-studio/pacp/blob/main/spec/1.0.0/pacp.md" class="btn btn-primary" target="_blank">Ler a spec v1.0.0</a>
+    <a href="https://github.com/hoop-studio/pacp/blob/main/docs/integration-guide.md" class="btn btn-outline" target="_blank">Guia de integração</a>
+  </div>
+</header>
+
+<!-- O QUE É -->
+<section id="como-funciona">
+  <p class="section-label">Visão geral</p>
+  <h2 class="section-title">O que o PACP resolve</h2>
+  <p class="section-desc">
+    Elimina planilhas ad-hoc e integrações proprietárias entre ERPs, e-commerces, configuradores e orçamentistas.
+  </p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-icon">&#x1F4CB;</div>
+      <h3>Catálogo como contrato</h3>
+      <p>Dois tipos de documento JSON — CATALOG (manifesto com regras) e PRODUCT (por arquivo). Estrutura clara, validável por schema.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F9EE;</div>
+      <h3>Motor de regras, não variantes</h3>
+      <p>Modele atributos, opções e regras condicionais. O preço é calculado sob demanda — sem explodir milhares de SKUs.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F3AF;</div>
+      <h3>Determinístico</h3>
+      <p>Mesma entrada, mesmo resultado. Ordem de regras, desempate e fallbacks são definidos de forma normativa.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F4E6;</div>
+      <h3>Produto autocontido</h3>
+      <p>SKU, fabricante, marca, imagens, peso, dimensões — tudo no JSON do produto. Sem depender de PIM externo.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x1F527;</div>
+      <h3>Extensível por vertical</h3>
+      <p>Extension profiles padronizam campos específicos de cada setor (móveis, pisos, iluminação) com validação formal.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">&#x2705;</div>
+      <h3>Validação automática</h3>
+      <p>CLI que valida schema, referências, semântica de operações, lote, unidade e campos de profiles.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARQUITETURA -->
+<section>
+  <p class="section-label">Arquitetura</p>
+  <h2 class="section-title">Estrutura de um catálogo PACP</h2>
+  <p class="section-desc">
+    Um catálogo é um manifesto JSON que referencia produtos, regras de precificação, tabelas e profiles.
+  </p>
+
+  <div class="code-block">
+    <p class="code-label">Manifesto CATALOG</p>
+<pre>{
+  "spec": "1.0.0",
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_moveis_2026", "name": "Catálogo Móveis 2026" },
+  "profiles": ["moveis", "fiscal-br"],
+  "product_refs": [
+    { "id": "prod_painel", "path": "products/prod_painel.json" }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_base", "target": "BASE",
+      "rules": [
+        { "id": "rule_material", "operation": "LOOKUP", "tableId": "tbl_material" }
+      ]
+    }
+  ],
+  "tables": [ ... ],
+  "constraints": [ ... ]
+}</pre>
+  </div>
+
+  <div class="code-block">
+    <p class="code-label">Documento PRODUCT</p>
+<pre>{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_moveis_2026",
+  "product": {
+    "id": "prod_painel",
+    "name": "Painel Ripado Elegance",
+    "sku": "PNL-ELG-001",
+    "manufacturer": "Moveis Artisan",
+    "brand": "Artisan Home",
+    "description": "Painel ripado em MDF com acabamento nogueira.",
+    "gtin": "7891234567890",
+    "base_price": 100,
+    "images": [{ "url": "https://cdn.ex/pnl-001.jpg", "type": "MAIN" }],
+    "weight": { "value": 12.5, "unit": "kg" },
+    "dimensions": { "width": 180, "height": 90, "depth": 3, "unit": "cm" },
+    "options": [
+      { "id": "opt_pvc", "attributeId": "material", "value": "PVC" }
+    ],
+    "x-finish": "Nogueira natural",
+    "x-warranty_months": 12
+  }
+}</pre>
+  </div>
+</section>
+
+<!-- PRECIFICAÇÃO -->
+<section>
+  <p class="section-label">Precificação</p>
+  <h2 class="section-title">Três estágios, dez operações</h2>
+  <p class="section-desc">
+    Regras atuam em ordem determinística sobre BASE, SUBTOTAL e TOTAL.
+  </p>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>BASE</h3>
+      <p>Ajustes no preço base: ADD, OVERRIDE, LOOKUP por material, tamanho, etc.</p>
+    </div>
+    <div class="card">
+      <h3>SUBTOTAL</h3>
+      <p>Agregadores e componentes: MAX_OF, MIN_OF, PICK entre alternativas.</p>
+    </div>
+    <div class="card">
+      <h3>TOTAL</h3>
+      <p>Margem, impostos, arredondamento: PERCENT_OF, ROUND, CAP, FLOOR.</p>
+    </div>
+  </div>
+
+  <div class="code-block" style="margin-top: 1.5rem">
+    <p class="code-label">Operações do motor</p>
+<pre>ADD          soma valor fixo             value: 10
+PERCENT_OF   percentual sobre alvo       percent: 20
+OVERRIDE     substitui valor corrente    value: 50
+LOOKUP       busca em tabela matricial   tableId: "tbl_preco"
+MAX_OF       maior entre componentes     components: [...]
+MIN_OF       menor entre componentes     components: [...]
+PICK         primeiro elegível           components: [...]
+ROUND        arredondamento              precision: 2
+CAP          teto máximo                 max: 500
+FLOOR        piso mínimo                 min: 10</pre>
+  </div>
+</section>
+
+<!-- PROFILES -->
+<section id="profiles">
+  <p class="section-label">Extension Profiles</p>
+  <h2 class="section-title">Campos padronizados por vertical</h2>
+  <p class="section-desc">
+    O core do produto traz campos universais. Profiles adicionam campos <code>x-*</code> validáveis por setor.
+  </p>
+
+  <div class="profiles-grid">
+    <div class="profile-card">
+      <h3>Móveis e Alta Decoração</h3>
+      <p class="profile-id">moveis</p>
+      <ul>
+        <li>x-assembly_required</li>
+        <li>x-load_capacity</li>
+        <li>x-material_composition</li>
+        <li>x-finish</li>
+        <li>x-warranty_months</li>
+        <li>x-style</li>
+        <li>x-indoor_outdoor</li>
+      </ul>
+    </div>
+
+    <div class="profile-card">
+      <h3>Iluminação</h3>
+      <p class="profile-id">iluminacao</p>
+      <ul>
+        <li>x-lumens</li>
+        <li>x-color_temp_k</li>
+        <li>x-ip_rating</li>
+        <li>x-voltage</li>
+        <li>x-dimmable</li>
+        <li>x-lamp_type</li>
+        <li>x-beam_angle_deg</li>
+        <li>x-cri</li>
+      </ul>
+    </div>
+
+    <div class="profile-card">
+      <h3>Pisos e Revestimentos</h3>
+      <p class="profile-id">pisos-revestimentos</p>
+      <ul>
+        <li>x-pei</li>
+        <li>x-water_absorption_pct</li>
+        <li>x-slip_resistance</li>
+        <li>x-rectified</li>
+        <li>x-surface_finish</li>
+        <li>x-nominal_size_cm</li>
+        <li>x-thickness_mm</li>
+        <li>x-usage</li>
+      </ul>
+    </div>
+
+    <div class="profile-card">
+      <h3>Fiscal Brasil</h3>
+      <p class="profile-id">fiscal-br</p>
+      <ul>
+        <li>x-ncm</li>
+        <li>x-origem</li>
+        <li>x-cest</li>
+        <li>x-cfop</li>
+        <li>x-unidade_tributaria</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRAR -->
+<section id="integrar">
+  <p class="section-label">Primeiros passos</p>
+  <h2 class="section-title">Como integrar</h2>
+  <p class="section-desc">
+    Do catálogo mínimo ao completo em 6 passos.
+  </p>
+
+  <div class="steps">
+    <div class="step">
+      <div>
+        <h4>Catálogo mínimo</h4>
+        <p>1 produto, 1 regra ADD. Valide com o CLI.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Campos descritivos</h4>
+        <p>Adicione sku, manufacturer, brand, images, weight, dimensions aos produtos.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Declare profiles</h4>
+        <p>Adicione <code>"profiles": ["moveis"]"</code> e use os campos x-* do setor.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Tabelas e condicionais</h4>
+        <p>Use LOOKUP para preços matriciais e <code>when</code> para regras condicionais.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Constraints e dependencies</h4>
+        <p>Modele bloqueios de combinação e relações entre opções.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div>
+        <h4>Múltiplas listas de preço</h4>
+        <p>Ative price_lists para varejo, B2B, atacado via context.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-block" style="margin-top: 2rem">
+    <p class="code-label">Validador CLI</p>
+<pre>cd tools/validator
+npm ci &amp;&amp; npm run build
+
+# validar um arquivo
+npm run validate -- ../../spec/1.0.0/examples/moveis/max_of.json
+
+# validar todos os exemplos oficiais
+npm run validate:examples</pre>
+  </div>
+</section>
+
+<!-- RECURSOS -->
+<section>
+  <p class="section-label">Recursos</p>
+  <h2 class="section-title">Documentação e referências</h2>
+  <div class="grid-3">
+    <a href="https://github.com/hoop-studio/pacp/blob/main/spec/1.0.0/pacp.md" class="card" target="_blank">
+      <h3>Especificação v1.0.0</h3>
+      <p>Documento normativo completo com regras DEVE/NÃO DEVE.</p>
+    </a>
+    <a href="https://github.com/hoop-studio/pacp/blob/main/spec/1.0.0/pacp.schema.json" class="card" target="_blank">
+      <h3>JSON Schema</h3>
+      <p>Schema formal para validação automatizada de documentos PACP.</p>
+    </a>
+    <a href="https://github.com/hoop-studio/pacp/tree/main/spec/1.0.0/examples" class="card" target="_blank">
+      <h3>Exemplos oficiais</h3>
+      <p>Catálogos reais de móveis, iluminação, pisos, com profiles e extensões.</p>
+    </a>
+    <a href="https://github.com/hoop-studio/pacp/blob/main/docs/integration-guide.md" class="card" target="_blank">
+      <h3>Guia de integração</h3>
+      <p>Explicação detalhada da spec, passo a passo e exemplos por vertical.</p>
+    </a>
+    <a href="https://github.com/hoop-studio/pacp/blob/main/docs/pricing-engine.md" class="card" target="_blank">
+      <h3>Guia do engine</h3>
+      <p>Pipeline de processamento, ordenação de regras e semântica de operações.</p>
+    </a>
+    <a href="https://github.com/hoop-studio/pacp/tree/main/spec/1.0.0/profiles" class="card" target="_blank">
+      <h3>Extension Profiles</h3>
+      <p>Schemas JSON por vertical: móveis, iluminação, pisos, fiscal-br.</p>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>
+    PACP &mdash; Padrão Aberto de Catálogo e Precificação &middot;
+    <a href="https://github.com/hoop-studio/pacp/blob/main/LICENSE" target="_blank">MIT License</a> &middot;
+    <a href="https://github.com/hoop-studio/pacp" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>
