@@ -397,7 +397,7 @@ html:not(.no-js) .reveal.visible {
 
 .section-desc {
   color: var(--text-muted);
-  max-width: 640px;
+  max-width: 780px;
   margin-bottom: 3rem;
   font-size: 1.05rem;
   line-height: 1.8;
