@@ -39,7 +39,7 @@ Um documento `PRODUCT` DEVE conter, no mínimo:
 - `catalog_id`: ID do catálogo ao qual pertence.
 - `product`: produto único e suas opções.
 
-Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `context`, `pricing`, `dictionaries` e extensões `x-*`. Documentos `PRODUCT` PODEM conter extensões `x-*`.
+Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `context`, `pricing`, `dictionaries`, `profiles` e extensões `x-*`. Documentos `PRODUCT` PODEM conter `rulesets`, `tables`, `constraints`, `dependencies`, `profiles` e extensões `x-*`.
 
 ## 3. Dicionários e IDs
 
@@ -75,19 +75,40 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 - `sales_unit.rounding` em v1.0.0 DEVE ser `CEIL`.
 - `sales_unit.min_sell_units`, quando informado, DEVE ser respeitado como piso mínimo de venda.
 
-### 4.3 Campos opcionais adicionais de produto
+### 4.3 Campos descritivos de produto
 
-Em `PACP v1.0.0`, `product` PODE incluir:
+Em `PACP v1.0.0`, `product` PODE incluir os campos descritivos abaixo. Todos são opcionais e NÃO DEVEM alterar semântica de cálculo de preço por si só.
 
-- `reference` (`string`): referência comercial/ERP estável do produto.
+**Identificação e classificação:**
+
+- `sku` (`string`): código SKU do produto para integração com ERPs e sistemas de comércio.
+- `gtin` (`string`, 8-14 dígitos): código de barras no padrão GS1 (EAN-8, EAN-13 ou GTIN-14).
 - `category` (`string`): categoria textual principal do produto.
+- `tags` (`array of string`): tags livres para busca e classificação.
+
+**Informações comerciais:**
+
+- `manufacturer` (`string`): fabricante do produto.
+- `brand` (`string`): marca comercial (pode diferir do fabricante).
+- `description` (`string`): descrição legível do produto.
+
+**Imagens:**
+
+- `images` (`array of imageRef`): referências a imagens do produto.
+  - Cada `imageRef` DEVE conter `url` (URI válida).
+  - `imageRef` PODE conter `label` (rótulo legível) e `type` (enum: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`).
+
+**Dados físicos:**
+
+- `weight` (`measure`): peso do produto. Objeto com `value` (número > 0) e `unit` (string, ex: `kg`).
+- `dimensions` (`dimensionsObj`): dimensões do produto. Objeto com `unit` (obrigatório) e opcionais `width`, `height`, `depth` (números > 0).
 
 Regras normativas:
 
-- `reference` e `category` NÃO DEVEM alterar semântica de cálculo de preço por si só.
 - `id` continua sendo o identificador canônico para referências internas PACP.
-- Quando `reference` existir, implementações PODEM usar para rastreabilidade e integração externa.
+- Quando `sku` existir, implementações PODEM usar para rastreabilidade e integração externa.
 - Quando `category` existir, implementações PODEM usar para filtros, organização e regras condicionais via fatos de contexto/produto.
+- Campos descritivos existem para que o catálogo PACP seja autocontido, sem exigir sistema PIM externo para dados universais de produto.
 
 ### 4.4 Valores de atributos por produto (`attribute_values`)
 
@@ -223,6 +244,46 @@ Validações de lote obrigatório e unidade solicitada incompatível com `sales_
 - Consumidores PACP DEVE ignorar `x-*` desconhecidas sem falhar.
 - Extensões NÃO DEVE alterar semântica obrigatória dos campos normativos.
 
+## 10.1 Extension Profiles
+
+Extension profiles permitem padronizar campos `x-*` por vertical de mercado, oferecendo um contrato formal e validável para extensões.
+
+### Declaração
+
+Documentos `CATALOG` e `PRODUCT` PODEM declarar `profiles`, um array de strings com IDs de profiles ativos:
+
+```json
+{
+  "profiles": ["moveis", "fiscal-br"]
+}
+```
+
+### Profiles oficiais v1.0.0
+
+| Profile ID | Arquivo | Vertical |
+|------------|---------|----------|
+| `moveis` | `profiles/moveis.schema.json` | Móveis e Alta Decoração |
+| `iluminacao` | `profiles/iluminacao.schema.json` | Iluminação |
+| `pisos-revestimentos` | `profiles/pisos-revestimentos.schema.json` | Pisos e Revestimentos |
+| `fiscal-br` | `profiles/fiscal-br.schema.json` | Dados Fiscais Brasil |
+
+### Semântica
+
+- Profiles são **aditivos**: adicionam campos `x-*` recomendados ao produto, sem restringir campos existentes.
+- Profiles são **opcionais**: a ausência de `profiles` NÃO invalida o documento.
+- Um documento PODE declarar múltiplos profiles (ex: `["pisos-revestimentos", "fiscal-br"]`).
+- Cada profile é um JSON Schema independente que define propriedades `x-*` com tipos, patterns e descrições.
+- Validadores PODEM carregar os schemas de profile declarados para validação adicional.
+
+### Criação de profiles customizados
+
+Organizações PODEM criar profiles próprios seguindo as regras:
+
+- O profile DEVE ser um JSON Schema válido (draft 2020-12).
+- Todas as propriedades definidas DEVEM usar prefixo `x-`.
+- O profile NÃO DEVE redefinir ou restringir campos core do PACP.
+- O profile DEVE usar `"additionalProperties": true` para não bloquear outros campos.
+
 ## 11. Versionamento e compatibilidade
 
 - PACP usa SemVer para a spec.
@@ -262,6 +323,12 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `required_sell_units`: quantidade mínima vendável calculada com `CEIL`.
 - `constraint`: bloqueio de combinação.
 - `dependency`: relacionamento lógico entre opções.
+- `sku`: código identificador do produto no sistema comercial/ERP.
+- `gtin`: código de barras global (EAN/GTIN) no padrão GS1.
+- `imageRef`: referência a imagem com URL, tipo e rótulo opcional.
+- `measure`: objeto com valor numérico e unidade de medida.
+- `dimensionsObj`: objeto com largura, altura, profundidade e unidade.
+- `profile`: schema de extensão por vertical que padroniza campos `x-*`.
 
 ## 15. Conformidade PACP v1.0.0
 
@@ -279,4 +346,5 @@ Um arquivo é PACP compliant quando:
 - [ ] Define ordem de aplicação e desempate determinístico.
 - [ ] Suporta `price_lists` e `context` quando usados.
 - [ ] Permite e preserva extensões `x-*`.
+- [ ] Quando declara `profiles`, usa IDs válidos de profiles oficiais ou customizados.
 - [ ] Valida contra `spec/1.0.0/pacp.schema.json`.

@@ -8,10 +8,26 @@ Também cobre cenários de venda por unidade comercial (ex.: caixa) a partir de 
 
 - `spec/1.0.0/pacp.md`: especificação normativa v1.0.0.
 - `spec/1.0.0/pacp.schema.json`: JSON Schema oficial.
+- `spec/1.0.0/profiles/`: extension profiles por vertical (móveis, iluminação, pisos, fiscal-br).
 - `spec/1.0.0/examples/`: exemplos oficiais da versão.
 - `spec/latest.json`: ponteiro estável para a última spec publicada.
 - `docs/`: guias práticos de engine, importação, governança e princípios.
 - `tools/validator/`: CLI mínima para validação.
+
+## Extension Profiles
+
+O PACP adota um modelo híbrido de extensibilidade: campos universais no core do `product` (sku, manufacturer, brand, description, gtin, images, weight, dimensions, tags) e **extension profiles** para verticais de mercado.
+
+Profiles são JSON Schemas que padronizam campos `x-*` por setor, permitindo validação formal de extensões.
+
+| Profile | Vertical | Exemplo |
+|---------|----------|---------|
+| `moveis` | Móveis e Alta Decoração | `x-assembly_required`, `x-load_capacity`, `x-finish` |
+| `iluminacao` | Iluminação | `x-lumens`, `x-color_temp_k`, `x-voltage`, `x-dimmable` |
+| `pisos-revestimentos` | Pisos e Revestimentos | `x-pei`, `x-slip_resistance`, `x-rectified` |
+| `fiscal-br` | Fiscal Brasil | `x-ncm`, `x-origem`, `x-cest` |
+
+Para usar, declare `"profiles": ["moveis"]` no documento e o validador verificará os campos `x-*` contra o schema do profile.
 
 ## Canal `latest` para integração
 
@@ -89,6 +105,7 @@ O validador também executa checks semânticos para:
 
 ## Documentação complementar
 
+- **Guia de integração: `docs/integration-guide.md`** — ponto de entrada para integradores, com explicação completa da spec, exemplos por vertical e passo a passo.
 - Guia de engine: `docs/pricing-engine.md`
 - Guia de importação: `docs/import-guidelines.md`
 - Governança: `docs/governance.md`

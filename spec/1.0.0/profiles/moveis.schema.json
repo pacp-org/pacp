@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pacp.dev/spec/1.0.0/profiles/moveis.schema.json",
+  "title": "PACP Profile: Moveis e Alta Decoracao",
+  "description": "Extension profile para produtos de moveis e alta decoracao. Define campos x-* recomendados para o setor.",
+  "type": "object",
+  "properties": {
+    "x-assembly_required": {
+      "type": "boolean",
+      "description": "Indica se o produto requer montagem."
+    },
+    "x-load_capacity": {
+      "$ref": "https://pacp.dev/spec/1.0.0/pacp.schema.json#/$defs/measure",
+      "description": "Capacidade de carga do movel (ex: {value: 50, unit: 'kg'})."
+    },
+    "x-material_composition": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Composicao principal do material (ex: 'MDF com laminado melaminico')."
+    },
+    "x-finish": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Acabamento superficial (ex: 'Lacado brilho', 'Nogueira natural')."
+    },
+    "x-warranty_months": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Garantia em meses oferecida pelo fabricante."
+    },
+    "x-style": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Estilo do movel (ex: 'Contemporaneo', 'Classico', 'Industrial')."
+    },
+    "x-indoor_outdoor": {
+      "type": "string",
+      "enum": ["INDOOR", "OUTDOOR", "BOTH"],
+      "description": "Indicacao de uso interno, externo ou ambos."
+    }
+  },
+  "additionalProperties": true
+}

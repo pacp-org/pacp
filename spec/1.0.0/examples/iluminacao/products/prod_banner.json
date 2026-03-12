@@ -4,8 +4,19 @@
   "catalog_id": "cat_matrix",
   "product": {
     "id": "prod_banner",
-    "name": "Banner",
+    "name": "Luminaria Pendente Arc",
+    "sku": "LUM-ARC-001",
+    "manufacturer": "LightStudio",
+    "brand": "LightStudio Design",
+    "description": "Luminaria pendente em aluminio com difusor em acrilico leitoso, acabamento matte.",
+    "category": "Pendentes",
     "base_price": 50,
+    "images": [
+      { "url": "https://example.com/images/lum-arc-001.jpg", "type": "MAIN" }
+    ],
+    "tags": ["pendente", "LED", "aluminio"],
+    "weight": { "value": 2.3, "unit": "kg" },
+    "dimensions": { "width": 60, "height": 25, "depth": 60, "unit": "cm" },
     "attributes": [
       { "id": "width" },
       { "id": "finish" }
@@ -14,6 +25,14 @@
       { "id": "opt_width_1m", "attributeId": "width", "value": "1m" },
       { "id": "opt_finish_matte", "attributeId": "finish", "value": "MATTE" }
     ],
-    "rulesetIds": ["rs_lookup"]
+    "rulesetIds": ["rs_lookup"],
+    "x-lumens": 2400,
+    "x-color_temp_k": 3000,
+    "x-ip_rating": "IP20",
+    "x-voltage": "BIVOLT",
+    "x-dimmable": true,
+    "x-lamp_type": "LED",
+    "x-beam_angle_deg": 120,
+    "x-cri": 90
   }
 }

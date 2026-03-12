@@ -3,8 +3,9 @@
   "document_type": "CATALOG",
   "catalog": {
     "id": "cat_cost_plus",
-    "name": "Catalogo Cost Plus"
+    "name": "Catalogo Cost Plus - Pisos e Revestimentos"
   },
+  "profiles": ["pisos-revestimentos", "fiscal-br"],
   "context": {
     "lot_id": "LOT-2026-A",
     "requested_quantity": 23,

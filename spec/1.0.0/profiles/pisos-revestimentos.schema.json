@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pacp.dev/spec/1.0.0/profiles/pisos-revestimentos.schema.json",
+  "title": "PACP Profile: Pisos e Revestimentos",
+  "description": "Extension profile para produtos de pisos e revestimentos ceramicos, porcelanatos e afins. Define campos x-* recomendados para o setor.",
+  "type": "object",
+  "properties": {
+    "x-pei": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Classe de resistencia a abrasao PEI (0 a 5)."
+    },
+    "x-water_absorption_pct": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Percentual de absorcao de agua."
+    },
+    "x-slip_resistance": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Classificacao de resistencia a escorregamento (ex: 'R9', 'R10', 'R11')."
+    },
+    "x-rectified": {
+      "type": "boolean",
+      "description": "Indica se a peca e retificada (bordas retas)."
+    },
+    "x-surface_finish": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Acabamento superficial (ex: 'Polido', 'Acetinado', 'Natural', 'Rustico')."
+    },
+    "x-nominal_size_cm": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tamanho nominal da peca em cm (ex: '60x60', '120x60', '20x20')."
+    },
+    "x-thickness_mm": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Espessura da peca em milimetros."
+    },
+    "x-usage": {
+      "type": "string",
+      "enum": ["FLOOR", "WALL", "FLOOR_WALL", "OUTDOOR", "POOL"],
+      "description": "Uso recomendado da peca."
+    }
+  },
+  "additionalProperties": true
+}

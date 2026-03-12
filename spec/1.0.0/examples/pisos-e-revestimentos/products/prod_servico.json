@@ -4,8 +4,21 @@
   "catalog_id": "cat_cost_plus",
   "product": {
     "id": "prod_servico",
-    "name": "Porcelanato Acetinado",
+    "name": "Porcelanato Acetinado Marmo Bianco",
+    "sku": "PRC-MRB-6060",
+    "manufacturer": "Ceramica Atlas",
+    "brand": "Atlas Premium",
+    "description": "Porcelanato acetinado retificado, reproducao fiel de marmore branco, uso interno piso e parede.",
+    "category": "Porcelanatos",
+    "gtin": "78912345678901",
     "base_price": 80,
+    "images": [
+      { "url": "https://example.com/images/prc-mrb-6060.jpg", "type": "MAIN" },
+      { "url": "https://example.com/images/prc-mrb-6060-amb.jpg", "type": "AMBIANCE", "label": "Ambiente sala" }
+    ],
+    "tags": ["porcelanato", "acetinado", "marmore", "retificado"],
+    "weight": { "value": 22, "unit": "kg" },
+    "dimensions": { "width": 60, "height": 60, "depth": 1, "unit": "cm" },
     "lot_policy": {
       "required": true,
       "source": "CONTEXT",
@@ -26,6 +39,16 @@
       { "id": "opt_lote_2026_a", "attributeId": "lote", "value": "LOT-2026-A" },
       { "id": "opt_acab_acetinado", "attributeId": "acabamento", "value": "ACETINADO" }
     ],
-    "rulesetIds": ["rs_markup"]
+    "rulesetIds": ["rs_markup"],
+    "x-pei": 4,
+    "x-water_absorption_pct": 0.1,
+    "x-slip_resistance": "R10",
+    "x-rectified": true,
+    "x-surface_finish": "Acetinado",
+    "x-nominal_size_cm": "60x60",
+    "x-thickness_mm": 10,
+    "x-usage": "FLOOR_WALL",
+    "x-ncm": "69072300",
+    "x-origem": "0"
   }
 }

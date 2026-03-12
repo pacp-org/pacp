@@ -482,6 +482,94 @@ function checkProductDocumentSemanticBasics(doc: Record<string, unknown>, issues
   }
 }
 
+function loadProfileSchema(profileId: string): Record<string, unknown> | null {
+  const profilePath = path.resolve(__dirname, `../../../spec/1.0.0/profiles/${profileId}.schema.json`);
+  if (!fs.existsSync(profilePath)) {
+    return null;
+  }
+  try {
+    const raw = fs.readFileSync(profilePath, "utf8");
+    return JSON.parse(raw) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
+}
+
+function extractXFields(obj: Record<string, unknown>): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(obj)) {
+    if (key.startsWith("x-")) {
+      result[key] = value;
+    }
+  }
+  return result;
+}
+
+function checkProfileExtensions(
+  doc: Record<string, unknown>,
+  products: Record<string, unknown>[],
+  issues: Issue[],
+  ajv: InstanceType<typeof Ajv2020>
+): void {
+  const profileIds = getArray<string>(doc.profiles);
+  if (profileIds.length === 0) {
+    return;
+  }
+
+  const profileSchemas: Map<string, Record<string, unknown>> = new Map();
+  for (const profileId of profileIds) {
+    const schema = loadProfileSchema(profileId);
+    if (!schema) {
+      issues.push({
+        code: "UNKNOWN_PROFILE",
+        path: "/profiles",
+        message: `Profile "${profileId}" nao encontrado em spec/1.0.0/profiles/`
+      });
+      continue;
+    }
+    profileSchemas.set(profileId, schema);
+  }
+
+  if (profileSchemas.size === 0) {
+    return;
+  }
+
+  const validators = new Map<string, ReturnType<typeof ajv.compile>>();
+  for (const [profileId, schema] of profileSchemas) {
+    try {
+      validators.set(profileId, ajv.compile(schema));
+    } catch {
+      issues.push({
+        code: "INVALID_PROFILE_SCHEMA",
+        path: "/profiles",
+        message: `Falha ao compilar schema do profile "${profileId}"`
+      });
+    }
+  }
+
+  for (let pIndex = 0; pIndex < products.length; pIndex += 1) {
+    const product = products[pIndex];
+    const xFields = extractXFields(product);
+    if (Object.keys(xFields).length === 0) {
+      continue;
+    }
+
+    for (const [profileId, validate] of validators) {
+      const valid = validate(xFields);
+      if (!valid && validate.errors) {
+        for (const error of validate.errors) {
+          const dataPath = error.instancePath || "/";
+          issues.push({
+            code: "PROFILE_VALIDATION",
+            path: `/products[${pIndex}]${dataPath}`,
+            message: `Profile "${profileId}": ${error.message ?? "erro de validacao"}`
+          });
+        }
+      }
+    }
+  }
+}
+
 function loadProductsFromRefs(
   catalogDoc: Record<string, unknown>,
   catalogFilePath: string,
@@ -654,15 +742,20 @@ function validatePacp(filePath: string): number {
 
     if (documentType === "CATALOG") {
       const mergedDoc: Record<string, unknown> = { ...objectDoc };
-      mergedDoc.products = loadProductsFromRefs(objectDoc, absoluteFilePath, issues);
+      const loadedProducts = loadProductsFromRefs(objectDoc, absoluteFilePath, issues);
+      mergedDoc.products = loadedProducts;
 
       const ids = collectIdsAndDuplicates(mergedDoc, issues);
       checkBrokenReferences(mergedDoc, ids, issues);
       checkLookupKeys(mergedDoc, ids, issues);
       checkRulesSemanticBasics(mergedDoc, issues);
       checkLotAndSalesUnitSemantics(mergedDoc, issues);
+      checkProfileExtensions(objectDoc, loadedProducts, issues, ajv);
     } else if (documentType === "PRODUCT") {
       checkProductDocumentSemanticBasics(objectDoc, issues);
+      if (isRecord(objectDoc.product)) {
+        checkProfileExtensions(objectDoc, [objectDoc.product], issues, ajv);
+      }
     }
   }
 

@@ -3,8 +3,9 @@
   "document_type": "CATALOG",
   "catalog": {
     "id": "cat_max",
-    "name": "Catalogo MAX_OF"
+    "name": "Catalogo MAX_OF - Moveis"
   },
+  "profiles": ["moveis"],
   "product_refs": [
     {
       "id": "prod_painel",

@@ -3,8 +3,9 @@
   "document_type": "CATALOG",
   "catalog": {
     "id": "cat_matrix",
-    "name": "Catalogo Matrix"
+    "name": "Catalogo Matrix - Iluminacao"
   },
+  "profiles": ["iluminacao"],
   "product_refs": [
     {
       "id": "prod_banner",

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pacp.dev/spec/1.0.0/profiles/iluminacao.schema.json",
+  "title": "PACP Profile: Iluminacao",
+  "description": "Extension profile para produtos de iluminacao. Define campos x-* recomendados para o setor.",
+  "type": "object",
+  "properties": {
+    "x-lumens": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Fluxo luminoso em lumens."
+    },
+    "x-color_temp_k": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "description": "Temperatura de cor em Kelvin (ex: 3000 para branco quente)."
+    },
+    "x-ip_rating": {
+      "type": "string",
+      "pattern": "^IP[0-9X]{2}$",
+      "description": "Grau de protecao IP (ex: 'IP65', 'IP20')."
+    },
+    "x-voltage": {
+      "type": "string",
+      "enum": ["12V", "24V", "110V", "220V", "BIVOLT"],
+      "description": "Tensao de operacao."
+    },
+    "x-dimmable": {
+      "type": "boolean",
+      "description": "Indica se o produto e dimerizavel."
+    },
+    "x-lamp_type": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Tipo de lampada (ex: 'LED', 'Halogeneo', 'Fluorescente')."
+    },
+    "x-beam_angle_deg": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 360,
+      "description": "Angulo de abertura do facho em graus."
+    },
+    "x-cri": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Indice de reproducao de cor (CRI/IRC)."
+    }
+  },
+  "additionalProperties": true
+}
