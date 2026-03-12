@@ -1102,7 +1102,8 @@ html:not(.no-js) .reveal.visible {
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
   padding: 2rem 2.5rem;
   background: linear-gradient(135deg, #1a1a0f 0%, var(--bg-elevated) 60%, #1e1a0a 100%);
   border: 1px solid rgba(245, 158, 11, 0.3);
