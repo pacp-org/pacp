@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PACP - Padrão Aberto de Catálogo e Precificação</title>
-  <meta name="description" content="PACP é um padrão aberto para modelar catálogos de produtos e calcular preços de forma determinística. Projetado para Móveis, Pisos, Iluminação e Alta Decoração.">
+  <title>PACP - Seus produtos prontos para venda por IA</title>
+  <meta name="description" content="PACP é o padrão aberto que torna seus produtos visíveis para agentes de IA. Dados estruturados para catálogo e precificação de Móveis, Pisos, Iluminação e Alta Decoração. Mais dados = mais recomendações = mais vendas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -33,6 +33,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </button>
     <ul class="nav-links" id="navLinks">
       <li><a href="#problema">O problema</a></li>
+      <li><a href="#por-que-ia">Por que IA</a></li>
       <li><a href="#como-funciona">Como funciona</a></li>
       <li><a href="#precificacao">Motor de preços</a></li>
       <li><a href="#profiles">Profiles</a></li>
@@ -51,31 +52,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="hero">
   <div class="hero-badge">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    Para devs: JSON Schema + CLI
+    Seus produtos prontos para a era da IA
   </div>
-  <h1>Chega de planilha.<br><span class="gradient">Um padrão para catálogo e preço.</span></h1>
+  <h1>Quem vai vender seu produto<br><span class="gradient">é um agente de IA.</span></h1>
   <div class="hero-typing" aria-label="Código JSON sendo digitado">
     <span class="typing-text"></span><span class="typing-cursor">|</span>
   </div>
   <p class="hero-sub">
-    O PACP é um formato aberto que permite que qualquer sistema — ERP, e-commerce, configurador ou orçamento — fale a mesma língua na hora de descrever produtos e calcular preços. Sem gambiarra, sem retrabalho.
+    Daqui pra frente, agentes de IA vão indicar produtos para arquitetos, lojistas e consumidores. Se o seu catálogo não tem dados estruturados, a IA não encontra, não compara e não recomenda. O PACP é o padrão aberto que torna seus produtos visíveis, comparáveis e vendáveis por qualquer IA.
   </p>
   <div class="hero-actions">
-    <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.md" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Ler a spec v1.0.0</a>
-    <a href="https://github.com/pacp-org/pacp/blob/main/docs/integration-guide.md" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Guia de integração</a>
+    <a href="#por-que-ia" class="btn btn-primary">Entenda por que isso importa</a>
+    <a href="https://github.com/pacp-org/pacp/blob/main/docs/integration-guide.md" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Como integrar</a>
   </div>
   <div class="hero-trust">
     <div class="hero-trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Open Source — MIT
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      IA recomenda seus produtos
     </div>
     <div class="hero-trust-item">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-      Resultado determinístico
+      Diferencial competitivo no dado
     </div>
     <div class="hero-trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      Qualquer plataforma
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Open Source — MIT
     </div>
   </div>
 </header>
@@ -83,9 +84,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section-full alt" id="problema">
   <div class="section-inner reveal">
     <p class="section-label">O problema</p>
-    <h2 class="section-title">Você já viveu isso?</h2>
+    <h2 class="section-title">Seus produtos estão invisíveis para quem mais vende</h2>
     <p class="section-desc">
-      Toda vez que um fabricante manda uma tabela de preços, começa a dor de cabeça. Formatos diferentes, regras escondidas em planilhas, cálculos que ninguém consegue reproduzir. O PACP nasceu para acabar com isso.
+      Agentes de IA já estão recomendando produtos para arquitetos, lojistas e consumidores. Se os seus dados estão presos em planilhas, PDFs e sistemas fechados, a IA não encontra o seu produto. E se não encontra, recomenda o concorrente.
     </p>
     <div class="problem-grid">
       <div class="problem-col before">
@@ -96,23 +97,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Cada fornecedor manda a tabela em um formato diferente
+            Agentes de IA não encontram seus produtos
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Regras de preço escondidas em células de Excel
+            Seu diferencial competitivo está perdido num PDF ou planilha
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Dois sistemas calculam preços diferentes para o mesmo produto
+            Cada sistema calcula um preço diferente para o mesmo produto
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Milhares de SKUs para cobrir todas as combinações
+            Milhares de SKUs no cadastro para cobrir combinações
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Integração ponto a ponto entre cada par de sistemas
+            IA recomenda o concorrente porque ele tem dados melhores
           </li>
         </ul>
       </div>
@@ -124,25 +125,62 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <ul>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Um formato JSON padronizado para todos
+            Agentes de IA recomendam seus produtos com confiança
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Regras de preço explícitas e auditáveis
+            Diferenciais do produto estão no dado, não na cabeça do vendedor
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Resultado idêntico em qualquer sistema — determinístico
+            Preço calculado na hora, igual em qualquer sistema
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Motor de regras calcula sob demanda — sem explodir SKUs
+            Um formato que qualquer IA, ERP ou e-commerce consegue ler
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-            Qualquer sistema lê o mesmo contrato
+            Mais visibilidade = mais indicações = mais vendas
           </li>
         </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-full" id="por-que-ia">
+  <div class="section-inner reveal">
+    <p class="section-label">A mudança</p>
+    <h2 class="section-title">Agentes de IA são os novos vendedores</h2>
+    <p class="section-desc">
+      Arquitetos, lojistas e consumidores já estão pedindo recomendações para agentes de IA. A pergunta que você precisa se fazer: quando a IA buscar um produto no seu segmento, ela vai encontrar o seu ou o do concorrente?
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h3>Qual é o diferencial do seu produto?</h3>
+        <p class="feature-desc">Se o acabamento especial, a garantia estendida ou a capacidade de carga não estão no dado, a IA não sabe. E se a IA não sabe, ela recomenda o concorrente que tem essa informação.</p>
+        <span class="feature-tech">Diferencial no dado = venda</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        </div>
+        <h3>Dados estruturados = recomendações</h3>
+        <p class="feature-desc">Agentes de IA comparam produtos por campos reais: acabamento, material, lumens, PEI. Quem tem esses dados preenchidos e padronizados aparece primeiro. Quem não tem, fica de fora.</p>
+        <span class="feature-tech">Mais dados = mais visibilidade</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <h3>Preço certo, na hora, para fechar venda</h3>
+        <p class="feature-desc">Um agente de IA precisa calcular preço em tempo real para converter o cliente. Se o seu catálogo não entrega preço sob demanda, a IA pula para quem entrega. PACP resolve isso.</p>
+        <span class="feature-tech">Preço em tempo real = conversão</span>
       </div>
     </div>
   </div>
@@ -151,58 +189,58 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section-full" id="como-funciona">
   <div class="section-inner reveal">
     <p class="section-label">Como funciona</p>
-    <h2 class="section-title">Um contrato inteligente para seu catálogo</h2>
+    <h2 class="section-title">O padrão que faz IA vender seu produto</h2>
     <p class="section-desc">
-      Em vez de planilhas soltas, você descreve seu catálogo e suas regras de preço em arquivos JSON validáveis. Simples para quem lê, poderoso para quem integra.
+      O PACP organiza seu catálogo e suas regras de preço num formato que qualquer agente de IA, sistema ou plataforma consegue ler, comparar e usar para vender.
     </p>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
-        <h3>Catálogo como contrato</h3>
-        <p class="feature-desc">Um arquivo JSON descreve o catálogo inteiro: produtos, regras de preço, tabelas e restrições. Qualquer sistema consegue ler.</p>
-        <span class="feature-tech">CATALOG + PRODUCT docs</span>
+        <h3>Catálogo que qualquer IA entende</h3>
+        <p class="feature-desc">Seus produtos, regras de preço, tabelas e restrições num formato padronizado. Qualquer agente de IA, ERP ou e-commerce lê e usa na hora.</p>
+        <span class="feature-tech">Formato universal</span>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
-        <h3>Preço calculado, não cadastrado</h3>
-        <p class="feature-desc">Em vez de criar milhares de variações no cadastro, você define regras que calculam o preço na hora, conforme as opções do cliente.</p>
-        <span class="feature-tech">Rulesets + operations</span>
+        <h3>Preço na hora, sem planilha</h3>
+        <p class="feature-desc">A IA precisa de preço em tempo real para fechar venda. Suas regras calculam o valor sob demanda, conforme as opções do cliente. Sem tabela estática, sem retrabalho.</p>
+        <span class="feature-tech">Preço em tempo real</span>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <h3>Sempre o mesmo resultado</h3>
-        <p class="feature-desc">A spec define a ordem exata de aplicação das regras, desempates e fallbacks. Dois sistemas diferentes vão chegar ao mesmo preço.</p>
-        <span class="feature-tech">Determinístico por spec</span>
+        <h3>Mesmo preço em qualquer canal</h3>
+        <p class="feature-desc">Não importa se é a IA, o ERP ou o e-commerce calculando: o resultado é sempre o mesmo. Zero divergência, zero reclamação de cliente.</p>
+        <span class="feature-tech">Confiança total no preço</span>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
         </div>
-        <h3>Produto completo no JSON</h3>
-        <p class="feature-desc">Nome, SKU, fabricante, marca, fotos, peso, dimensões — tudo dentro do arquivo do produto. Sem precisar de sistema externo.</p>
-        <span class="feature-tech">sku, gtin, images, weight...</span>
+        <h3>Diferencial competitivo dentro do produto</h3>
+        <p class="feature-desc">Acabamento, garantia, material, capacidade de carga — o que faz o seu produto melhor que o concorrente fica no dado. A IA lê, compara e recomenda o seu.</p>
+        <span class="feature-tech">Seu diferencial vira recomendação</span>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
         </div>
-        <h3>Extensível por setor</h3>
-        <p class="feature-desc">Campos específicos de cada indústria — móveis, iluminação, pisos, fiscal — são padronizados via Extension Profiles.</p>
-        <span class="feature-tech">profiles: ["moveis"]</span>
+        <h3>Campos do seu mercado, padronizados</h3>
+        <p class="feature-desc">Cada setor tem o que importa: lumens para iluminação, PEI para pisos, acabamento para móveis. Os Profiles garantem que a IA entende os dados do seu segmento.</p>
+        <span class="feature-tech">Seu setor fala a mesma língua</span>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
         </div>
-        <h3>Validação automática</h3>
-        <p class="feature-desc">Um CLI valida tudo: schema, referências entre arquivos, lote, unidade de venda e campos de profiles. Erros aparecem antes, não depois.</p>
-        <span class="feature-tech">pacp-validate</span>
+        <h3>Dado certo antes de publicar</h3>
+        <p class="feature-desc">Um validador verifica tudo antes de sair: dados incompletos, preços inconsistentes, campos faltando. Erro aparece antes de chegar no cliente.</p>
+        <span class="feature-tech">Zero erro na publicação</span>
       </div>
     </div>
   </div>
@@ -700,10 +738,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var typingEl = document.querySelector('.typing-text');
   if (typingEl) {
     var phrases = [
-      '"sku": "MESA-JANTAR-240"',
-      '"pricing": { "operations": [...] }',
-      '"profile": "moveis"',
-      '$ pacp validate catalogo.json ✓'
+      '"x-finish": "Nogueira natural"',
+      '"x-warranty_months": 24',
+      'IA recomendou: Painel Elegance ✓',
+      'Preço calculado em 12ms ✓'
     ];
     var phraseIdx = 0, charIdx = 0, deleting = false;
     function typeStep() {
