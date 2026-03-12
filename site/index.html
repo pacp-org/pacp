@@ -747,6 +747,99 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     reveals.forEach(function(el) { el.classList.add('visible'); });
   }
 })();
+
+(function() {
+  function track(eventName, params) {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, params);
+    }
+  }
+
+  function getLabel(el) {
+    return el.getAttribute('aria-label')
+      || el.getAttribute('data-track')
+      || el.textContent.trim().substring(0, 80)
+      || el.href
+      || 'unknown';
+  }
+
+  function getSection(el) {
+    var section = el.closest('section, header, footer, nav');
+    if (!section) return 'unknown';
+    return section.id
+      || section.querySelector('.section-label,.section-title')?.textContent.trim().substring(0, 40)
+      || section.tagName.toLowerCase();
+  }
+
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href]');
+    if (link) {
+      var href = link.getAttribute('href');
+      var isExternal = link.hostname !== location.hostname;
+      track('link_click', {
+        link_text: getLabel(link),
+        link_url: href,
+        link_section: getSection(link),
+        link_external: isExternal
+      });
+      return;
+    }
+
+    var btn = e.target.closest('button, .btn');
+    if (btn) {
+      track('button_click', {
+        button_text: getLabel(btn),
+        button_section: getSection(btn)
+      });
+      return;
+    }
+
+    var tab = e.target.closest('.profile-tab');
+    if (tab) {
+      track('profile_tab_click', {
+        profile_id: tab.getAttribute('data-profile'),
+        tab_text: tab.textContent.trim()
+      });
+      return;
+    }
+
+    var card = e.target.closest('.feature-card, .resource-card, .profile-card, .card');
+    if (card) {
+      track('card_click', {
+        card_title: (card.querySelector('h3') || {}).textContent || getLabel(card),
+        card_section: getSection(card)
+      });
+      return;
+    }
+  });
+
+  var sections = document.querySelectorAll('section[id]');
+  if ('IntersectionObserver' in window) {
+    var sectionObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          track('section_view', {
+            section_id: entry.target.id,
+            section_title: (entry.target.querySelector('.section-title') || {}).textContent || entry.target.id
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+    sections.forEach(function(s) { sectionObs.observe(s); });
+  }
+
+  var scrollDepths = [25, 50, 75, 100];
+  var firedDepths = {};
+  window.addEventListener('scroll', function() {
+    var scrollPct = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
+    scrollDepths.forEach(function(d) {
+      if (scrollPct >= d && !firedDepths[d]) {
+        firedDepths[d] = true;
+        track('scroll_depth', { depth_percent: d });
+      }
+    });
+  }, { passive: true });
+})();
 </script>
 
 </body>
