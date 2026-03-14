@@ -1,0 +1,63 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11520-2",
+    "name": "MENTZ - Mesa Lateral Mentz TP. Redondo",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11520-2",
+        "attributeId": "dimensao",
+        "label": "0,50 Ø X 0,63",
+        "value": "0,50 Ø X 0,63"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11520-2"
+    ],
+    "x-collection": "MENTZ",
+    "x-dimensions": "0,50 Ø X 0,63",
+    "x-category": "Mesa Centro e Laterais"
+  }
+}

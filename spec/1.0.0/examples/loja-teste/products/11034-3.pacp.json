@@ -1,0 +1,51 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11034-3",
+    "name": "GRANADA - Aparador Granada (tp oblongo), pés mad. (se laca brilho somente c/ VD)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11034-3",
+        "attributeId": "dimensao",
+        "label": "1,86 x 0,45 x 0,76",
+        "value": "1,86 x 0,45 x 0,76"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11034-3"
+    ],
+    "x-collection": "GRANADA",
+    "x-dimensions": "1,86 x 0,45 x 0,76",
+    "x-category": "Aparadores"
+  }
+}

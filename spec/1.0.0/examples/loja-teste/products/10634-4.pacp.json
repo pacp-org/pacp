@@ -1,0 +1,57 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "10634-4",
+    "name": "PALERMO - Aparador Palermo (tp oblongo, c/ 3 gav.) pés metal (se laca brilho somente c/ VD)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-10634-4",
+        "attributeId": "dimensao",
+        "label": "2,01 x 0,46 x 0,77",
+        "value": "2,01 x 0,46 x 0,77"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-10634-4"
+    ],
+    "x-collection": "PALERMO",
+    "x-dimensions": "2,01 x 0,46 x 0,77",
+    "x-category": "Aparadores"
+  }
+}

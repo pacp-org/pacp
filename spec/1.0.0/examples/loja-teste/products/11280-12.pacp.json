@@ -1,0 +1,63 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11280-12",
+    "name": "SINTRA - Mesa Jantar Sintra TP. (OBLONGO)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11280-12",
+        "attributeId": "dimensao",
+        "label": "2,70 x 1,20 x 0,76",
+        "value": "2,70 x 1,20 x 0,76"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11280-12"
+    ],
+    "x-collection": "SINTRA",
+    "x-dimensions": "2,70 x 1,20 x 0,76",
+    "x-category": "Mesas Jantar e Mesa Apoio"
+  }
+}

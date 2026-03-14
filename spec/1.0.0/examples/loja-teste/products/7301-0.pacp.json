@@ -1,0 +1,57 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "7301-0",
+    "name": "FIRENZE - Rack Firenze (3 gavetas/não pode ser desmontado)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-7301-0",
+        "attributeId": "dimensao",
+        "label": "2,00 x 0,45 x 0,55",
+        "value": "2,00 x 0,45 x 0,55"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-7301-0"
+    ],
+    "x-collection": "FIRENZE",
+    "x-dimensions": "2,00 x 0,45 x 0,55",
+    "x-category": "Racks"
+  }
+}

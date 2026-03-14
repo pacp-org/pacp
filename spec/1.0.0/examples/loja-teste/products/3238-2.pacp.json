@@ -1,0 +1,45 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "3238-2",
+    "name": "DALI - Mesa Lateral Dali ''PRODUZIDO APENAS EM LACA PADRÃO E METALIZADA\"\"",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-3238-2",
+        "attributeId": "dimensao",
+        "label": "0,31 Ø X 0,63",
+        "value": "0,31 Ø X 0,63"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      }
+    ],
+    "rulesetIds": [
+      "rs-3238-2"
+    ],
+    "x-collection": "DALI",
+    "x-dimensions": "0,31 Ø X 0,63",
+    "x-category": "Mesa Centro e Laterais"
+  }
+}

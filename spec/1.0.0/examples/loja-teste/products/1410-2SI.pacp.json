@@ -1,0 +1,57 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "1410-2SI",
+    "name": "CARTAGENA - Cristaleira Cartagena (2 prat;s/iluminação)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-1410-2SI",
+        "attributeId": "dimensao",
+        "label": "0,82 x 0,37 x 1,29",
+        "value": "0,82 x 0,37 x 1,29"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-1410-2SI"
+    ],
+    "x-collection": "CARTAGENA",
+    "x-dimensions": "0,82 x 0,37 x 1,29",
+    "x-category": "Complementos"
+  }
+}

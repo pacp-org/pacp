@@ -1,0 +1,57 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "9921-6",
+    "name": "LIPSIA - Mesa Centro Lipsia  Redonda \"SOMENTE S/VIDRO\"",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-9921-6",
+        "attributeId": "dimensao",
+        "label": "1,20 Ø X 0,35",
+        "value": "1,20 Ø X 0,35"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      }
+    ],
+    "rulesetIds": [
+      "rs-9921-6"
+    ],
+    "x-collection": "LIPSIA",
+    "x-dimensions": "1,20 Ø X 0,35",
+    "x-category": "Mesa Centro e Laterais"
+  }
+}

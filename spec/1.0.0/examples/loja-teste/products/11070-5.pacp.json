@@ -1,0 +1,51 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11070-5",
+    "name": "PARLA - Banco Parla (tp oblongo chanfrado), pés mad. \n(somente sem VD)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11070-5",
+        "attributeId": "dimensao",
+        "label": "2,00 x 0,45 x 0,42",
+        "value": "2,00 x 0,45 x 0,42"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11070-5"
+    ],
+    "x-collection": "PARLA",
+    "x-dimensions": "2,00 x 0,45 x 0,42",
+    "x-category": "Complementos"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11640-4",
+    "name": "BOGOTÁ - Aparador Bogotá ,TP.Canto Garrafa; C/ MARCHETARIA",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11640-4",
+        "attributeId": "dimensao",
+        "label": "2,00 x 0,45 x 0,76",
+        "value": "2,00 x 0,45 x 0,76"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11640-4"
+    ],
+    "x-collection": "BOGOTÁ",
+    "x-dimensions": "2,00 x 0,45 x 0,76",
+    "x-category": "Aparadores"
+  }
+}
