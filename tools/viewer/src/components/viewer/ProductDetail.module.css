@@ -1,0 +1,139 @@
+.wrapper {
+  padding: var(--space-6);
+  max-width: 1200px;
+}
+
+.backBtn {
+  padding: var(--space-2) 0;
+  margin-bottom: var(--space-4);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: color var(--transition-base);
+}
+
+.backBtn:hover {
+  color: var(--accent);
+}
+
+.backBtn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 380px);
+  gap: var(--space-8);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main {
+  min-width: 0;
+}
+
+.header {
+  margin-bottom: var(--space-4);
+}
+
+.name {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-1);
+}
+
+.sku {
+  font-size: var(--text-sm);
+  margin-right: var(--space-2);
+}
+
+.category {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.description {
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+  font-size: var(--text-base);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  margin-bottom: var(--space-6);
+}
+
+.section {
+  margin-bottom: var(--space-6);
+}
+
+.section h3 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-2);
+  color: var(--text);
+}
+
+.optionsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.optionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.optionLabel {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+.optionValue {
+  font-size: var(--text-sm);
+  color: var(--text);
+}
+
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.imgLink {
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: border-color var(--transition-base);
+}
+
+.imgLink:hover {
+  border-color: var(--accent);
+}
+
+.imgLink:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.sidebar {
+  position: sticky;
+  top: var(--space-4);
+}

@@ -1,0 +1,76 @@
+.zone {
+  padding: var(--space-8);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  transition: border-color var(--transition-base), background var(--transition-base);
+}
+
+.dragOver {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.hint {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+}
+
+.buttons {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.fileLabel,
+.fileLabelSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: opacity var(--transition-base), border-color var(--transition-base);
+}
+
+.fileLabel input,
+.fileLabelSecondary input {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.fileLabel {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+}
+
+.fileLabel:hover {
+  opacity: 0.95;
+}
+
+.fileLabelSecondary {
+  background: var(--bg-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.fileLabelSecondary:hover {
+  border-color: var(--accent);
+}
+
+.fileLabel:has(input:disabled),
+.fileLabelSecondary:has(input:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnText {
+  pointer-events: none;
+}

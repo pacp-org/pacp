@@ -1,0 +1,57 @@
+.wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+}
+
+.header {
+  margin-bottom: var(--space-8);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--text);
+  text-wrap: balance;
+}
+
+.subtitle {
+  font-size: var(--text-base);
+  color: var(--text-muted);
+}
+
+.section {
+  margin-bottom: var(--space-8);
+}
+
+.sectionTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  color: var(--text);
+}
+
+.examplesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-4);
+}
+
+.progress {
+  margin-top: var(--space-4);
+}
+
+.progressBar {
+  height: 4px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width var(--transition-base);
+}
+
+.progressText {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
