@@ -1,0 +1,100 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "10401",
+    "name": "MENDONZA - Mesa Jantar Mendonza (tp orgânico) sem marchetaria",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-10401-76",
+        "attributeId": "dimensao",
+        "label": "2,00 x 1,10 x 0,76",
+        "value": "2,00 x 1,10 x 0,76"
+      },
+      {
+        "id": "opt-dim-10401-82",
+        "attributeId": "dimensao",
+        "label": "2,20 x 1,10 x 0,76",
+        "value": "2,20 x 1,10 x 0,76"
+      },
+      {
+        "id": "opt-dim-10401-88",
+        "attributeId": "dimensao",
+        "label": "2,40 x 1,20 x 0,76",
+        "value": "2,40 x 1,20 x 0,76"
+      },
+      {
+        "id": "opt-dim-10401-94",
+        "attributeId": "dimensao",
+        "label": "2,70 x 1,20 x 0,76",
+        "value": "2,70 x 1,20 x 0,76"
+      },
+      {
+        "id": "opt-dim-10401-96",
+        "attributeId": "dimensao",
+        "label": "3,00 x 1,20 x 0,76",
+        "value": "3,00 x 1,20 x 0,76"
+      },
+      {
+        "id": "opt-dim-10401-98",
+        "attributeId": "dimensao",
+        "label": "3,20 x 1,20 x 0,76",
+        "value": "3,20 x 1,20 x 0,76"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-10401"
+    ],
+    "x-collection": "MENDONZA",
+    "x-category": "Mesas Jantar e Mesa Apoio",
+    "x-refs": [
+      "10401-76",
+      "10401-82",
+      "10401-88",
+      "10401-94",
+      "10401-96",
+      "10401-98"
+    ]
+  }
+}

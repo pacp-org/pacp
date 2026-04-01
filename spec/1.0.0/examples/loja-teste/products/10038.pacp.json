@@ -1,0 +1,72 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "10038",
+    "name": "BOLOGNA - Mesa Lateral Bologna Tp Red Bandeja Pés de Metal (se laca brilho somente c/ VD)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-10038-8",
+        "attributeId": "dimensao",
+        "label": "0,46 Ø 0,50",
+        "value": "0,46 Ø 0,50"
+      },
+      {
+        "id": "opt-dim-10038-12",
+        "attributeId": "dimensao",
+        "label": "0,61 Ø 0,60",
+        "value": "0,61 Ø 0,60"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-10038"
+    ],
+    "x-collection": "BOLOGNA",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "10038-8",
+      "10038-12"
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11660",
+    "name": "LA SALLE - Mesa Lateral La Salle TP. Canto Garrafa C/ Machetaria",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11660-1",
+        "attributeId": "dimensao",
+        "label": "0,60 X 0,30 X 0,50",
+        "value": "0,60 X 0,30 X 0,50"
+      },
+      {
+        "id": "opt-dim-11660-2",
+        "attributeId": "dimensao",
+        "label": "0,60 X 0,30 X 0,63",
+        "value": "0,60 X 0,30 X 0,63"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11660"
+    ],
+    "x-collection": "LA SALLE",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "11660-1",
+      "11660-2"
+    ]
+  }
+}

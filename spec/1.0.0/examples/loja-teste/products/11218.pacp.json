@@ -1,0 +1,79 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11218",
+    "name": "CAPRI - Mesa Lateral Capri, haste metal  (somente s/ VD)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11218-3",
+        "attributeId": "dimensao",
+        "label": "0,30 Ø 0,60 alt",
+        "value": "0,30 Ø 0,60 alt"
+      },
+      {
+        "id": "opt-dim-11218-4",
+        "attributeId": "dimensao",
+        "label": "0,30 Ø 0,65 alt",
+        "value": "0,30 Ø 0,65 alt"
+      },
+      {
+        "id": "opt-dim-11218-5",
+        "attributeId": "dimensao",
+        "label": "0,30 Ø 0,70 alt",
+        "value": "0,30 Ø 0,70 alt"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11218"
+    ],
+    "x-collection": "CAPRI",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "11218-3",
+      "11218-4",
+      "11218-5"
+    ]
+  }
+}

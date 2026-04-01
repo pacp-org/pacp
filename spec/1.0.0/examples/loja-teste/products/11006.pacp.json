@@ -1,0 +1,73 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11006",
+    "name": "MAIA - Mesa Centro Maia (tp orgânico) pés em mad.",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11006-2",
+        "attributeId": "dimensao",
+        "label": "1,41 x 0,62 x 0,33",
+        "value": "1,41 x 0,62 x 0,33"
+      },
+      {
+        "id": "opt-dim-11006-3",
+        "attributeId": "dimensao",
+        "label": "1,61 x 0,62 x 0,33",
+        "value": "1,61 x 0,62 x 0,33"
+      },
+      {
+        "id": "opt-dim-11006-4",
+        "attributeId": "dimensao",
+        "label": "1,81 x 0,62 x 0,33",
+        "value": "1,81 x 0,62 x 0,33"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11006"
+    ],
+    "x-collection": "MAIA",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "11006-2",
+      "11006-3",
+      "11006-4"
+    ]
+  }
+}

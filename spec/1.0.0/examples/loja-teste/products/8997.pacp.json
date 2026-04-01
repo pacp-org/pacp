@@ -1,0 +1,73 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "8997",
+    "name": "AURORA - Rack Aurora 3 Gavetas Pés de Metal",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-8997-12",
+        "attributeId": "dimensao",
+        "label": "2,09 x 0,45 x 0,45",
+        "value": "2,09 x 0,45 x 0,45"
+      },
+      {
+        "id": "opt-dim-8997-16",
+        "attributeId": "dimensao",
+        "label": "2,29 x 0,45 x 0,45",
+        "value": "2,29 x 0,45 x 0,45"
+      },
+      {
+        "id": "opt-dim-8997-19",
+        "attributeId": "dimensao",
+        "label": "2,59 x 0,45 x 0,45",
+        "value": "2,59 x 0,45 x 0,45"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-8997"
+    ],
+    "x-collection": "AURORA",
+    "x-category": "Racks",
+    "x-refs": [
+      "8997-12",
+      "8997-16",
+      "8997-19"
+    ]
+  }
+}

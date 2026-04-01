@@ -1,0 +1,66 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11122",
+    "name": "ERNESTO - Gaveteiro Ernesto Pés Metal",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11122-0",
+        "attributeId": "dimensao",
+        "label": "0,54 X 0,46 X 0,58",
+        "value": "0,54 X 0,46 X 0,58"
+      },
+      {
+        "id": "opt-dim-11122-2",
+        "attributeId": "dimensao",
+        "label": "0,74 X 0,46 X 0,58",
+        "value": "0,74 X 0,46 X 0,58"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11122"
+    ],
+    "x-collection": "ERNESTO",
+    "x-category": "Gaveteiros",
+    "x-refs": [
+      "11122-0",
+      "11122-2"
+    ]
+  }
+}

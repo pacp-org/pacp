@@ -1,0 +1,107 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11481",
+    "name": "TERNE - Mesa Centro Terne TP. Redondo (Somente S/ Vidro)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11481-1",
+        "attributeId": "dimensao",
+        "label": "0,70 Ø X 0,35",
+        "value": "0,70 Ø X 0,35"
+      },
+      {
+        "id": "opt-dim-11481-2",
+        "attributeId": "dimensao",
+        "label": "0,70 Ø X 0,33",
+        "value": "0,70 Ø X 0,33"
+      },
+      {
+        "id": "opt-dim-11481-3",
+        "attributeId": "dimensao",
+        "label": "0,70 Ø X 0,30",
+        "value": "0,70 Ø X 0,30"
+      },
+      {
+        "id": "opt-dim-11481-4",
+        "attributeId": "dimensao",
+        "label": "0,90 Ø X 0,33",
+        "value": "0,90 Ø X 0,33"
+      },
+      {
+        "id": "opt-dim-11481-5",
+        "attributeId": "dimensao",
+        "label": "0,90 Ø X 0,30",
+        "value": "0,90 Ø X 0,30"
+      },
+      {
+        "id": "opt-dim-11481-6",
+        "attributeId": "dimensao",
+        "label": "1,20 Ø X 0,33",
+        "value": "1,20 Ø X 0,33"
+      },
+      {
+        "id": "opt-dim-11481-7",
+        "attributeId": "dimensao",
+        "label": "1,10 Ø X 0,26",
+        "value": "1,10 Ø X 0,26"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11481"
+    ],
+    "x-collection": "TERNE",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "11481-1",
+      "11481-2",
+      "11481-3",
+      "11481-4",
+      "11481-5",
+      "11481-6",
+      "11481-7"
+    ]
+  }
+}

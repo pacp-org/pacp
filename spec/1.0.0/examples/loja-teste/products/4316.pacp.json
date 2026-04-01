@@ -1,0 +1,73 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "4316",
+    "name": "BETA - Mesa Centro Beta (vidro 6mm)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-4316-5",
+        "attributeId": "dimensao",
+        "label": "1,20 x 0,60 x 0,30",
+        "value": "1,20 x 0,60 x 0,30"
+      },
+      {
+        "id": "opt-dim-4316-7",
+        "attributeId": "dimensao",
+        "label": "1,40 x 0,70 x 0,30",
+        "value": "1,40 x 0,70 x 0,30"
+      },
+      {
+        "id": "opt-dim-4316-8",
+        "attributeId": "dimensao",
+        "label": "1,60 x 0,80 x 0,30",
+        "value": "1,60 x 0,80 x 0,30"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      }
+    ],
+    "rulesetIds": [
+      "rs-4316"
+    ],
+    "x-collection": "BETA",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "4316-5",
+      "4316-7",
+      "4316-8"
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "4667",
+    "name": "CANNES - Mesa Lateral Cannes (oval), haste metal",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-4667-1",
+        "attributeId": "dimensao",
+        "label": "0,40 x 0,30 x 0,50",
+        "value": "0,40 x 0,30 x 0,50"
+      },
+      {
+        "id": "opt-dim-4667-2",
+        "attributeId": "dimensao",
+        "label": "0,40 x 0,30 x 0,55",
+        "value": "0,40 x 0,30 x 0,55"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-4667"
+    ],
+    "x-collection": "CANNES",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "4667-1",
+      "4667-2"
+    ]
+  }
+}

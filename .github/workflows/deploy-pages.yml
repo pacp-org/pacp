@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'site/**'
+      - 'tools/viewer/**'
 
   workflow_dispatch:
 
@@ -25,6 +26,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: tools/viewer/package-lock.json
+
+      - name: Build viewer
+        run: |
+          cd tools/viewer
+          npm ci
+          npm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

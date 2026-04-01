@@ -1,0 +1,79 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11175",
+    "name": "MILHARES - Mesa Centro Milhares C/ detalhe em Madeira \nS/ Pedra \"SOMENTE S/VIDRO\"",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11175-8",
+        "attributeId": "dimensao",
+        "label": "1,60 x 0,55 x 0,40",
+        "value": "1,60 x 0,55 x 0,40"
+      },
+      {
+        "id": "opt-dim-11175-10",
+        "attributeId": "dimensao",
+        "label": "1,80 x 0,70 x 0,32",
+        "value": "1,80 x 0,70 x 0,32"
+      },
+      {
+        "id": "opt-dim-11175-11",
+        "attributeId": "dimensao",
+        "label": "2,25 x 0,70 x 0,32",
+        "value": "2,25 x 0,70 x 0,32"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11175"
+    ],
+    "x-collection": "MILHARES",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "11175-8",
+      "11175-10",
+      "11175-11"
+    ]
+  }
+}

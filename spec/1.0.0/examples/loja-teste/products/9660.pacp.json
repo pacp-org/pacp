@@ -1,0 +1,72 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "9660",
+    "name": "ORLANDO\nTP GIRATÓRIO - Mesa Jantar Orlando c/ Tp Giratório 0,90mt (VD só no Tp Giratório)",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-9660-23",
+        "attributeId": "dimensao",
+        "label": "1,80 Ø 0,76 alt",
+        "value": "1,80 Ø 0,76 alt"
+      },
+      {
+        "id": "opt-dim-9660-24",
+        "attributeId": "dimensao",
+        "label": "2,00 Ø 0,76 alt",
+        "value": "2,00 Ø 0,76 alt"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-9660"
+    ],
+    "x-collection": "ORLANDO\nTP GIRATÓRIO",
+    "x-category": "Mesas Jantar e Mesa Apoio",
+    "x-refs": [
+      "9660-23",
+      "9660-24"
+    ]
+  }
+}

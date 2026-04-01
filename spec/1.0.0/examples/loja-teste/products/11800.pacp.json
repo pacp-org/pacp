@@ -1,0 +1,60 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11800",
+    "name": "AURORA - Buffet Aurora B Marchetado\"\"INTERNO PRETO OU CINZA\"\" \n(5 portas;1 gav. Int.; 1 prat.), tpo bandeja (se laca brilho somente c/ VD), pés metal",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11800-14",
+        "attributeId": "dimensao",
+        "label": "2,31 x 0,48 x 0,75",
+        "value": "2,31 x 0,48 x 0,75"
+      },
+      {
+        "id": "opt-dim-11800-18",
+        "attributeId": "dimensao",
+        "label": "2,56 x 0,48 x 0,75",
+        "value": "2,56 x 0,48 x 0,75"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11800"
+    ],
+    "x-collection": "AURORA",
+    "x-category": "Buffets",
+    "x-refs": [
+      "11800-14",
+      "11800-18"
+    ]
+  }
+}

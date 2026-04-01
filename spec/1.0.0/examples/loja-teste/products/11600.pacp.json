@@ -1,0 +1,79 @@
+{
+  "spec": "1.0.0",
+  "document_type": "PRODUCT",
+  "catalog_id": "brazil-contemporaneo",
+  "product": {
+    "id": "11600",
+    "name": "NARA - Mesa Latera Nara, haste metal, TP Bandeja c/ Lamina Decorativa",
+    "attributes": [
+      {
+        "id": "acabamento",
+        "label": "Acabamento"
+      },
+      {
+        "id": "dimensao",
+        "label": "Dimensão"
+      }
+    ],
+    "options": [
+      {
+        "id": "opt-dim-11600-3",
+        "attributeId": "dimensao",
+        "label": "0,30 Ø 0,51",
+        "value": "0,30 Ø 0,51"
+      },
+      {
+        "id": "opt-dim-11600-4",
+        "attributeId": "dimensao",
+        "label": "0,30 Ø 0,56",
+        "value": "0,30 Ø 0,56"
+      },
+      {
+        "id": "opt-dim-11600-5",
+        "attributeId": "dimensao",
+        "label": "0,30 Ø 0,62",
+        "value": "0,30 Ø 0,62"
+      },
+      {
+        "id": "opt-carvalho-imbuia",
+        "attributeId": "acabamento",
+        "label": "Carvalhos e Imbuia",
+        "value": "carvalho-imbuia"
+      },
+      {
+        "id": "opt-laca-base-carvalho",
+        "attributeId": "acabamento",
+        "label": "Tampo Laca + Base Carvalho/Imbuia",
+        "value": "laca-base-carvalho"
+      },
+      {
+        "id": "opt-laca-lisa",
+        "attributeId": "acabamento",
+        "label": "Laca Lisa Brazil",
+        "value": "laca-lisa"
+      },
+      {
+        "id": "opt-nogueira-metalizado",
+        "attributeId": "acabamento",
+        "label": "Nogueira, Freijó, Metalizados",
+        "value": "nogueira-metalizado"
+      },
+      {
+        "id": "opt-pau-ferro",
+        "attributeId": "acabamento",
+        "label": "Pau Ferro",
+        "value": "pau-ferro"
+      }
+    ],
+    "rulesetIds": [
+      "rs-11600"
+    ],
+    "x-collection": "NARA",
+    "x-category": "Mesa Centro e Laterais",
+    "x-refs": [
+      "11600-3",
+      "11600-4",
+      "11600-5"
+    ]
+  }
+}
