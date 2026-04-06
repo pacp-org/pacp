@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
+const SKIP_DIRS = new Set(["loja-teste"]);
+
 function collectJsonFilesRecursively(rootDir: string): string[] {
   const files: string[] = [];
   const stack: string[] = [rootDir];
@@ -13,6 +15,9 @@ function collectJsonFilesRecursively(rootDir: string): string[] {
     }
     const entries = fs.readdirSync(current, { withFileTypes: true });
     for (const entry of entries) {
+      if (SKIP_DIRS.has(entry.name)) {
+        continue;
+      }
       const absolute = path.join(current, entry.name);
       if (entry.isDirectory()) {
         stack.push(absolute);
