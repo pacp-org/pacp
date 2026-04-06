@@ -6,6 +6,7 @@
     "id": "prod_tinta",
     "name": "Tinta Acrilica Premium",
     "base_price": 250,
+    "unit": "L",
     "sales_unit": {
       "requested_unit": "L",
       "sell_unit": "galao",

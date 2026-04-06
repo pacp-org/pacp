@@ -74,6 +74,7 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 - `sales_unit.quantity_per_sell_unit` DEVE ser maior que zero e representa quanto da unidade solicitada cabe em 1 unidade vendável.
 - `sales_unit.rounding` em v1.0.0 DEVE ser `CEIL`.
 - `sales_unit.min_sell_units`, quando informado, DEVE ser respeitado como piso mínimo de venda.
+- Quando o produto declarar `unit` e `sales_unit`, `sales_unit.requested_unit` DEVE ser igual a `product.unit` (ver seção 4.5).
 
 ### 4.3 Campos descritivos de produto
 
@@ -109,6 +110,16 @@ Regras normativas:
 - Quando `sku` existir, implementações PODEM usar para rastreabilidade e integração externa.
 - Quando `category` existir, implementações PODEM usar para filtros, organização e regras condicionais via fatos de contexto/produto.
 - Campos descritivos existem para que o catálogo PACP seja autocontido, sem exigir sistema PIM externo para dados universais de produto.
+
+### 4.5 Unidade base do produto (`unit`)
+
+- Produto PODE declarar `unit` (`string`) para indicar a unidade base na qual `base_price` é cotado.
+- Exemplos de valores: `"un"`, `"m"`, `"m2"`, `"m3"`, `"L"`, `"kg"`, `"saca"`, `"arroba"`.
+- Quando `unit` estiver ausente, motores e consumidores DEVEM assumir `"un"` (unidade genérica).
+- `unit` é informacional e NÃO altera por si só a mecânica de cálculo do engine.
+- Para exibição de preço, consumidores PODEM formatar como `"R$ {base_price} / {unit}"`.
+- Para integração com ERPs e sistemas de comércio, `unit` PODE ser usado como unidade de medida padrão do cadastro de produto.
+- Quando o produto declarar `unit` e `sales_unit` simultaneamente, `sales_unit.requested_unit` DEVE ser igual a `product.unit`. Validadores DEVEM reportar inconsistência caso divirjam.
 
 ### 4.4 Valores de atributos por produto (`attribute_values`)
 
@@ -323,6 +334,7 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `required_sell_units`: quantidade mínima vendável calculada com `CEIL`.
 - `constraint`: bloqueio de combinação.
 - `dependency`: relacionamento lógico entre opções.
+- `unit`: unidade base do produto na qual `base_price` é cotado (default implícito: `"un"`).
 - `sku`: código identificador do produto no sistema comercial/ERP.
 - `gtin`: código de barras global (EAN/GTIN) no padrão GS1.
 - `imageRef`: referência a imagem com URL, tipo e rótulo opcional.
@@ -345,6 +357,7 @@ Um arquivo é PACP compliant quando:
 - [ ] Define conversão para unidade vendável quando aplicável (`sales_unit` + `CEIL`).
 - [ ] Define ordem de aplicação e desempate determinístico.
 - [ ] Suporta `price_lists` e `context` quando usados.
+- [ ] Quando `unit` e `sales_unit` coexistem, `sales_unit.requested_unit` é igual a `product.unit`.
 - [ ] Permite e preserva extensões `x-*`.
 - [ ] Quando declara `profiles`, usa IDs válidos de profiles oficiais ou customizados.
 - [ ] Valida contra `spec/1.0.0/pacp.schema.json`.

@@ -63,6 +63,7 @@ export interface Product {
   category?: string;
   gtin?: string;
   base_price?: number;
+  unit?: string;
   images?: ImageRef[];
   tags?: string[];
   weight?: Measure;

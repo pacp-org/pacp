@@ -370,6 +370,17 @@ function checkLotAndSalesUnitSemantics(doc: Record<string, unknown>, issues: Iss
       ? (product.sales_unit as Record<string, unknown>)
       : null;
 
+    if (typeof product.unit === "string" && salesUnit) {
+      const suRequestedUnit = salesUnit.requested_unit;
+      if (typeof suRequestedUnit === "string" && product.unit !== suRequestedUnit) {
+        issues.push({
+          code: "UNIT_SALES_UNIT_MISMATCH",
+          path: `${productPath}/unit`,
+          message: `Produto "${productId}" declara unit="${product.unit}" mas sales_unit.requested_unit="${suRequestedUnit}". Devem ser iguais.`
+        });
+      }
+    }
+
     if (!salesUnit) {
       continue;
     }
@@ -466,6 +477,18 @@ function checkProductDocumentSemanticBasics(doc: Record<string, unknown>, issues
       continue;
     }
     seenOptionIds.add(optionId);
+  }
+
+  const salesUnit = isRecord(product.sales_unit) ? product.sales_unit : null;
+  if (typeof product.unit === "string" && salesUnit) {
+    const suRequestedUnit = salesUnit.requested_unit;
+    if (typeof suRequestedUnit === "string" && product.unit !== suRequestedUnit) {
+      issues.push({
+        code: "UNIT_SALES_UNIT_MISMATCH",
+        path: "/product/unit",
+        message: `Produto "${productId}" declara unit="${product.unit}" mas sales_unit.requested_unit="${suRequestedUnit}". Devem ser iguais.`
+      });
+    }
   }
 
   const lotPolicy = isRecord(product.lot_policy) ? product.lot_policy : null;

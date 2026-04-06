@@ -12,6 +12,7 @@
     "category": "Porcelanatos",
     "gtin": "78912345678901",
     "base_price": 80,
+    "unit": "m2",
     "images": [
       { "url": "https://example.com/images/prc-mrb-6060.jpg", "type": "MAIN" },
       { "url": "https://example.com/images/prc-mrb-6060-amb.jpg", "type": "AMBIANCE", "label": "Ambiente sala" }

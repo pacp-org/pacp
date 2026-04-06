@@ -230,6 +230,7 @@
         "category": { "type": "string", "minLength": 1 },
         "gtin": { "type": "string", "pattern": "^\\d{8,14}$" },
         "base_price": { "type": "number" },
+        "unit": { "type": "string", "minLength": 1 },
         "images": {
           "type": "array",
           "items": { "$ref": "#/$defs/imageRef" }

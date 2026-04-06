@@ -8,6 +8,7 @@
     "sku": "CARD-REF-001",
     "category": "Papelaria",
     "base_price": 10,
+    "unit": "un",
     "attributes": [
       { "id": "size" },
       { "id": "paper" }

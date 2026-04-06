@@ -2,6 +2,19 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+### Added (2026-04-06) — Unidade base do produto
+
+- Campo opcional `product.unit` (`string`) para indicar a unidade base na qual `base_price` é cotado.
+- Default implícito `"un"` quando ausente.
+- Regra de consistência: quando `unit` e `sales_unit` coexistem, `sales_unit.requested_unit` DEVE ser igual a `product.unit`.
+- Validador CLI: novo check `UNIT_SALES_UNIT_MISMATCH`.
+- Tipo `Product` no pacote npm atualizado com `unit?: string`.
+- Exemplos atualizados: `prod_tinta` (`"L"`), `prod_servico` (`"m2"`), `prod_card` (`"un"`).
+
+### Compatibility (2026-04-06)
+
+- Mudança backward-compatible: `unit` é opcional, documentos existentes continuam válidos.
+
 ## [1.0.0] - 2026-02-13
 
 ### Added
