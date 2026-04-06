@@ -22,7 +22,7 @@ import { schema, profiles, validate, SPEC_VERSION } from '@pacp/spec';
 import type { Product, CatalogDocument, Ruleset } from '@pacp/spec';
 
 // Schema JSON completo
-console.log(schema.$id); // "https://pacp.dev/spec/1.0.0/pacp.schema.json"
+console.log(schema.$id);
 
 // Validar um documento
 const result = validate(meuCatalogo);
@@ -48,6 +48,23 @@ const schema = require('@pacp/spec/schema.json');
 const moveis = require('@pacp/spec/profiles/moveis.json');
 const pisos  = require('@pacp/spec/profiles/pisos-revestimentos.json');
 ```
+
+## CDN / URLs públicas
+
+O schema e os profiles estão disponíveis via CDN pública (jsDelivr), sem necessidade de instalação:
+
+| Recurso | URL |
+|---------|-----|
+| Schema (latest) | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json` |
+| Schema (versão fixa) | `https://cdn.jsdelivr.net/npm/@pacp/spec@1.0.1/dist/pacp.schema.json` |
+| Profile Móveis | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/moveis.schema.json` |
+| Profile Iluminação | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/iluminacao.schema.json` |
+| Profile Pisos | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/pisos-revestimentos.schema.json` |
+| Profile Fiscal BR | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/fiscal-br.schema.json` |
+
+Use `@latest` para apontar sempre para a última versão publicada, ou fixe a versão (ex: `@1.0.1`) para garantir estabilidade.
+
+Alternativa via unpkg: `https://unpkg.com/@pacp/spec@latest/dist/pacp.schema.json`
 
 ## Estrutura do repositório
 

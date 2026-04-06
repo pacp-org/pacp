@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pacp.dev/spec/1.0.0/pacp.schema.json",
+  "$id": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json",
   "title": "PACP v1.0.0",
   "oneOf": [
     {

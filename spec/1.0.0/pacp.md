@@ -301,6 +301,17 @@ Organizações PODEM criar profiles próprios seguindo as regras:
 - Conteúdo em `spec/1.0.0/` DEVE ser imutável após release oficial.
 - Mudanças incompatíveis DEVE ocorrer apenas em major futura (`2.0.0`).
 
+### 11.1 URL canônica do schema
+
+O JSON Schema oficial está disponível publicamente via CDN:
+
+- **Latest:** `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json`
+- **Versão fixa:** `https://cdn.jsdelivr.net/npm/@pacp/spec@{versao}/dist/pacp.schema.json`
+
+Profiles oficiais seguem o padrão: `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/{id}.schema.json`
+
+Implementações PODEM referenciar o schema via `$id` ou URL CDN para validação remota.
+
 ## 12. Segurança e integridade
 
 - Assinatura digital e checksum PODEM ser adotados por implementações, mas estão fora do escopo normativo obrigatório desta versão.

@@ -2,6 +2,15 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+### Added (2026-04-06) — CDN pública para schema e profiles
+
+- Schema e profiles disponíveis via CDN pública jsDelivr (zero config).
+- URL canônica `@latest` resolve automaticamente para a última versão npm.
+- `$id` do schema atualizado para `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json`.
+- `spec/latest.json` inclui campo `cdn` com base URL do CDN.
+- Seção "CDN / URLs públicas" adicionada ao `README.md`.
+- Seção 11.1 "URL canônica do schema" adicionada à spec.
+
 ### Added (2026-04-06) — Unidade base do produto
 
 - Campo opcional `product.unit` (`string`) para indicar a unidade base na qual `base_price` é cotado.
