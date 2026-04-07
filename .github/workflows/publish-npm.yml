@@ -37,6 +37,18 @@ jobs:
             exit 1
           fi
 
+      - name: Patch schema and latest.json with version
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+
+          SCHEMA="spec/latest/pacp.schema.json"
+          jq --arg v "$VERSION" '.title = "PACP v" + $v' "$SCHEMA" > tmp.json && mv tmp.json "$SCHEMA"
+
+          LATEST="spec/latest.json"
+          jq --arg v "$VERSION" --arg d "$(date -u +%Y-%m-%d)" \
+            '.spec_version = $v | .published_at = $d' "$LATEST" > tmp.json && mv tmp.json "$LATEST"
+
       - name: Build
         working-directory: packages/pacp
         run: npm run build
