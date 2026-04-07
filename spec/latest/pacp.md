@@ -84,7 +84,7 @@ Em `PACP PACP`, `product` PODE incluir os campos descritivos abaixo. Todos são 
 
 - `sku` (`string`): código SKU do produto para integração com ERPs e sistemas de comércio.
 - `gtin` (`string`, 8-14 dígitos): código de barras no padrão GS1 (EAN-8, EAN-13 ou GTIN-14).
-- `category` (`string`): categoria textual principal do produto.
+- `category` (`array of path`): categorias hierárquicas do produto. Cada elemento é um **path** (array de strings) representando o caminho da raiz até a folha na árvore de categorias. Permite classificação múltipla e hierárquica. Exemplo: `[["Móveis Internos", "Sofá"], ["Promoções"]]`.
 - `tags` (`array of string`): tags livres para busca e classificação.
 
 **Informações comerciais:**
@@ -109,6 +109,9 @@ Regras normativas:
 - `id` continua sendo o identificador canônico para referências internas PACP.
 - Quando `sku` existir, implementações PODEM usar para rastreabilidade e integração externa.
 - Quando `category` existir, implementações PODEM usar para filtros, organização e regras condicionais via fatos de contexto/produto.
+- Cada path em `category` é um array de segmentos da raiz à folha (ex.: `["Móveis Externos", "Sofá"]` = "Móveis Externos > Sofá"). Um path com um único segmento (ex.: `["Promoções"]`) representa uma categoria sem hierarquia.
+- O primeiro path do array PODE ser tratado como categoria principal quando a implementação exigir distinção.
+- Dois paths podem compartilhar o mesmo segmento folha sob ancestrais diferentes; a identidade da categoria é definida pelo path completo.
 - Campos descritivos existem para que o catálogo PACP seja autocontido, sem exigir sistema PIM externo para dados universais de produto.
 
 ### 4.5 Unidade base do produto (`unit`)

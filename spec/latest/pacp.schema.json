@@ -169,7 +169,15 @@
         "manufacturer": { "type": "string", "minLength": 1 },
         "brand": { "type": "string", "minLength": 1 },
         "description": { "type": "string" },
-        "category": { "type": "string", "minLength": 1 },
+        "category": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1
+          },
+          "description": "Categorias hierárquicas do produto. Cada item é um path da raiz à folha, ex.: [[\"Móveis\", \"Sofá\"], [\"Promoções\"]]."
+        },
         "gtin": { "type": "string", "pattern": "^\\d{8,14}$" },
         "base_price": { "type": "number" },
         "unit": { "type": "string", "minLength": 1 },

@@ -5,7 +5,7 @@
     "id": "prod_camiseta",
     "name": "Camiseta Basica Algodao",
     "sku": "CAM-BAS-001",
-    "category": "Vestuario",
+    "category": [["Vestuario", "Camisetas"]],
     "base_price": 0,
     "attributes": [
       { "id": "tamanho" },

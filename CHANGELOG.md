@@ -2,10 +2,11 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
-## [Unreleased] - 2026-04-06 — Schema Refactoring
+## [3.0.0] - 2026-04-07
 
 ### Breaking Changes
 
+- **`category` agora é array de paths hierárquicos** (`string[][]`). Cada item é um array de segmentos da raiz à folha na árvore de categorias (ex.: `[["Móveis", "Sofá"], ["Promoções"]]`). Substitui o formato anterior `string` (v2) e `string[]` (unreleased). Permite classificação múltipla e hierárquica no mesmo produto.
 - **Removido campo `spec`** dos documentos CATALOG e PRODUCT. A versão da spec agora vive apenas em `spec/latest.json`.
 - **Normalização snake_case** em todos os field names de documentos:
   - `attributeId` → `attribute_id`
