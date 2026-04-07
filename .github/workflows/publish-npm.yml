@@ -3,6 +3,12 @@ name: Publish @pacp/spec to npm
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag semver já existente no remoto (ex.: v2.0.2). Use se só houve push da tag sem publicar Release."
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -10,9 +16,14 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      # Em release, github.ref_name é a tag; em workflow_dispatch, vem do input (GITHUB_REF_NAME seria a branch).
+      TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref }}
 
       - name: Setup Node
         uses: actions/setup-node@v5
@@ -27,7 +38,7 @@ jobs:
       - name: Sync version from release tag
         working-directory: packages/pacp
         run: |
-          TAG="${GITHUB_REF_NAME}"
+          TAG="${TAG_NAME}"
           VERSION="${TAG#v}"
           if [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             npm version "$VERSION" --no-git-tag-version --allow-same-version
@@ -39,7 +50,7 @@ jobs:
 
       - name: Patch schema and latest.json with version
         run: |
-          TAG="${GITHUB_REF_NAME}"
+          TAG="${TAG_NAME}"
           VERSION="${TAG#v}"
 
           SCHEMA="spec/latest/pacp.schema.json"
