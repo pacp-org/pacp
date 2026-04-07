@@ -1,4 +1,4 @@
-# Guia de Integração PACP v1.0.0
+# Guia de Integração PACP
 
 ## O que é o PACP
 
@@ -40,7 +40,6 @@ O manifesto é o ponto de entrada. Contém as regras de precificação, tabelas,
 
 ```json
 {
-  "spec": "1.0.0",
   "document_type": "CATALOG",
   "catalog": {
     "id": "cat_moveis_2026",
@@ -65,7 +64,6 @@ Cada produto vive em seu próprio arquivo JSON. O manifesto referencia via `prod
 
 ```json
 {
-  "spec": "1.0.0",
   "document_type": "PRODUCT",
   "catalog_id": "cat_moveis_2026",
   "product": {
@@ -88,9 +86,9 @@ Cada produto vive em seu próprio arquivo JSON. O manifesto referencia via `prod
       { "id": "material" }
     ],
     "options": [
-      { "id": "opt_material_pvc", "attributeId": "material", "value": "PVC" }
+      { "id": "opt_material_pvc", "attribute_id": "material", "value": "PVC" }
     ],
-    "rulesetIds": ["rs_calculo_moveis"]
+    "ruleset_ids": ["rs_calculo_moveis"]
   }
 }
 ```
@@ -137,10 +135,10 @@ O PACP não explode variantes. Em vez disso, modela **atributos** (eixos de vari
     { "id": "tamanho", "label": "Tamanho" }
   ],
   "options": [
-    { "id": "opt_linho", "attributeId": "tecido", "value": "LINHO", "label": "Linho Natural" },
-    { "id": "opt_veludo", "attributeId": "tecido", "value": "VELUDO", "label": "Veludo Premium" },
-    { "id": "opt_2lug", "attributeId": "tamanho", "value": "2L", "label": "2 Lugares" },
-    { "id": "opt_3lug", "attributeId": "tamanho", "value": "3L", "label": "3 Lugares" }
+    { "id": "opt_linho", "attribute_id": "tecido", "value": "LINHO", "label": "Linho Natural" },
+    { "id": "opt_veludo", "attribute_id": "tecido", "value": "VELUDO", "label": "Veludo Premium" },
+    { "id": "opt_2lug", "attribute_id": "tamanho", "value": "2L", "label": "2 Lugares" },
+    { "id": "opt_3lug", "attribute_id": "tamanho", "value": "3L", "label": "3 Lugares" }
   ]
 }
 ```
@@ -166,7 +164,7 @@ Cada conjunto de regras (`ruleset`) atua em um estágio:
 | `ADD` | Soma valor fixo | `value` |
 | `PERCENT_OF` | Soma percentual sobre o alvo | `percent` |
 | `OVERRIDE` | Substitui o valor corrente | `value` |
-| `LOOKUP` | Busca valor em tabela | `tableId` |
+| `LOOKUP` | Busca valor em tabela | `table_id` |
 | `MAX_OF` | Maior valor entre componentes | `components` |
 | `MIN_OF` | Menor valor entre componentes | `components` |
 | `PICK` | Primeiro componente elegível | `components` |
@@ -217,8 +215,8 @@ Quando o preço depende de uma combinação de atributos (ex: largura x acabamen
   "id": "tbl_preco_luminaria",
   "type": "LOOKUP",
   "dimensions": [
-    { "key": "largura", "source": "ATTRIBUTE", "attributeId": "width" },
-    { "key": "acabamento", "source": "ATTRIBUTE", "attributeId": "finish" }
+    { "key": "largura", "source": "ATTRIBUTE", "attribute_id": "width" },
+    { "key": "acabamento", "source": "ATTRIBUTE", "attribute_id": "finish" }
   ],
   "rows": [
     { "key": { "largura": "1m", "acabamento": "MATTE" }, "value": 18 },
@@ -234,7 +232,7 @@ A regra referencia a tabela:
 {
   "id": "rule_lookup",
   "operation": "LOOKUP",
-  "tableId": "tbl_preco_luminaria"
+  "table_id": "tbl_preco_luminaria"
 }
 ```
 
@@ -310,7 +308,7 @@ Para produtos vendidos por lote (pisos, revestimentos), o PACP exige que o lote 
   "lot_policy": {
     "required": true,
     "source": "CONTEXT",
-    "contextKey": "lot_id"
+    "context_key": "lot_id"
   }
 }
 ```
@@ -468,7 +466,7 @@ Para cerâmicas, porcelanatos, fabricantes de revestimento e lojas de materiais.
     "sku": "PRC-MRB-6060",
     "manufacturer": "Ceramica Atlas",
     "base_price": 80,
-    "lot_policy": { "required": true, "source": "CONTEXT", "contextKey": "lot_id" },
+    "lot_policy": { "required": true, "source": "CONTEXT", "context_key": "lot_id" },
     "sales_unit": {
       "requested_unit": "m2",
       "sell_unit": "box",
@@ -545,7 +543,7 @@ cd tools/validator
 npm ci && npm run build
 
 # Validar um arquivo
-npm run validate -- ../../spec/1.0.0/examples/moveis/max_of.json
+npm run validate -- ../../spec/latest/examples/moveis/max_of.json
 
 # Validar todos os exemplos oficiais
 npm run validate:examples
@@ -555,8 +553,8 @@ npm run validate:examples
 
 1. **Schema JSON** — estrutura conforme `pacp.schema.json`.
 2. **IDs duplicados** — produtos, tabelas, rulesets, opções.
-3. **Referências quebradas** — `tableId`, `optionId`, `rulesetId` apontando para IDs inexistentes.
-4. **Semântica de operações** — `ADD` sem `value`, `LOOKUP` sem `tableId`, etc.
+3. **Referências quebradas** — `table_id`, `option_id`, `ruleset_id` apontando para IDs inexistentes.
+4. **Semântica de operações** — `ADD` sem `value`, `LOOKUP` sem `table_id`, etc.
 5. **Lote e unidade** — lote obrigatório sem `context.lot_id`, unidade incompatível.
 6. **Extension profiles** — quando `profiles` está declarado, valida campos `x-*` contra o schema do profile.
 
@@ -570,7 +568,6 @@ Crie um catálogo com 1 produto e 1 regra simples (`ADD`):
 
 ```json
 {
-  "spec": "1.0.0",
   "document_type": "CATALOG",
   "catalog": { "id": "meu_catalogo" },
   "product_refs": [
@@ -659,10 +656,10 @@ npm run validate:examples
 
 ## Referências
 
-- Spec normativa: `spec/1.0.0/pacp.md`
-- JSON Schema: `spec/1.0.0/pacp.schema.json`
-- Profiles: `spec/1.0.0/profiles/`
-- Exemplos oficiais: `spec/1.0.0/examples/`
+- Spec normativa: `spec/latest/pacp.md`
+- JSON Schema: `spec/latest/pacp.schema.json`
+- Profiles: `spec/latest/profiles/`
+- Exemplos oficiais: `spec/latest/examples/`
 - Engine guide: `docs/pricing-engine.md`
 - Import guide: `docs/import-guidelines.md`
 - Design principles: `docs/design-principles.md`

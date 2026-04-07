@@ -1,0 +1,67 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_deps",
+    "name": "Catalogo com Dependencias"
+  },
+  "dependencies": [
+    {
+      "id": "dep_vidro_requer_temperado",
+      "type": "REQUIRES",
+      "option_id": "opt_tampo_vidro",
+      "requires_option_ids": ["opt_vidro_temperado"]
+    },
+    {
+      "id": "dep_cores_por_material",
+      "type": "AVAILABLE_OPTIONS_WHEN",
+      "allowed_option_ids": ["opt_cor_branca", "opt_cor_preta"],
+      "when": {
+        "all": [
+          { "fact": "material", "operator": "EQ", "value": "LACA" }
+        ]
+      }
+    }
+  ],
+  "constraints": [
+    {
+      "id": "cst_vidro_outdoor",
+      "type": "DENY",
+      "when": {
+        "all": [
+          { "fact": "tampo", "operator": "EQ", "value": "VIDRO" },
+          { "fact": "uso", "operator": "EQ", "value": "OUTDOOR" }
+        ]
+      },
+      "message": "Tampo de vidro nao e permitido para uso externo"
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_preco_base",
+          "operation": "ADD",
+          "value": 1200
+        },
+        {
+          "id": "rule_adicional_vidro",
+          "operation": "ADD",
+          "value": 350,
+          "when": {
+            "all": [
+              { "fact": "tampo", "operator": "EQ", "value": "VIDRO" }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_mesa_config",
+      "path": "products/prod_mesa_config.json"
+    }
+  ]
+}

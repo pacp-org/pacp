@@ -3,9 +3,9 @@ export { validate } from "./validate.js";
 export type {
   ScalarValue,
   ImageType,
-  ImageRef,
+  Image,
   Measure,
-  DimensionsObj,
+  PhysicalDimensions,
   AttributeRef,
   AttributeValue,
   Option,
@@ -18,7 +18,7 @@ export type {
   RuleOperation,
   Rule,
   Ruleset,
-  Dimension,
+  LookupAxis,
   TableRow,
   Table,
   Dependency,
@@ -35,5 +35,3 @@ export type {
   ValidationIssue,
   ValidationResult,
 } from "./types.js";
-
-export const SPEC_VERSION = "1.0.0" as const;

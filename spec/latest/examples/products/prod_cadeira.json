@@ -1,0 +1,21 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_minimal",
+  "product": {
+    "id": "prod_cadeira",
+    "name": "Cadeira Eames",
+    "sku": "CAD-EAM-001",
+    "base_price": 350,
+    "attributes": [
+      { "id": "cor" },
+      { "id": "material" }
+    ],
+    "options": [
+      { "id": "opt_cor_branca", "attribute_id": "cor", "value": "BRANCA" },
+      { "id": "opt_cor_preta", "attribute_id": "cor", "value": "PRETA" },
+      { "id": "opt_material_pp", "attribute_id": "material", "value": "POLIPROPILENO" },
+      { "id": "opt_material_madeira", "attribute_id": "material", "value": "MADEIRA" }
+    ],
+    "ruleset_ids": ["rs_base"]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_extensions",
+  "product": {
+    "id": "prod_sofa",
+    "name": "Sofa Retratil 3 Lugares",
+    "sku": "SOF-RET-003",
+    "manufacturer": "Estofados Premium",
+    "brand": "ConfortMax",
+    "description": "Sofa retratil e reclinavel em suede com pes em aluminio escovado.",
+    "category": "Estofados",
+    "gtin": "78912345678901",
+    "base_price": 2800,
+    "weight": { "value": 65, "unit": "kg" },
+    "dimensions": { "width": 230, "height": 95, "depth": 100, "unit": "cm" },
+    "images": [
+      { "url": "https://example.com/img/sof-ret-003-main.jpg", "type": "MAIN", "label": "Visao frontal" },
+      { "url": "https://example.com/img/sof-ret-003-detail.jpg", "type": "DETAIL", "label": "Detalhe do tecido" }
+    ],
+    "tags": ["sofa", "retratil", "3-lugares", "suede"],
+    "attributes": [
+      { "id": "tecido" },
+      { "id": "cor" }
+    ],
+    "options": [
+      { "id": "opt_suede", "attribute_id": "tecido", "value": "SUEDE" },
+      { "id": "opt_linho", "attribute_id": "tecido", "value": "LINHO" },
+      { "id": "opt_nogueira", "attribute_id": "cor", "value": "NOGUEIRA" },
+      { "id": "opt_grafite", "attribute_id": "cor", "value": "GRAFITE" }
+    ],
+    "ruleset_ids": ["rs_base"],
+    "x-assembly_required": true,
+    "x-warranty_months": 24,
+    "x-finish": "Aluminio escovado",
+    "x-load_capacity": { "value": 300, "unit": "kg" },
+    "x-indoor_outdoor": "INDOOR"
+  }
+}

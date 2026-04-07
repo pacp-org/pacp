@@ -1,0 +1,41 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_extensions",
+    "name": "Catalogo com Extensoes x-*",
+    "x-erp_code": "ERP-2026-CAT-042",
+    "x-business_unit": "decoracao"
+  },
+  "dictionaries": {
+    "x-color_palette": {
+      "NOGUEIRA": "#5C4033",
+      "BRANCO_NEVE": "#FFFAFA",
+      "GRAFITE": "#383838"
+    },
+    "x-delivery_zones": {
+      "SP": { "days": 3, "cost": 0 },
+      "RJ": { "days": 5, "cost": 25 },
+      "MG": { "days": 7, "cost": 40 }
+    }
+  },
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_preco",
+          "operation": "ADD",
+          "value": 2800,
+          "x-source_system": "pricing-engine-v3"
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_sofa",
+      "path": "products/prod_sofa.json"
+    }
+  ]
+}

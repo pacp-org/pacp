@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pacp.dev/spec/1.0.0/profiles/moveis.schema.json",
+  "$id": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/moveis.schema.json",
   "title": "PACP Profile: Moveis e Alta Decoracao",
   "description": "Extension profile para produtos de moveis e alta decoracao. Define campos x-* recomendados para o setor.",
   "type": "object",
@@ -10,7 +10,7 @@
       "description": "Indica se o produto requer montagem."
     },
     "x-load_capacity": {
-      "$ref": "https://pacp.dev/spec/1.0.0/pacp.schema.json#/$defs/measure",
+      "$ref": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json#/$defs/measure",
       "description": "Capacidade de carga do movel (ex: {value: 50, unit: 'kg'})."
     },
     "x-material_composition": {

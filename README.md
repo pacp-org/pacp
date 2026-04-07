@@ -11,14 +11,12 @@ Projetado para **Móveis e Alta Decoração**, **Pisos e Revestimentos**, **Ilum
 
 ### Pacote npm
 
-A forma mais simples de usar o PACP em qualquer projeto Node.js/TypeScript:
-
 ```bash
 npm install @pacp/spec
 ```
 
 ```typescript
-import { schema, profiles, validate, SPEC_VERSION } from '@pacp/spec';
+import { schema, profiles, validate } from '@pacp/spec';
 import type { Product, CatalogDocument, Ruleset } from '@pacp/spec';
 
 // Schema JSON completo
@@ -31,8 +29,7 @@ if (!result.valid) {
 }
 
 // Extension profiles por vertical
-console.log(profiles.moveis.title);    // "PACP Profile: Moveis e Alta Decoracao"
-console.log(profiles.iluminacao.title); // "PACP Profile: Iluminacao"
+console.log(profiles.moveis.title);
 ```
 
 Para validação, instale também as peer dependencies:
@@ -56,21 +53,16 @@ O schema e os profiles estão disponíveis via CDN pública (jsDelivr), sem nece
 | Recurso | URL |
 |---------|-----|
 | Schema (latest) | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json` |
-| Schema (versão fixa) | `https://cdn.jsdelivr.net/npm/@pacp/spec@1.0.1/dist/pacp.schema.json` |
 | Profile Móveis | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/moveis.schema.json` |
 | Profile Iluminação | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/iluminacao.schema.json` |
 | Profile Pisos | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/pisos-revestimentos.schema.json` |
 | Profile Fiscal BR | `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/fiscal-br.schema.json` |
 
-Use `@latest` para apontar sempre para a última versão publicada, ou fixe a versão (ex: `@1.0.1`) para garantir estabilidade.
-
-Alternativa via unpkg: `https://unpkg.com/@pacp/spec@latest/dist/pacp.schema.json`
-
 ## Estrutura do repositório
 
 ```
 spec/
-├── 1.0.0/
+├── latest/
 │   ├── pacp.md              ← especificação normativa
 │   ├── pacp.schema.json     ← JSON Schema oficial
 │   ├── profiles/            ← extension profiles por vertical
@@ -106,36 +98,32 @@ cd tools/validator
 npm ci && npm run build
 
 # Validar um arquivo
-npm run validate -- ../../spec/1.0.0/examples/moveis/max_of.json
+npm run validate -- ../../spec/latest/examples/minimal.json
 
 # Validar todos os exemplos oficiais
 npm run validate:examples
-
-# Sincronizar product_refs automaticamente
-npm run sync:product-refs -- ../../spec/1.0.0/examples/geral/minimal.json
 ```
 
 O validador verifica: schema, IDs duplicados, referências quebradas, semântica de operações, lote obrigatório, unidade de venda e campos de profiles.
 
 ## Canal `latest`
 
-Para integrações que não querem fixar versão, `spec/latest.json` aponta para a versão corrente:
+`spec/latest.json` aponta para a versão corrente:
 
 ```json
 {
-  "spec_version": "1.0.0",
   "paths": {
-    "spec": "spec/1.0.0/pacp.md",
-    "schema": "spec/1.0.0/pacp.schema.json",
-    "profiles": "spec/1.0.0/profiles/",
-    "examples": "spec/1.0.0/examples/"
+    "spec": "spec/latest/pacp.md",
+    "schema": "spec/latest/pacp.schema.json",
+    "profiles": "spec/latest/profiles/",
+    "examples": "spec/latest/examples/"
   }
 }
 ```
 
 ## Documentação
 
-- **[Guia de integração](docs/integration-guide.md)** — ponto de entrada para integradores, com explicação completa da spec e exemplos por vertical
+- **[Guia de integração](docs/integration-guide.md)** — ponto de entrada para integradores
 - [Guia do engine](docs/pricing-engine.md) — pipeline de processamento e semântica de operações
 - [Guia de importação](docs/import-guidelines.md) — como converter planilhas para PACP
 - [Princípios de design](docs/design-principles.md) — decisões arquiteturais do padrão
@@ -146,8 +134,8 @@ Para integrações que não querem fixar versão, `spec/latest.json` aponta para
 
 - **npm:** [@pacp/spec](https://www.npmjs.com/package/@pacp/spec)
 - **Site:** [pacp-org.github.io/pacp](https://pacp-org.github.io/pacp/)
-- **Spec v1.0.0:** [spec/1.0.0/pacp.md](spec/1.0.0/pacp.md)
-- **JSON Schema:** [spec/1.0.0/pacp.schema.json](spec/1.0.0/pacp.schema.json)
+- **Spec:** [spec/latest/pacp.md](spec/latest/pacp.md)
+- **JSON Schema:** [spec/latest/pacp.schema.json](spec/latest/pacp.schema.json)
 
 ## Licença
 

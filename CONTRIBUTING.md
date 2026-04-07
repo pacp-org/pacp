@@ -7,9 +7,9 @@ Obrigado por contribuir com o Padrão Aberto de Catálogo e Precificação.
 1. Abra uma issue descrevendo o problema e o impacto esperado.
 2. Envie um PR com escopo claro e foco em compatibilidade.
 3. Inclua atualizações consistentes entre:
-   - `spec/1.0.0/pacp.md`
-   - `spec/1.0.0/pacp.schema.json`
-   - `spec/1.0.0/examples/`
+   - `spec/latest/pacp.md`
+   - `spec/latest/pacp.schema.json`
+   - `spec/latest/examples/`
 4. Execute validação antes de solicitar revisão.
 
 ## Checklist do PR

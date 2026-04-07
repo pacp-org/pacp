@@ -1,0 +1,26 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_minimal",
+    "name": "Catalogo Minimo"
+  },
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_frete",
+          "operation": "ADD",
+          "value": 25
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_cadeira",
+      "path": "products/prod_cadeira.json"
+    }
+  ]
+}

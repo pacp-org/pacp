@@ -1,0 +1,82 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_multi_pl",
+    "name": "Catalogo Multi Price List",
+    "default_price_list_id": "pl_brl",
+    "price_lists": [
+      {
+        "id": "pl_brl",
+        "label": "Tabela Brasil (BRL)",
+        "currency": "BRL",
+        "context_match": { "region": "BR" }
+      },
+      {
+        "id": "pl_usd",
+        "label": "Tabela Export (USD)",
+        "currency": "USD",
+        "context_match": { "region": "US" }
+      }
+    ]
+  },
+  "tables": [
+    {
+      "id": "tbl_preco_brl",
+      "type": "LOOKUP",
+      "dimensions": [
+        { "key": "tamanho", "source": "ATTRIBUTE", "attribute_id": "tamanho" }
+      ],
+      "rows": [
+        { "key": { "tamanho": "P" }, "value": 89.90 },
+        { "key": { "tamanho": "M" }, "value": 129.90 },
+        { "key": { "tamanho": "G" }, "value": 169.90 }
+      ]
+    },
+    {
+      "id": "tbl_preco_usd",
+      "type": "LOOKUP",
+      "dimensions": [
+        { "key": "tamanho", "source": "ATTRIBUTE", "attribute_id": "tamanho" }
+      ],
+      "rows": [
+        { "key": { "tamanho": "P" }, "value": 17.50 },
+        { "key": { "tamanho": "M" }, "value": 25.00 },
+        { "key": { "tamanho": "G" }, "value": 33.00 }
+      ]
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_preco_brl",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_lookup_brl",
+          "operation": "LOOKUP",
+          "table_id": "tbl_preco_brl",
+          "when": {
+            "all": [
+              { "fact": "price_list_id", "operator": "EQ", "value": "pl_brl" }
+            ]
+          }
+        },
+        {
+          "id": "rule_lookup_usd",
+          "operation": "LOOKUP",
+          "table_id": "tbl_preco_usd",
+          "when": {
+            "all": [
+              { "fact": "price_list_id", "operator": "EQ", "value": "pl_usd" }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_camiseta",
+      "path": "products/prod_camiseta.json"
+    }
+  ]
+}

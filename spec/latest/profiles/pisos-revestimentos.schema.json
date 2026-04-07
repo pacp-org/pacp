@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pacp.dev/spec/1.0.0/profiles/pisos-revestimentos.schema.json",
+  "$id": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/profiles/pisos-revestimentos.schema.json",
   "title": "PACP Profile: Pisos e Revestimentos",
   "description": "Extension profile para produtos de pisos e revestimentos ceramicos, porcelanatos e afins. Define campos x-* recomendados para o setor.",
   "type": "object",

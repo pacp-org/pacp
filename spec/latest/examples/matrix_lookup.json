@@ -1,0 +1,43 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_lookup",
+    "name": "Catalogo Lookup - Iluminacao"
+  },
+  "tables": [
+    {
+      "id": "tbl_preco_banner",
+      "type": "LOOKUP",
+      "dimensions": [
+        { "key": "largura", "source": "ATTRIBUTE", "attribute_id": "largura" },
+        { "key": "acabamento", "source": "ATTRIBUTE", "attribute_id": "acabamento" }
+      ],
+      "rows": [
+        { "key": { "largura": "1m", "acabamento": "FOSCO" }, "value": 180 },
+        { "key": { "largura": "1m", "acabamento": "BRILHO" }, "value": 210 },
+        { "key": { "largura": "2m", "acabamento": "FOSCO" }, "value": 320 },
+        { "key": { "largura": "2m", "acabamento": "BRILHO" }, "value": 370 }
+      ]
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_lookup",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_preco_por_matriz",
+          "operation": "LOOKUP",
+          "table_id": "tbl_preco_banner",
+          "fallback": 200
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_banner",
+      "path": "products/prod_banner.json"
+    }
+  ]
+}

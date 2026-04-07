@@ -1,4 +1,4 @@
-# PACP v1.0.0 - Padrão Aberto de Catálogo e Precificação
+# PACP - Padrão Aberto de Catálogo e Precificação
 
 ## 1. Introdução
 
@@ -21,7 +21,7 @@ PACP (Padrão Aberto de Catálogo e Precificação) define um contrato de dados 
 
 ## 2. Modelo de dados (visão geral)
 
-PACP v1.0.0 define dois tipos de documento JSON válidos contra `spec/1.0.0/pacp.schema.json`:
+PACP PACP define dois tipos de documento JSON válidos contra `spec/latest/pacp.schema.json`:
 
 - `document_type=CATALOG`: manifesto do catálogo.
 - `document_type=PRODUCT`: definição isolada de um produto.
@@ -54,7 +54,7 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 - Manifestos `CATALOG` DEVEM referenciar produtos por `product_refs[]`, incluindo `id` e `path`.
 - `product_refs[].path` DEVE ser resolvido de forma determinística a partir do diretório do manifesto.
 - Produtos PODEM declarar `attributes[]` (atributos disponíveis) e `options[]` (valores selecionáveis).
-- Cada `option` DEVE referenciar o atributo via `attributeId`.
+- Cada `option` DEVE referenciar o atributo via `attribute_id`.
 - PACP descreve motor + dados; produtores de dados NÃO DEVE gerar combinações completas de variantes para obedecer ao padrão.
 
 ### 4.1 Lote por produto (`lot_policy`)
@@ -62,8 +62,8 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 - Produto PODE declarar `lot_policy` para indicar política de controle de lote.
 - Quando `lot_policy.required=true`, o lote DEVE ser informado no orçamento antes do cálculo.
 - `lot_policy.source` DEVE definir origem do lote:
-  - `CONTEXT`: lote vem de `context[lot_policy.contextKey]`.
-  - `ATTRIBUTE`: lote vem de seleção de atributo (`lot_policy.attributeId`).
+  - `CONTEXT`: lote vem de `context[lot_policy.context_key]`.
+  - `ATTRIBUTE`: lote vem de seleção de atributo (`lot_policy.attribute_id`).
 - Para `lot_policy.source=CONTEXT`, ausência do lote obrigatório DEVE bloquear a execução na fase de constraints.
 
 ### 4.2 Unidade solicitada e unidade vendável (`sales_unit`)
@@ -72,13 +72,13 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 - `sales_unit.requested_unit` DEVE definir a unidade de orçamento (ex.: `m2`, `L`, `kg`).
 - `sales_unit.sell_unit` DEVE definir a unidade comercial vendável (ex.: `box`, `galao`, `saco`).
 - `sales_unit.quantity_per_sell_unit` DEVE ser maior que zero e representa quanto da unidade solicitada cabe em 1 unidade vendável.
-- `sales_unit.rounding` em v1.0.0 DEVE ser `CEIL`.
+- `sales_unit.rounding` em PACP DEVE ser `CEIL`.
 - `sales_unit.min_sell_units`, quando informado, DEVE ser respeitado como piso mínimo de venda.
 - Quando o produto declarar `unit` e `sales_unit`, `sales_unit.requested_unit` DEVE ser igual a `product.unit` (ver seção 4.5).
 
 ### 4.3 Campos descritivos de produto
 
-Em `PACP v1.0.0`, `product` PODE incluir os campos descritivos abaixo. Todos são opcionais e NÃO DEVEM alterar semântica de cálculo de preço por si só.
+Em `PACP PACP`, `product` PODE incluir os campos descritivos abaixo. Todos são opcionais e NÃO DEVEM alterar semântica de cálculo de preço por si só.
 
 **Identificação e classificação:**
 
@@ -96,13 +96,13 @@ Em `PACP v1.0.0`, `product` PODE incluir os campos descritivos abaixo. Todos sã
 **Imagens:**
 
 - `images` (`array of imageRef`): referências a imagens do produto.
-  - Cada `imageRef` DEVE conter `url` (URI válida).
-  - `imageRef` PODE conter `label` (rótulo legível) e `type` (enum: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`).
+  - Cada `image` DEVE conter `url` (URI válida).
+  - `image` PODE conter `label` (rótulo legível) e `type` (enum: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`).
 
 **Dados físicos:**
 
 - `weight` (`measure`): peso do produto. Objeto com `value` (número > 0) e `unit` (string, ex: `kg`).
-- `dimensions` (`dimensionsObj`): dimensões do produto. Objeto com `unit` (obrigatório) e opcionais `width`, `height`, `depth` (números > 0).
+- `dimensions` (`physical_dimensions`): dimensões do produto. Objeto com `unit` (obrigatório) e opcionais `width`, `height`, `depth` (números > 0).
 
 Regras normativas:
 
@@ -123,10 +123,10 @@ Regras normativas:
 
 ### 4.4 Valores de atributos por produto (`attribute_values`)
 
-Em `PACP v1.0.0`, `product.attribute_values` PODE ser usado para declarar valores fixos de atributos no nível do produto.
+Em `PACP PACP`, `product.attribute_values` PODE ser usado para declarar valores fixos de atributos no nível do produto.
 
 - `attribute_values` é uma lista de pares atributo/valor.
-- Cada item DEVE conter `attributeId` e `value`.
+- Cada item DEVE conter `attribute_id` e `value`.
 - `value` aceita tipos escalares (`string`, `number`, `boolean`).
 - `attribute_values` NÃO substitui `options`; é complementar.
 - `options` continua sendo o mecanismo para escolhas configuráveis no orçamento.
@@ -175,7 +175,7 @@ Quando `sales_unit` estiver configurado para um produto, o motor DEVE:
 
 5. Usar `required_sell_units` como quantidade mínima vendável determinística para o orçamento.
 
-Em v1.0.0, motores NÃO DEVE usar `FLOOR` ou arredondamento comercial para este cálculo.
+Em PACP, motores NÃO DEVE usar `FLOOR` ou arredondamento comercial para este cálculo.
 
 ### 5.3 Stacking e conflitos
 
@@ -200,7 +200,7 @@ As operações abaixo são normativas:
 - `ADD`: soma `value` ao alvo corrente.
 - `PERCENT_OF`: soma percentual (`percent`) sobre o alvo corrente.
 - `OVERRIDE`: substitui alvo corrente por `value`.
-- `LOOKUP`: busca valor em `tableId` com base em dimensões de atributo/contexto.
+- `LOOKUP`: busca valor em `table_id` com base em dimensões de atributo/contexto.
 - `MAX_OF`: seleciona o maior valor entre componentes.
 - `MIN_OF`: seleciona o menor valor entre componentes.
 - `PICK`: seleciona o primeiro componente elegível pela ordem declarada.
@@ -212,7 +212,7 @@ Erros normativos:
 
 - `LOOKUP` com chave ausente DEVE falhar com erro explícito, salvo fallback configurado.
 - Operação sem parâmetros obrigatórios DEVE falhar em validação.
-- Referência a `tableId` inexistente DEVE falhar em validação.
+- Referência a `table_id` inexistente DEVE falhar em validação.
 
 ## 7. Tabelas de preço (`tables`)
 
@@ -246,7 +246,7 @@ Validações de lote obrigatório e unidade solicitada incompatível com `sales_
 - `context` PODE incluir `price_list_id`, `region`, `channel`, `customer`, `lot_id`, `requested_quantity`, `requested_unit`.
 - Quando `context.price_list_id` existir, o motor DEVE usar essa lista.
 - Quando não existir, o motor DEVE aplicar fallback determinístico (`default_price_list_id` ou lista padrão definida pelo catálogo).
-- Quando o produto tiver `lot_policy.required=true` e `source=CONTEXT`, o motor DEVE exigir `context[lot_policy.contextKey]`.
+- Quando o produto tiver `lot_policy.required=true` e `source=CONTEXT`, o motor DEVE exigir `context[lot_policy.context_key]`.
 - Quando o produto tiver `sales_unit`, o motor DEVE exigir `context.requested_quantity` e `context.requested_unit`.
 
 ## 10. Extensibilidade (`x-*`)
@@ -269,7 +269,7 @@ Documentos `CATALOG` e `PRODUCT` PODEM declarar `profiles`, um array de strings 
 }
 ```
 
-### Profiles oficiais v1.0.0
+### Profiles oficiais PACP
 
 | Profile ID | Arquivo | Vertical |
 |------------|---------|----------|
@@ -298,7 +298,7 @@ Organizações PODEM criar profiles próprios seguindo as regras:
 ## 11. Versionamento e compatibilidade
 
 - PACP usa SemVer para a spec.
-- Conteúdo em `spec/1.0.0/` DEVE ser imutável após release oficial.
+- Conteúdo em `spec/latest/` DEVE ser imutável após release oficial.
 - Mudanças incompatíveis DEVE ocorrer apenas em major futura (`2.0.0`).
 
 ### 11.1 URL canônica do schema
@@ -321,14 +321,14 @@ Implementações PODEM referenciar o schema via `$id` ou URL CDN para validaçã
 
 Os exemplos oficiais desta versão são:
 
-- `spec/1.0.0/examples/geral/minimal.json`
-- `spec/1.0.0/examples/iluminacao/matrix_lookup.json`
-- `spec/1.0.0/examples/moveis/max_of.json`
-- `spec/1.0.0/examples/tapetes/dependencies.json`
-- `spec/1.0.0/examples/geral/multi_price_list.json`
-- `spec/1.0.0/examples/geral/extensions.json`
-- `spec/1.0.0/examples/pisos-e-revestimentos/cost_plus.json`
-- `spec/1.0.0/examples/geral/unit_conversion_volume.json`
+- `spec/latest/examples/geral/minimal.json`
+- `spec/latest/examples/iluminacao/matrix_lookup.json`
+- `spec/latest/examples/moveis/max_of.json`
+- `spec/latest/examples/tapetes/dependencies.json`
+- `spec/latest/examples/geral/multi_price_list.json`
+- `spec/latest/examples/geral/extensions.json`
+- `spec/latest/examples/pisos-e-revestimentos/cost_plus.json`
+- `spec/latest/examples/geral/unit_conversion_volume.json`
 
 Cada manifesto acima referencia seus produtos em subpastas `products/`, com um arquivo JSON por produto.
 
@@ -348,12 +348,12 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `unit`: unidade base do produto na qual `base_price` é cotado (default implícito: `"un"`).
 - `sku`: código identificador do produto no sistema comercial/ERP.
 - `gtin`: código de barras global (EAN/GTIN) no padrão GS1.
-- `imageRef`: referência a imagem com URL, tipo e rótulo opcional.
+- `image`: referência a imagem com URL, tipo e rótulo opcional.
 - `measure`: objeto com valor numérico e unidade de medida.
-- `dimensionsObj`: objeto com largura, altura, profundidade e unidade.
+- `physical_dimensions`: objeto com largura, altura, profundidade e unidade.
 - `profile`: schema de extensão por vertical que padroniza campos `x-*`.
 
-## 15. Conformidade PACP v1.0.0
+## 15. Conformidade PACP PACP
 
 Um arquivo é PACP compliant quando:
 
@@ -371,4 +371,4 @@ Um arquivo é PACP compliant quando:
 - [ ] Quando `unit` e `sales_unit` coexistem, `sales_unit.requested_unit` é igual a `product.unit`.
 - [ ] Permite e preserva extensões `x-*`.
 - [ ] Quando declara `profiles`, usa IDs válidos de profiles oficiais ou customizados.
-- [ ] Valida contra `spec/1.0.0/pacp.schema.json`.
+- [ ] Valida contra `spec/latest/pacp.schema.json`.

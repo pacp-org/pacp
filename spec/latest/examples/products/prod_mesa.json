@@ -1,0 +1,23 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_maxof",
+  "product": {
+    "id": "prod_mesa",
+    "name": "Mesa de Jantar Artisan",
+    "sku": "MES-ART-001",
+    "base_price": 0,
+    "weight": { "value": 42, "unit": "kg" },
+    "dimensions": { "width": 160, "height": 78, "depth": 90, "unit": "cm" },
+    "attributes": [
+      { "id": "material" },
+      { "id": "acabamento" }
+    ],
+    "options": [
+      { "id": "opt_mdf", "attribute_id": "material", "value": "MDF" },
+      { "id": "opt_carvalho", "attribute_id": "material", "value": "CARVALHO" },
+      { "id": "opt_natural", "attribute_id": "acabamento", "value": "NATURAL" },
+      { "id": "opt_laqueado", "attribute_id": "acabamento", "value": "LAQUEADO" }
+    ],
+    "ruleset_ids": ["rs_maxof", "rs_imposto"]
+  }
+}

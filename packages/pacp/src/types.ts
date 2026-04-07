@@ -2,7 +2,7 @@ export type ScalarValue = string | number | boolean;
 
 export type ImageType = "MAIN" | "DETAIL" | "AMBIANCE" | "TECHNICAL" | "OTHER";
 
-export interface ImageRef {
+export interface Image {
   url: string;
   label?: string;
   type?: ImageType;
@@ -13,7 +13,7 @@ export interface Measure {
   unit: string;
 }
 
-export interface DimensionsObj {
+export interface PhysicalDimensions {
   width?: number;
   height?: number;
   depth?: number;
@@ -26,14 +26,14 @@ export interface AttributeRef {
 }
 
 export interface AttributeValue {
-  attributeId: string;
+  attribute_id: string;
   value: ScalarValue;
   label?: string;
 }
 
 export interface Option {
   id: string;
-  attributeId: string;
+  attribute_id: string;
   value: ScalarValue;
   label?: string;
 }
@@ -41,15 +41,15 @@ export interface Option {
 export interface LotPolicy {
   required: boolean;
   source: "CONTEXT" | "ATTRIBUTE";
-  contextKey?: string;
-  attributeId?: string;
+  context_key?: string;
+  attribute_id?: string;
 }
 
 export interface SalesUnit {
   requested_unit: string;
   sell_unit: string;
   quantity_per_sell_unit: number;
-  rounding: "CEIL";
+  rounding: "CEIL" | "FLOOR" | "ROUND" | "HALF_UP";
   min_sell_units?: number;
 }
 
@@ -64,16 +64,16 @@ export interface Product {
   gtin?: string;
   base_price?: number;
   unit?: string;
-  images?: ImageRef[];
+  images?: Image[];
   tags?: string[];
   weight?: Measure;
-  dimensions?: DimensionsObj;
+  dimensions?: PhysicalDimensions;
   lot_policy?: LotPolicy;
   sales_unit?: SalesUnit;
   attributes?: AttributeRef[];
   attribute_values?: AttributeValue[];
   options: Option[];
-  rulesetIds?: string[];
+  ruleset_ids?: string[];
   [key: `x-${string}`]: unknown;
 }
 
@@ -92,8 +92,8 @@ export interface Condition {
 export interface Component {
   label?: string;
   value?: number;
-  tableId?: string;
-  optionId?: string;
+  table_id?: string;
+  option_id?: string;
 }
 
 export type RuleOperation =
@@ -108,14 +108,14 @@ export interface Rule {
   when?: Condition;
   value?: number;
   percent?: number;
-  tableId?: string;
+  table_id?: string;
   components?: Component[];
   precision?: number;
   max?: number;
   min?: number;
   fallback?: number;
-  optionId?: string;
-  optionIds?: string[];
+  option_id?: string;
+  option_ids?: string[];
   [key: `x-${string}`]: unknown;
 }
 
@@ -126,11 +126,11 @@ export interface Ruleset {
   [key: `x-${string}`]: unknown;
 }
 
-export interface Dimension {
+export interface LookupAxis {
   key: string;
   source: "ATTRIBUTE" | "CONTEXT" | "LITERAL";
-  attributeId?: string;
-  contextKey?: string;
+  attribute_id?: string;
+  context_key?: string;
   literal?: ScalarValue;
 }
 
@@ -142,18 +142,17 @@ export interface TableRow {
 export interface Table {
   id: string;
   type: "LOOKUP";
-  dimensions: Dimension[];
+  dimensions: LookupAxis[];
   rows: TableRow[];
-  keys?: (string | { optionId?: string; id?: string; name?: string })[];
 }
 
 export interface Dependency {
   id: string;
   type: "REQUIRES" | "IMPLIES" | "AVAILABLE_OPTIONS_WHEN";
-  productId?: string;
-  optionId?: string;
-  requiresOptionIds?: string[];
-  allowedOptionIds?: string[];
+  product_id?: string;
+  option_id?: string;
+  requires_option_ids?: string[];
+  allowed_option_ids?: string[];
   when?: Condition;
 }
 
@@ -162,8 +161,8 @@ export interface Constraint {
   type: "DENY";
   when: Condition;
   message: string;
-  productId?: string;
-  optionIds?: string[];
+  product_id?: string;
+  option_ids?: string[];
 }
 
 export interface PriceList {
@@ -194,7 +193,7 @@ export interface Context {
   lot_id?: string;
   requested_quantity?: number;
   requested_unit?: string;
-  [key: `x-${string}`]: unknown;
+  [key: string]: ScalarValue | undefined;
 }
 
 export interface Pricing {
@@ -202,7 +201,6 @@ export interface Pricing {
 }
 
 export interface CatalogDocument {
-  spec: "1.0.0";
   document_type: "CATALOG";
   catalog: Catalog;
   rulesets: Ruleset[];
@@ -218,7 +216,6 @@ export interface CatalogDocument {
 }
 
 export interface ProductDocument {
-  spec: "1.0.0";
   document_type: "PRODUCT";
   catalog_id: string;
   product: Product;

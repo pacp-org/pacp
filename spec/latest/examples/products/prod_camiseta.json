@@ -1,0 +1,23 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_multi_pl",
+  "product": {
+    "id": "prod_camiseta",
+    "name": "Camiseta Basica Algodao",
+    "sku": "CAM-BAS-001",
+    "category": "Vestuario",
+    "base_price": 0,
+    "attributes": [
+      { "id": "tamanho" },
+      { "id": "cor" }
+    ],
+    "options": [
+      { "id": "opt_p", "attribute_id": "tamanho", "value": "P" },
+      { "id": "opt_m", "attribute_id": "tamanho", "value": "M" },
+      { "id": "opt_g", "attribute_id": "tamanho", "value": "G" },
+      { "id": "opt_branca", "attribute_id": "cor", "value": "BRANCA" },
+      { "id": "opt_preta", "attribute_id": "cor", "value": "PRETA" }
+    ],
+    "ruleset_ids": ["rs_preco_brl"]
+  }
+}

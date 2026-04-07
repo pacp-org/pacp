@@ -16,7 +16,7 @@ export default defineConfig({
     const fs = await import("node:fs");
     const path = await import("node:path");
 
-    const specDir = path.resolve("../../spec/1.0.0");
+    const specDir = path.resolve("../../spec/latest");
     const distDir = path.resolve("dist");
     const profilesDist = path.join(distDir, "profiles");
 

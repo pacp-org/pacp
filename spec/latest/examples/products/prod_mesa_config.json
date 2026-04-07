@@ -1,0 +1,30 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_deps",
+  "product": {
+    "id": "prod_mesa_config",
+    "name": "Mesa Configuravel",
+    "sku": "MES-CFG-001",
+    "base_price": 0,
+    "attributes": [
+      { "id": "tampo" },
+      { "id": "material" },
+      { "id": "cor" },
+      { "id": "uso" },
+      { "id": "vidro_tipo" }
+    ],
+    "options": [
+      { "id": "opt_tampo_madeira", "attribute_id": "tampo", "value": "MADEIRA" },
+      { "id": "opt_tampo_vidro", "attribute_id": "tampo", "value": "VIDRO" },
+      { "id": "opt_material_laca", "attribute_id": "material", "value": "LACA" },
+      { "id": "opt_material_natural", "attribute_id": "material", "value": "NATURAL" },
+      { "id": "opt_cor_branca", "attribute_id": "cor", "value": "BRANCA" },
+      { "id": "opt_cor_preta", "attribute_id": "cor", "value": "PRETA" },
+      { "id": "opt_uso_indoor", "attribute_id": "uso", "value": "INDOOR" },
+      { "id": "opt_uso_outdoor", "attribute_id": "uso", "value": "OUTDOOR" },
+      { "id": "opt_vidro_temperado", "attribute_id": "vidro_tipo", "value": "TEMPERADO" },
+      { "id": "opt_vidro_comum", "attribute_id": "vidro_tipo", "value": "COMUM" }
+    ],
+    "ruleset_ids": ["rs_base"]
+  }
+}

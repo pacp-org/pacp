@@ -2,90 +2,42 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
-### Added (2026-04-06) — CDN pública para schema e profiles
+## [Unreleased] - 2026-04-06 — Schema Refactoring
 
-- Schema e profiles disponíveis via CDN pública jsDelivr (zero config).
-- URL canônica `@latest` resolve automaticamente para a última versão npm.
-- `$id` do schema atualizado para `https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json`.
-- `spec/latest.json` inclui campo `cdn` com base URL do CDN.
-- Seção "CDN / URLs públicas" adicionada ao `README.md`.
-- Seção 11.1 "URL canônica do schema" adicionada à spec.
+### Breaking Changes
 
-### Added (2026-04-06) — Unidade base do produto
+- **Removido campo `spec`** dos documentos CATALOG e PRODUCT. A versão da spec agora vive apenas em `spec/latest.json`.
+- **Normalização snake_case** em todos os field names de documentos:
+  - `attributeId` → `attribute_id`
+  - `optionId` → `option_id`
+  - `optionIds` → `option_ids`
+  - `tableId` → `table_id`
+  - `contextKey` → `context_key`
+  - `rulesetIds` → `ruleset_ids`
+  - `productId` → `product_id`
+  - `requiresOptionIds` → `requires_option_ids`
+  - `allowedOptionIds` → `allowed_option_ids`
+- **Removido `table.keys`** (redundante com `table.dimensions`).
+- **`condition`** agora exige pelo menos `all` ou `any` (não aceita objeto vazio).
 
-- Campo opcional `product.unit` (`string`) para indicar a unidade base na qual `base_price` é cotado.
-- Default implícito `"un"` quando ausente.
-- Regra de consistência: quando `unit` e `sales_unit` coexistem, `sales_unit.requested_unit` DEVE ser igual a `product.unit`.
-- Validador CLI: novo check `UNIT_SALES_UNIT_MISMATCH`.
-- Tipo `Product` no pacote npm atualizado com `unit?: string`.
-- Exemplos atualizados: `prod_tinta` (`"L"`), `prod_servico` (`"m2"`), `prod_card` (`"un"`).
+### Changed
 
-### Compatibility (2026-04-06)
+- **Diretório `spec/1.0.0/`** renomeado para **`spec/latest/`**.
+- **`$defs` renomeados** para snake_case com nomes semânticos claros:
+  - `dimension` → `lookup_axis` (eixo de tabela de lookup, não confundir com dimensões físicas)
+  - `dimensionsObj` → `physical_dimensions`
+  - `imageRef` → `image`
+  - Todos os demais: camelCase → snake_case
+- **`context`** agora aceita chaves arbitrárias (`additionalProperties: scalar_value`) além das pré-definidas.
+- **`sales_unit.rounding`** expandido: `CEIL`, `FLOOR`, `ROUND`, `HALF_UP`.
+- **`dependency`** com validação condicional por tipo (`REQUIRES` exige `requires_option_ids`, `AVAILABLE_OPTIONS_WHEN` exige `allowed_option_ids` + `when`).
 
-- Mudança backward-compatible: `unit` é opcional, documentos existentes continuam válidos.
+### Removed
 
-## [1.0.0] - 2026-02-13
+- Viewer (`tools/viewer/`) removido para reconstrução futura.
+- Exemplos antigos (incluindo `loja-teste/`) removidos e substituídos por 6 exemplos didáticos novos.
+- Constante `SPEC_VERSION` removida do pacote npm.
 
 ### Added
 
-- Especificação normativa inicial em `spec/1.0.0/pacp.md`.
-- JSON Schema oficial em `spec/1.0.0/pacp.schema.json`.
-- Exemplos oficiais em `spec/1.0.0/examples/`.
-- Guias operacionais em `docs/`.
-- CLI mínima de validação em `tools/validator/`.
-- Documentos de publicação na raiz (`LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `README.md`).
-
-### Added (2026-03-02)
-
-- Campo opcional `product.reference` para identificação de referência comercial/ERP do produto.
-- Campo opcional `product.category` para classificação simples de categoria no nível do produto.
-- Campo opcional `product.attribute_values` para declarar valores fixos de atributos no nível do produto.
-- Arquivo `spec/latest.json` como ponteiro estável para a última spec publicada.
-
-### Compatibility (2026-03-02)
-
-- Mudança backward-compatible: nenhum campo obrigatório foi alterado.
-- Documentos `v1.0.0` continuam válidos; os novos campos são opcionais.
-
-### Changed (2026-03-12) — Core Universal + Extension Profiles
-
-**BREAKING:** Campo `product.reference` renomeado para `product.sku`.
-
-**Campos universais adicionados ao `product`** (todos opcionais):
-
-- `sku` (substitui `reference`): código SKU do produto.
-- `manufacturer`: fabricante do produto.
-- `brand`: marca comercial.
-- `description`: descrição legível do produto.
-- `gtin`: código de barras GS1 (EAN-8/13, GTIN-14).
-- `images`: array de referências a imagens (`imageRef` com `url`, `label`, `type`).
-- `tags`: tags livres para busca e classificação.
-- `weight`: peso com valor e unidade (`measure`).
-- `dimensions`: largura, altura, profundidade com unidade (`dimensionsObj`).
-
-**Novos `$defs` no schema:** `imageRef`, `measure`, `dimensionsObj`.
-
-**Extension Profiles:**
-
-- Campo opcional `profiles` adicionado a `catalogDocument` e `productDocument`.
-- Profiles oficiais em `spec/1.0.0/profiles/`:
-  - `moveis.schema.json` — Móveis e Alta Decoração.
-  - `iluminacao.schema.json` — Iluminação.
-  - `pisos-revestimentos.schema.json` — Pisos e Revestimentos.
-  - `fiscal-br.schema.json` — Dados Fiscais Brasil.
-
-**Validador atualizado:**
-
-- Suporte a validação de extensões `x-*` contra profile schemas declarados.
-- Detecção de profiles desconhecidos (`UNKNOWN_PROFILE`).
-
-**Exemplos atualizados:**
-
-- Produtos enriquecidos com campos universais e extensões de profile.
-- Catálogos de verticais declaram `profiles`.
-
-### Compatibility (2026-03-12)
-
-- `product.reference` → `product.sku` é **breaking change** (pre-release).
-- Todos os demais campos adicionados são opcionais.
-- Profiles são opcionais e aditivos.
+- 6 exemplos novos: `minimal`, `matrix_lookup`, `max_of_components`, `dependencies`, `multi_price_list`, `extensions`.

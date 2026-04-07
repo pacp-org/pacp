@@ -1,22 +1,40 @@
-# Exemplos oficiais PACP v1.0.0
+# Exemplos Oficiais PACP
 
-Este diretório contém exemplos curtos e didáticos para cobrir cenários reais de precificação sem expansão massiva de SKUs.
+Cada exemplo demonstra um aspecto especifico da spec. Todos os JSONs validam contra `spec/latest/pacp.schema.json`.
 
-Cada exemplo usa:
-- 1 manifesto `CATALOG` (arquivo principal do cenário).
-- 1 ou mais documentos `PRODUCT` em subpasta `products/` (um arquivo por produto).
+## Exemplos
 
-## Estrutura por setor
+| Arquivo | O que demonstra |
+|---------|-----------------|
+| `minimal.json` | Catalogo minimo: 1 produto, 2 atributos, 1 regra ADD |
+| `matrix_lookup.json` | Tabela matricial (largura x acabamento) com operacao LOOKUP |
+| `max_of_components.json` | Agregacao MAX_OF entre 2 tabelas + PERCENT_OF no TOTAL |
+| `dependencies.json` | REQUIRES, AVAILABLE_OPTIONS_WHEN e DENY constraint |
+| `multi_price_list.json` | Multiplas listas de preco selecionadas por context |
+| `extensions.json` | Campos x-* em catalogo, produto, regra e dicionarios |
 
-- `geral/minimal.json`: produto simples com regra `ADD`.
-- `geral/multi_price_list.json`: múltiplas price lists e seleção por `context`.
-- `geral/extensions.json`: uso compatível de extensões `x-*`.
-- `moveis/max_of.json`: agregação `MAX_OF` entre componentes.
-- `iluminacao/matrix_lookup.json`: tabela `LOOKUP` com dimensões e célula.
-- `tapetes/dependencies.json`: separação de `dependencies` e `constraints`.
-- `pisos-e-revestimentos/cost_plus.json`: `COST_PLUS` com lote obrigatório e conversão `m2` -> `box`.
-- `geral/unit_conversion_volume.json`: conversão genérica `L` -> `galao` com arredondamento `CEIL`.
+## Estrutura
 
-Cada pasta representa um setor de referência. Os exemplos são pequenos e reaproveitáveis para outros domínios.
+```
+examples/
+├── minimal.json
+├── matrix_lookup.json
+├── max_of_components.json
+├── dependencies.json
+├── multi_price_list.json
+├── extensions.json
+└── products/
+    ├── prod_cadeira.json
+    ├── prod_banner.json
+    ├── prod_mesa.json
+    ├── prod_mesa_config.json
+    ├── prod_camiseta.json
+    └── prod_sofa.json
+```
 
-Todos os exemplos DEVEM validar em `spec/1.0.0/pacp.schema.json`.
+## Validacao
+
+```bash
+cd tools/validator
+npm run validate:examples
+```

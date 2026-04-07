@@ -19,13 +19,10 @@ npm install @pacp/spec ajv ajv-formats
 ### Schema e profiles (sem dependências extras)
 
 ```typescript
-import { schema, profiles, profileIds, SPEC_VERSION } from '@pacp/spec';
+import { schema, profiles, profileIds } from '@pacp/spec';
 
-// JSON Schema completo do PACP v1.0.0
-console.log(schema.$id); // "https://pacp.dev/spec/1.0.0/pacp.schema.json"
-
-// Versão da spec
-console.log(SPEC_VERSION); // "1.0.0"
+// JSON Schema completo do PACP
+console.log(schema.$id);
 
 // Extension profiles disponíveis
 console.log(profileIds); // ["moveis", "iluminacao", "pisos-revestimentos", "fiscal-br"]
@@ -40,7 +37,6 @@ console.log(profiles.moveis.title); // "PACP Profile: Moveis e Alta Decoracao"
 import { validate } from '@pacp/spec';
 
 const catalogDocument = {
-  spec: '1.0.0',
   document_type: 'CATALOG',
   catalog: { id: 'meu_catalogo' },
   rulesets: [
@@ -80,9 +76,10 @@ import type {
   Dependency,
   Context,
   Option,
-  ImageRef,
+  Image,
   Measure,
-  DimensionsObj,
+  PhysicalDimensions,
+  LookupAxis,
   ValidationResult,
 } from '@pacp/spec';
 
@@ -96,7 +93,7 @@ const product: Product = {
   weight: { value: 45, unit: 'kg' },
   dimensions: { width: 160, height: 78, depth: 90, unit: 'cm' },
   options: [
-    { id: 'opt_madeira', attributeId: 'material', value: 'CARVALHO' },
+    { id: 'opt_madeira', attribute_id: 'material', value: 'CARVALHO' },
   ],
   'x-finish': 'Natural envernizado',
   'x-warranty_months': 24,
@@ -122,11 +119,10 @@ const fiscal = require('@pacp/spec/profiles/fiscal-br.json');
 
 | Export | Descrição |
 |--------|-----------|
-| `schema` | JSON Schema completo do PACP v1.0.0 |
+| `schema` | JSON Schema completo do PACP |
 | `profiles` | Objeto com todos os profiles oficiais |
 | `profileIds` | Array com IDs dos profiles: `moveis`, `iluminacao`, `pisos-revestimentos`, `fiscal-br` |
 | `validate()` | Função de validação (requer `ajv` + `ajv-formats`) |
-| `SPEC_VERSION` | Constante `"1.0.0"` |
 | Tipos TS | `CatalogDocument`, `ProductDocument`, `Product`, `Rule`, `Table`, etc. |
 
 ## Extension Profiles
@@ -140,7 +136,7 @@ const fiscal = require('@pacp/spec/profiles/fiscal-br.json');
 
 ## Links
 
-- [Spec v1.0.0](https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.md)
+- [Spec](https://github.com/pacp-org/pacp/blob/main/spec/latest/pacp.md)
 - [Guia de integração](https://github.com/pacp-org/pacp/blob/main/docs/integration-guide.md)
 - [Site](https://pacp-org.github.io/pacp/)
 - [GitHub](https://github.com/pacp-org/pacp)

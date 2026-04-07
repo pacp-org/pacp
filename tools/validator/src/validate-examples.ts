@@ -33,7 +33,7 @@ function collectJsonFilesRecursively(rootDir: string): string[] {
 }
 
 function main(): void {
-  const examplesDir = path.resolve(__dirname, "../../../spec/1.0.0/examples");
+  const examplesDir = path.resolve(__dirname, "../../../spec/latest/examples");
   if (!fs.existsSync(examplesDir)) {
     console.log(`Diretorio de exemplos nao encontrado: ${examplesDir}`);
     process.exit(0);

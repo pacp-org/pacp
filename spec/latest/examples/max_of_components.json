@@ -1,0 +1,64 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_maxof",
+    "name": "Catalogo MAX_OF - Moveis"
+  },
+  "tables": [
+    {
+      "id": "tbl_base_material",
+      "type": "LOOKUP",
+      "dimensions": [
+        { "key": "material", "source": "ATTRIBUTE", "attribute_id": "material" }
+      ],
+      "rows": [
+        { "key": { "material": "MDF" }, "value": 450 },
+        { "key": { "material": "CARVALHO" }, "value": 980 }
+      ]
+    },
+    {
+      "id": "tbl_top_acabamento",
+      "type": "LOOKUP",
+      "dimensions": [
+        { "key": "acabamento", "source": "ATTRIBUTE", "attribute_id": "acabamento" }
+      ],
+      "rows": [
+        { "key": { "acabamento": "NATURAL" }, "value": 400 },
+        { "key": { "acabamento": "LAQUEADO" }, "value": 700 }
+      ]
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_maxof",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_maior_componente",
+          "operation": "MAX_OF",
+          "components": [
+            { "label": "material base", "table_id": "tbl_base_material" },
+            { "label": "acabamento top", "table_id": "tbl_top_acabamento" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rs_imposto",
+      "target": "TOTAL",
+      "rules": [
+        {
+          "id": "rule_icms",
+          "operation": "PERCENT_OF",
+          "percent": 18
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_mesa",
+      "path": "products/prod_mesa.json"
+    }
+  ]
+}

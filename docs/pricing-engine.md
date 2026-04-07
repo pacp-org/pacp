@@ -6,7 +6,7 @@ Este guia descreve como um engine compatível com PACP DEVE processar um documen
 
 ## Pipeline recomendado
 
-1. Carregar JSON e validar contra `spec/1.0.0/pacp.schema.json`.
+1. Carregar JSON e validar contra `spec/latest/pacp.schema.json`.
 2. Rodar checks semânticos mínimos (IDs, referências e lookup).
 3. Avaliar `dependencies` e `constraints` para bloquear combinações inválidas.
 4. Validar lote obrigatório (`lot_policy`) e entrada de quantidade solicitada (`context.requested_quantity`, `context.requested_unit`) quando aplicável.

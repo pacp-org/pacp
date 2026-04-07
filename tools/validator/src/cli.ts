@@ -142,16 +142,16 @@ function checkBrokenReferences(
 
   const obj = node as Record<string, unknown>;
   const singularRef: Record<string, keyof CollectedIds> = {
-    productId: "products",
-    tableId: "tables",
-    rulesetId: "rulesets",
-    optionId: "options"
+    product_id: "products",
+    table_id: "tables",
+    ruleset_id: "rulesets",
+    option_id: "options"
   };
   const pluralRef: Record<string, keyof CollectedIds> = {
-    productIds: "products",
-    tableIds: "tables",
-    rulesetIds: "rulesets",
-    optionIds: "options"
+    product_ids: "products",
+    table_ids: "tables",
+    ruleset_ids: "rulesets",
+    option_ids: "options"
   };
 
   for (const [key, value] of Object.entries(obj)) {
@@ -184,69 +184,38 @@ function checkBrokenReferences(
   }
 }
 
-function normalizeLookupKeyId(entry: unknown): string | null {
-  if (typeof entry === "string") {
-    return entry;
-  }
-  if (!entry || typeof entry !== "object") {
-    return null;
-  }
-  const obj = entry as Record<string, unknown>;
-  if (typeof obj.optionId === "string") {
-    return obj.optionId;
-  }
-  if (typeof obj.id === "string") {
-    return obj.id;
-  }
-  if (typeof obj.name === "string") {
-    return obj.name;
-  }
-  return null;
-}
-
-function checkLookupKeys(doc: Record<string, unknown>, ids: CollectedIds, issues: Issue[]): void {
+function checkLookupDimensions(doc: Record<string, unknown>, ids: CollectedIds, issues: Issue[]): void {
   const tables = getArray<Record<string, unknown>>(doc.tables);
   for (let tIndex = 0; tIndex < tables.length; tIndex += 1) {
     const table = tables[tIndex];
-    const tableType = String(table.type ?? table.kind ?? "").toUpperCase();
-    const isLookup = tableType === "LOOKUP" || table.lookup === true;
-    if (!isLookup) {
+    const tableType = String(table.type ?? "").toUpperCase();
+    if (tableType !== "LOOKUP") {
       continue;
     }
 
-    const keyEntries = getArray<unknown>(table.keys);
-    const allowedKeys = new Set<string>();
-    for (const entry of keyEntries) {
-      const keyId = normalizeLookupKeyId(entry);
-      if (keyId) {
-        allowedKeys.add(keyId);
-      }
-    }
-
-    for (const keyId of allowedKeys) {
-      if (ids.options.size > 0 && !ids.options.has(keyId)) {
-        issues.push({
-          code: "INVALID_LOOKUP_KEY",
-          path: `/tables[${tIndex}]/keys`,
-          message: `Lookup key invalida: "${keyId}" nao corresponde a nenhuma option.id`
-        });
+    const dimensions = getArray<Record<string, unknown>>(table.dimensions);
+    const dimensionKeys = new Set<string>();
+    for (const dim of dimensions) {
+      const key = dim.key;
+      if (typeof key === "string") {
+        dimensionKeys.add(key);
       }
     }
 
     const rows = getArray<Record<string, unknown>>(table.rows);
     for (let rIndex = 0; rIndex < rows.length; rIndex += 1) {
       const row = rows[rIndex];
-      const rowKey = row.key ?? row.keys;
+      const rowKey = row.key;
       if (!rowKey || typeof rowKey !== "object" || Array.isArray(rowKey)) {
         continue;
       }
       const rowKeyObject = rowKey as Record<string, unknown>;
       for (const rowKeyName of Object.keys(rowKeyObject)) {
-        if (allowedKeys.size > 0 && !allowedKeys.has(rowKeyName)) {
+        if (dimensionKeys.size > 0 && !dimensionKeys.has(rowKeyName)) {
           issues.push({
             code: "INVALID_LOOKUP_KEY",
             path: `/tables[${tIndex}]/rows[${rIndex}]/key/${rowKeyName}`,
-            message: `Row da tabela lookup usa key invalida: "${rowKeyName}"`
+            message: `Row da tabela lookup usa key invalida: "${rowKeyName}" (nao declarada em dimensions)`
           });
         }
       }
@@ -304,11 +273,11 @@ function checkRulesSemanticBasics(doc: Record<string, unknown>, issues: Issue[])
           message: "Operacao PERCENT_OF exige campo numerico \"percent\""
         });
       }
-      if (op === "LOOKUP" && typeof rule.tableId !== "string") {
+      if (op === "LOOKUP" && typeof rule.table_id !== "string") {
         issues.push({
           code: "INVALID_OPERATION_PARAMS",
-          path: `${rulePath}/tableId`,
-          message: "Operacao LOOKUP exige \"tableId\""
+          path: `${rulePath}/table_id`,
+          message: "Operacao LOOKUP exige \"table_id\""
         });
       }
       if ((op === "MAX_OF" || op === "MIN_OF") && getArray(rule.components).length < 2) {
@@ -341,7 +310,7 @@ function checkLotAndSalesUnitSemantics(doc: Record<string, unknown>, issues: Iss
       const source = typeof lotPolicy.source === "string" ? lotPolicy.source : "CONTEXT";
 
       if (source === "CONTEXT") {
-        const contextKey = typeof lotPolicy.contextKey === "string" ? lotPolicy.contextKey : "lot_id";
+        const contextKey = typeof lotPolicy.context_key === "string" ? lotPolicy.context_key : "lot_id";
         const lotValue = context[contextKey];
         if (typeof lotValue !== "string" || lotValue.trim().length === 0) {
           issues.push({
@@ -353,14 +322,14 @@ function checkLotAndSalesUnitSemantics(doc: Record<string, unknown>, issues: Iss
       }
 
       if (source === "ATTRIBUTE") {
-        const attributeId = lotPolicy.attributeId;
+        const attributeId = lotPolicy.attribute_id;
         const options = getArray<Record<string, unknown>>(product.options);
-        const hasLotOption = typeof attributeId === "string" && options.some((option) => option.attributeId === attributeId);
+        const hasLotOption = typeof attributeId === "string" && options.some((option) => option.attribute_id === attributeId);
         if (!hasLotOption) {
           issues.push({
             code: "INVALID_LOT_POLICY",
-            path: `${productPath}/lot_policy/attributeId`,
-            message: `Produto "${productId}" exige option com attributeId de lote configurado em lot_policy`
+            path: `${productPath}/lot_policy/attribute_id`,
+            message: `Produto "${productId}" exige option com attribute_id de lote configurado em lot_policy`
           });
         }
       }
@@ -420,11 +389,12 @@ function checkLotAndSalesUnitSemantics(doc: Record<string, unknown>, issues: Iss
       });
     }
 
-    if (rounding !== "CEIL") {
+    const validRoundings = ["CEIL", "FLOOR", "ROUND", "HALF_UP"];
+    if (typeof rounding !== "string" || !validRoundings.includes(rounding)) {
       issues.push({
         code: "INVALID_SALES_UNIT_ROUNDING",
         path: `${productPath}/sales_unit/rounding`,
-        message: `Produto "${productId}" deve usar rounding="CEIL" em sales_unit`
+        message: `Produto "${productId}" deve usar rounding valido (${validRoundings.join(", ")}) em sales_unit`
       });
     }
 
@@ -493,20 +463,20 @@ function checkProductDocumentSemanticBasics(doc: Record<string, unknown>, issues
 
   const lotPolicy = isRecord(product.lot_policy) ? product.lot_policy : null;
   if (lotPolicy?.source === "ATTRIBUTE") {
-    const attributeId = lotPolicy.attributeId;
-    const hasLotOption = typeof attributeId === "string" && options.some((option) => option.attributeId === attributeId);
+    const attributeId = lotPolicy.attribute_id;
+    const hasLotOption = typeof attributeId === "string" && options.some((option) => option.attribute_id === attributeId);
     if (!hasLotOption) {
       issues.push({
         code: "INVALID_LOT_POLICY",
-        path: "/product/lot_policy/attributeId",
-        message: `Produto "${productId}" exige option com attributeId de lote configurado em lot_policy`
+        path: "/product/lot_policy/attribute_id",
+        message: `Produto "${productId}" exige option com attribute_id de lote configurado em lot_policy`
       });
     }
   }
 }
 
 function loadProfileSchema(profileId: string): Record<string, unknown> | null {
-  const profilePath = path.resolve(__dirname, `../../../spec/1.0.0/profiles/${profileId}.schema.json`);
+  const profilePath = path.resolve(__dirname, `../../../spec/latest/profiles/${profileId}.schema.json`);
   if (!fs.existsSync(profilePath)) {
     return null;
   }
@@ -546,7 +516,7 @@ function checkProfileExtensions(
       issues.push({
         code: "UNKNOWN_PROFILE",
         path: "/profiles",
-        message: `Profile "${profileId}" nao encontrado em spec/1.0.0/profiles/`
+        message: `Profile "${profileId}" nao encontrado em spec/latest/profiles/`
       });
       continue;
     }
@@ -668,15 +638,6 @@ function loadProductsFromRefs(
       continue;
     }
 
-    if (typeof refDocData.spec !== "string" || refDocData.spec !== "1.0.0") {
-      issues.push({
-        code: "INVALID_PRODUCT_FILE_SPEC",
-        path: `${refPathPointer}/path`,
-        message: `Arquivo de produto "${refPath}" deve declarar spec="1.0.0"`
-      });
-      continue;
-    }
-
     if (catalogId && refDocData.catalog_id !== catalogId) {
       issues.push({
         code: "INVALID_PRODUCT_CATALOG_ID",
@@ -713,7 +674,7 @@ function loadProductsFromRefs(
 
 function validatePacp(filePath: string): number {
   const absoluteFilePath = path.resolve(process.cwd(), filePath);
-  const schemaPath = path.resolve(__dirname, "../../../spec/1.0.0/pacp.schema.json");
+  const schemaPath = path.resolve(__dirname, "../../../spec/latest/pacp.schema.json");
 
   if (!fs.existsSync(schemaPath)) {
     console.error(`Schema nao encontrado: ${schemaPath}`);
@@ -770,7 +731,7 @@ function validatePacp(filePath: string): number {
 
       const ids = collectIdsAndDuplicates(mergedDoc, issues);
       checkBrokenReferences(mergedDoc, ids, issues);
-      checkLookupKeys(mergedDoc, ids, issues);
+      checkLookupDimensions(mergedDoc, ids, issues);
       checkRulesSemanticBasics(mergedDoc, issues);
       checkLotAndSalesUnitSemantics(mergedDoc, issues);
       checkProfileExtensions(objectDoc, loadedProducts, issues, ajv);

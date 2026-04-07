@@ -2,11 +2,10 @@
   "channel": "latest",
   "published_at": "2026-04-06",
   "cdn": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/",
-  "spec_version": "1.0.0",
   "paths": {
-    "spec": "spec/1.0.0/pacp.md",
-    "schema": "spec/1.0.0/pacp.schema.json",
-    "profiles": "spec/1.0.0/profiles/",
-    "examples": "spec/1.0.0/examples/"
+    "spec": "spec/latest/pacp.md",
+    "schema": "spec/latest/pacp.schema.json",
+    "profiles": "spec/latest/profiles/",
+    "examples": "spec/latest/examples/"
   }
 }

@@ -1,78 +1,47 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/pacp.schema.json",
-  "title": "PACP v1.0.0",
+  "title": "PACP",
   "oneOf": [
-    {
-      "$ref": "#/$defs/catalogDocument"
-    },
-    {
-      "$ref": "#/$defs/productDocument"
-    }
+    { "$ref": "#/$defs/catalog_document" },
+    { "$ref": "#/$defs/product_document" }
   ],
   "$defs": {
-    "catalogDocument": {
+    "catalog_document": {
       "type": "object",
-      "required": ["spec", "document_type", "catalog", "rulesets"],
+      "required": ["document_type", "catalog", "rulesets"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
-        "spec": {
-          "type": "string",
-          "const": "1.0.0"
-        },
-        "document_type": {
-          "type": "string",
-          "const": "CATALOG"
-        },
-        "catalog": {
-          "$ref": "#/$defs/catalog"
-        },
+        "document_type": { "type": "string", "const": "CATALOG" },
+        "catalog": { "$ref": "#/$defs/catalog" },
         "product_refs": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/productRef"
-          }
+          "items": { "$ref": "#/$defs/product_ref" }
         },
-        "context": {
-          "$ref": "#/$defs/context"
-        },
-        "pricing": {
-          "$ref": "#/$defs/pricing"
-        },
+        "context": { "$ref": "#/$defs/context" },
+        "pricing": { "$ref": "#/$defs/pricing" },
         "dictionaries": {
           "type": "object",
           "additionalProperties": true,
-          "patternProperties": {
-            "^x-": true
-          }
+          "patternProperties": { "^x-": true }
         },
         "rulesets": {
           "type": "array",
           "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/ruleset"
-          }
+          "items": { "$ref": "#/$defs/ruleset" }
         },
         "tables": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/table"
-          }
+          "items": { "$ref": "#/$defs/table" }
         },
         "dependencies": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/dependency"
-          }
+          "items": { "$ref": "#/$defs/dependency" }
         },
         "constraints": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/constraint"
-          }
+          "items": { "$ref": "#/$defs/constraint" }
         },
         "profiles": {
           "type": "array",
@@ -80,52 +49,31 @@
         }
       }
     },
-    "productDocument": {
+
+    "product_document": {
       "type": "object",
-      "required": ["spec", "document_type", "catalog_id", "product"],
+      "required": ["document_type", "catalog_id", "product"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
-        "spec": {
-          "type": "string",
-          "const": "1.0.0"
-        },
-        "document_type": {
-          "type": "string",
-          "const": "PRODUCT"
-        },
-        "catalog_id": {
-          "type": "string",
-          "minLength": 1
-        },
-        "product": {
-          "$ref": "#/$defs/product"
-        },
+        "document_type": { "type": "string", "const": "PRODUCT" },
+        "catalog_id": { "type": "string", "minLength": 1 },
+        "product": { "$ref": "#/$defs/product" },
         "rulesets": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/ruleset"
-          }
+          "items": { "$ref": "#/$defs/ruleset" }
         },
         "tables": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/table"
-          }
+          "items": { "$ref": "#/$defs/table" }
         },
         "constraints": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/constraint"
-          }
+          "items": { "$ref": "#/$defs/constraint" }
         },
         "dependencies": {
           "type": "array",
-          "items": {
-            "$ref": "#/$defs/dependency"
-          }
+          "items": { "$ref": "#/$defs/dependency" }
         },
         "profiles": {
           "type": "array",
@@ -133,13 +81,12 @@
         }
       }
     },
-    "productRef": {
+
+    "product_ref": {
       "type": "object",
       "required": ["id", "path"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "path": {
@@ -150,46 +97,43 @@
         }
       }
     },
+
     "catalog": {
       "type": "object",
       "required": ["id"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string", "minLength": 1 },
         "default_price_list_id": { "type": "string", "minLength": 1 },
         "price_lists": {
           "type": "array",
-          "items": { "$ref": "#/$defs/priceList" }
+          "items": { "$ref": "#/$defs/price_list" }
         }
       }
     },
-    "priceList": {
+
+    "price_list": {
       "type": "object",
       "required": ["id", "currency"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "label": { "type": "string" },
         "currency": { "type": "string", "minLength": 3, "maxLength": 3 },
         "context_match": {
           "type": "object",
-          "additionalProperties": { "$ref": "#/$defs/scalarValue" }
+          "additionalProperties": { "$ref": "#/$defs/scalar_value" }
         }
       }
     },
+
     "context": {
       "type": "object",
-      "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "additionalProperties": { "$ref": "#/$defs/scalar_value" },
+      "patternProperties": { "^x-": true },
       "properties": {
         "price_list_id": { "type": "string", "minLength": 1 },
         "region": { "type": "string" },
@@ -200,12 +144,11 @@
         "requested_unit": { "type": "string", "minLength": 1 }
       }
     },
+
     "pricing": {
       "type": "object",
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "calculation_mode": {
           "type": "string",
@@ -213,13 +156,12 @@
         }
       }
     },
+
     "product": {
       "type": "object",
       "required": ["id", "options"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string" },
@@ -233,29 +175,29 @@
         "unit": { "type": "string", "minLength": 1 },
         "images": {
           "type": "array",
-          "items": { "$ref": "#/$defs/imageRef" }
+          "items": { "$ref": "#/$defs/image" }
         },
         "tags": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
         },
         "weight": { "$ref": "#/$defs/measure" },
-        "dimensions": { "$ref": "#/$defs/dimensionsObj" },
-        "lot_policy": { "$ref": "#/$defs/lotPolicy" },
-        "sales_unit": { "$ref": "#/$defs/salesUnit" },
+        "dimensions": { "$ref": "#/$defs/physical_dimensions" },
+        "lot_policy": { "$ref": "#/$defs/lot_policy" },
+        "sales_unit": { "$ref": "#/$defs/sales_unit" },
         "attributes": {
           "type": "array",
-          "items": { "$ref": "#/$defs/attributeRef" }
+          "items": { "$ref": "#/$defs/attribute_ref" }
         },
         "attribute_values": {
           "type": "array",
-          "items": { "$ref": "#/$defs/attributeValue" }
+          "items": { "$ref": "#/$defs/attribute_value" }
         },
         "options": {
           "type": "array",
           "items": { "$ref": "#/$defs/option" }
         },
-        "rulesetIds": {
+        "ruleset_ids": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
         }
@@ -265,9 +207,7 @@
           "if": {
             "properties": {
               "lot_policy": {
-                "properties": {
-                  "source": { "const": "ATTRIBUTE" }
-                },
+                "properties": { "source": { "const": "ATTRIBUTE" } },
                 "required": ["source"]
               }
             },
@@ -275,99 +215,91 @@
           },
           "then": {
             "properties": {
-              "lot_policy": {
-                "required": ["attributeId"]
-              }
+              "lot_policy": { "required": ["attribute_id"] }
             }
           }
         }
       ]
     },
-    "lotPolicy": {
+
+    "lot_policy": {
       "type": "object",
       "required": ["required", "source"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "required": { "type": "boolean" },
         "source": { "type": "string", "enum": ["CONTEXT", "ATTRIBUTE"] },
-        "contextKey": { "type": "string", "minLength": 1 },
-        "attributeId": { "type": "string", "minLength": 1 }
+        "context_key": { "type": "string", "minLength": 1 },
+        "attribute_id": { "type": "string", "minLength": 1 }
       },
       "allOf": [
         {
           "if": { "properties": { "source": { "const": "CONTEXT" } } },
-          "then": { "required": ["contextKey"] }
+          "then": { "required": ["context_key"] }
         },
         {
           "if": { "properties": { "source": { "const": "ATTRIBUTE" } } },
-          "then": { "required": ["attributeId"] }
+          "then": { "required": ["attribute_id"] }
         }
       ]
     },
-    "salesUnit": {
+
+    "sales_unit": {
       "type": "object",
       "required": ["requested_unit", "sell_unit", "quantity_per_sell_unit", "rounding"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "requested_unit": { "type": "string", "minLength": 1 },
         "sell_unit": { "type": "string", "minLength": 1 },
         "quantity_per_sell_unit": { "type": "number", "exclusiveMinimum": 0 },
-        "rounding": { "type": "string", "enum": ["CEIL"] },
+        "rounding": { "type": "string", "enum": ["CEIL", "FLOOR", "ROUND", "HALF_UP"] },
         "min_sell_units": { "type": "integer", "minimum": 1 }
       }
     },
-    "attributeRef": {
+
+    "attribute_ref": {
       "type": "object",
       "required": ["id"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "label": { "type": "string" }
       }
     },
-    "attributeValue": {
+
+    "attribute_value": {
       "type": "object",
-      "required": ["attributeId", "value"],
+      "required": ["attribute_id", "value"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
-        "attributeId": { "type": "string", "minLength": 1 },
+        "attribute_id": { "type": "string", "minLength": 1 },
         "label": { "type": "string" },
-        "value": { "$ref": "#/$defs/scalarValue" }
+        "value": { "$ref": "#/$defs/scalar_value" }
       }
     },
+
     "option": {
       "type": "object",
-      "required": ["id", "attributeId", "value"],
+      "required": ["id", "attribute_id", "value"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
-        "attributeId": { "type": "string", "minLength": 1 },
+        "attribute_id": { "type": "string", "minLength": 1 },
         "label": { "type": "string" },
-        "value": { "$ref": "#/$defs/scalarValue" }
+        "value": { "$ref": "#/$defs/scalar_value" }
       }
     },
+
     "ruleset": {
       "type": "object",
       "required": ["id", "target", "rules"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "target": {
@@ -380,13 +312,12 @@
         }
       }
     },
+
     "rule": {
       "type": "object",
       "required": ["id", "operation"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "priority": { "type": "integer" },
@@ -398,7 +329,7 @@
         },
         "value": { "type": "number" },
         "percent": { "type": "number" },
-        "tableId": { "type": "string", "minLength": 1 },
+        "table_id": { "type": "string", "minLength": 1 },
         "components": {
           "type": "array",
           "items": { "$ref": "#/$defs/component" }
@@ -407,8 +338,8 @@
         "max": { "type": "number" },
         "min": { "type": "number" },
         "fallback": { "type": "number" },
-        "optionId": { "type": "string" },
-        "optionIds": {
+        "option_id": { "type": "string" },
+        "option_ids": {
           "type": "array",
           "items": { "type": "string" }
         }
@@ -428,7 +359,7 @@
         },
         {
           "if": { "properties": { "operation": { "const": "LOOKUP" } } },
-          "then": { "required": ["tableId"] }
+          "then": { "required": ["table_id"] }
         },
         {
           "if": { "properties": { "operation": { "enum": ["MAX_OF", "MIN_OF", "PICK"] } } },
@@ -448,29 +379,31 @@
         }
       ]
     },
+
     "component": {
       "type": "object",
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "label": { "type": "string" },
         "value": { "type": "number" },
-        "tableId": { "type": "string" },
-        "optionId": { "type": "string" }
+        "table_id": { "type": "string" },
+        "option_id": { "type": "string" }
       },
       "anyOf": [
         { "required": ["value"] },
-        { "required": ["tableId"] }
+        { "required": ["table_id"] }
       ]
     },
+
     "condition": {
       "type": "object",
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
+      "anyOf": [
+        { "required": ["all"] },
+        { "required": ["any"] }
+      ],
       "properties": {
         "all": {
           "type": "array",
@@ -482,130 +415,117 @@
         }
       }
     },
+
     "predicate": {
       "type": "object",
       "required": ["fact", "operator"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "fact": { "type": "string" },
         "operator": {
           "type": "string",
           "enum": ["EQ", "NEQ", "IN", "NOT_IN", "GT", "GTE", "LT", "LTE", "EXISTS"]
         },
-        "value": { "$ref": "#/$defs/scalarValue" },
+        "value": { "$ref": "#/$defs/scalar_value" },
         "values": {
           "type": "array",
-          "items": { "$ref": "#/$defs/scalarValue" }
+          "items": { "$ref": "#/$defs/scalar_value" }
         }
       }
     },
+
     "table": {
       "type": "object",
       "required": ["id", "type", "dimensions", "rows"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "type": { "type": "string", "enum": ["LOOKUP"] },
-        "keys": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              { "type": "string" },
-              {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "optionId": { "type": "string" },
-                  "id": { "type": "string" },
-                  "name": { "type": "string" }
-                }
-              }
-            ]
-          }
-        },
         "dimensions": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/dimension" }
+          "items": { "$ref": "#/$defs/lookup_axis" }
         },
         "rows": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/tableRow" }
+          "items": { "$ref": "#/$defs/table_row" }
         }
       }
     },
-    "dimension": {
+
+    "lookup_axis": {
       "type": "object",
       "required": ["key", "source"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "key": { "type": "string" },
         "source": { "type": "string", "enum": ["ATTRIBUTE", "CONTEXT", "LITERAL"] },
-        "attributeId": { "type": "string" },
-        "contextKey": { "type": "string" },
-        "literal": { "$ref": "#/$defs/scalarValue" }
+        "attribute_id": { "type": "string" },
+        "context_key": { "type": "string" },
+        "literal": { "$ref": "#/$defs/scalar_value" }
       }
     },
-    "tableRow": {
+
+    "table_row": {
       "type": "object",
       "required": ["key", "value"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "key": {
           "type": "object",
-          "additionalProperties": { "$ref": "#/$defs/scalarValue" }
+          "additionalProperties": { "$ref": "#/$defs/scalar_value" }
         },
         "value": { "type": "number" }
       }
     },
+
     "dependency": {
       "type": "object",
       "required": ["id", "type"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "type": { "type": "string", "enum": ["REQUIRES", "IMPLIES", "AVAILABLE_OPTIONS_WHEN"] },
-        "productId": { "type": "string" },
-        "optionId": { "type": "string" },
-        "requiresOptionIds": {
+        "product_id": { "type": "string" },
+        "option_id": { "type": "string" },
+        "requires_option_ids": {
           "type": "array",
           "items": { "type": "string" }
         },
-        "allowedOptionIds": {
+        "allowed_option_ids": {
           "type": "array",
           "items": { "type": "string" }
         },
         "when": { "$ref": "#/$defs/condition" }
-      }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "REQUIRES" } } },
+          "then": { "required": ["option_id", "requires_option_ids"] }
+        },
+        {
+          "if": { "properties": { "type": { "const": "AVAILABLE_OPTIONS_WHEN" } } },
+          "then": { "required": ["allowed_option_ids", "when"] }
+        }
+      ]
     },
+
     "constraint": {
       "type": "object",
       "required": ["id", "type", "when", "message"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "type": { "type": "string", "enum": ["DENY"] },
-        "productId": { "type": "string" },
-        "optionIds": {
+        "product_id": { "type": "string" },
+        "option_ids": {
           "type": "array",
           "items": { "type": "string" }
         },
@@ -613,13 +533,12 @@
         "message": { "type": "string", "minLength": 1 }
       }
     },
-    "imageRef": {
+
+    "image": {
       "type": "object",
       "required": ["url"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "url": { "type": "string", "format": "uri" },
         "label": { "type": "string" },
@@ -629,25 +548,23 @@
         }
       }
     },
+
     "measure": {
       "type": "object",
       "required": ["value", "unit"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "value": { "type": "number", "exclusiveMinimum": 0 },
         "unit": { "type": "string", "minLength": 1 }
       }
     },
-    "dimensionsObj": {
+
+    "physical_dimensions": {
       "type": "object",
       "required": ["unit"],
       "additionalProperties": false,
-      "patternProperties": {
-        "^x-": true
-      },
+      "patternProperties": { "^x-": true },
       "properties": {
         "width": { "type": "number", "exclusiveMinimum": 0 },
         "height": { "type": "number", "exclusiveMinimum": 0 },
@@ -655,7 +572,8 @@
         "unit": { "type": "string", "minLength": 1 }
       }
     },
-    "scalarValue": {
+
+    "scalar_value": {
       "type": ["string", "number", "boolean"]
     }
   }

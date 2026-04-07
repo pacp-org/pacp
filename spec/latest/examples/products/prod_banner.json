@@ -1,0 +1,21 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_lookup",
+  "product": {
+    "id": "prod_banner",
+    "name": "Banner LED Slim",
+    "sku": "BNR-LED-001",
+    "base_price": 0,
+    "attributes": [
+      { "id": "largura" },
+      { "id": "acabamento" }
+    ],
+    "options": [
+      { "id": "opt_1m", "attribute_id": "largura", "value": "1m" },
+      { "id": "opt_2m", "attribute_id": "largura", "value": "2m" },
+      { "id": "opt_fosco", "attribute_id": "acabamento", "value": "FOSCO" },
+      { "id": "opt_brilho", "attribute_id": "acabamento", "value": "BRILHO" }
+    ],
+    "ruleset_ids": ["rs_lookup"]
+  }
+}

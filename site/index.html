@@ -27,7 +27,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-brand">PACP<span>.</span><span class="nav-version">v1.0.0</span></a>
+    <a href="#" class="nav-brand">PACP<span>.</span></a>
     <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
     </button>
@@ -38,7 +38,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <li><a href="#precificacao">Motor de preços</a></li>
       <li><a href="#profiles">Profiles</a></li>
       <li><a href="#integrar">Começar</a></li>
-      <li><a href="viewer/">Visualizador</a></li>
       <li>
         <a href="https://github.com/pacp-org/pacp" target="_blank" rel="noopener noreferrer" class="nav-gh">
           <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -264,7 +263,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="terminal-body">
 <pre><span class="json-bracket">{</span>
-  <span class="json-key">"spec"</span>: <span class="json-str">"1.0.0"</span>,
   <span class="json-key">"document_type"</span>: <span class="json-str">"CATALOG"</span>,
   <span class="json-key">"catalog"</span>: <span class="json-bracket">{</span>
     <span class="json-key">"id"</span>: <span class="json-str">"cat_moveis_2026"</span>,
@@ -290,7 +288,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div class="terminal-body">
 <pre><span class="json-bracket">{</span>
-  <span class="json-key">"spec"</span>: <span class="json-str">"1.0.0"</span>,
   <span class="json-key">"document_type"</span>: <span class="json-str">"PRODUCT"</span>,
   <span class="json-key">"catalog_id"</span>: <span class="json-str">"cat_moveis_2026"</span>,
   <span class="json-key">"product"</span>: <span class="json-bracket">{</span>
@@ -356,7 +353,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <tr><td class="op-name">ADD</td><td class="op-desc">Soma um valor fixo ao preço</td><td class="op-param">value: 10</td></tr>
               <tr><td class="op-name">PERCENT_OF</td><td class="op-desc">Aplica percentual sobre o valor atual</td><td class="op-param">percent: 20</td></tr>
               <tr><td class="op-name">OVERRIDE</td><td class="op-desc">Substitui o valor corrente</td><td class="op-param">value: 50</td></tr>
-              <tr><td class="op-name">LOOKUP</td><td class="op-desc">Busca preço em tabela matricial</td><td class="op-param">tableId: "tbl_preco"</td></tr>
+              <tr><td class="op-name">LOOKUP</td><td class="op-desc">Busca preço em tabela matricial</td><td class="op-param">table_id: "tbl_preco"</td></tr>
               <tr><td class="op-name">MAX_OF</td><td class="op-desc">Maior valor entre componentes</td><td class="op-param">components: [...]</td></tr>
               <tr><td class="op-name">MIN_OF</td><td class="op-desc">Menor valor entre componentes</td><td class="op-param">components: [...]</td></tr>
               <tr><td class="op-name">PICK</td><td class="op-desc">Primeiro componente elegível</td><td class="op-param">components: [...]</td></tr>
@@ -611,7 +608,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <span class="comment"># Validar um arquivo</span>
 <span class="prompt">$</span> <span class="cmd">npm run validate -- \</span>
-    <span class="cmd">../../spec/1.0.0/examples/moveis/max_of.json</span>
+    <span class="cmd">../../spec/latest/examples/max_of_components.json</span>
 
 <span class="json-str">  ✓ Schema válido</span>
 <span class="json-str">  ✓ Referências OK</span>
@@ -637,23 +634,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       Tudo que você precisa para entender, implementar e validar o PACP.
     </p>
     <div class="resources-grid">
-      <a href="viewer/" class="resource-card">
-        <div class="resource-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        </div>
-        <h3>Visualizador PACP</h3>
-        <p>Envie um JSON ou carregue exemplos. Pesquise por SKU, filtre categorias e veja a formação de preços ao selecionar atributos.</p>
-        <span class="resource-link">Abrir visualizador <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-      </a>
-      <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.md" class="resource-card" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/pacp-org/pacp/blob/main/spec/latest/pacp.md" class="resource-card" target="_blank" rel="noopener noreferrer">
         <div class="resource-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
-        <h3>Especificação v1.0.0</h3>
+        <h3>Especificação</h3>
         <p>Documento normativo completo. A referência oficial com regras DEVE/NÃO DEVE.</p>
         <span class="resource-link">Abrir no GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
       </a>
-      <a href="https://github.com/pacp-org/pacp/blob/main/spec/1.0.0/pacp.schema.json" class="resource-card" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/pacp-org/pacp/blob/main/spec/latest/pacp.schema.json" class="resource-card" target="_blank" rel="noopener noreferrer">
         <div class="resource-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         </div>
@@ -661,7 +650,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Schema formal para validação automatizada. Use no seu pipeline de CI/CD.</p>
         <span class="resource-link">Abrir no GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
       </a>
-      <a href="https://github.com/pacp-org/pacp/tree/main/spec/1.0.0/examples" class="resource-card" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/pacp-org/pacp/tree/main/spec/latest/examples" class="resource-card" target="_blank" rel="noopener noreferrer">
         <div class="resource-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
         </div>
@@ -685,7 +674,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Pipeline de processamento, ordenação de regras e semântica completa das operações.</p>
         <span class="resource-link">Abrir guia <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
       </a>
-      <a href="https://github.com/pacp-org/pacp/tree/main/spec/1.0.0/profiles" class="resource-card" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/pacp-org/pacp/tree/main/spec/latest/profiles" class="resource-card" target="_blank" rel="noopener noreferrer">
         <div class="resource-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
         </div>
