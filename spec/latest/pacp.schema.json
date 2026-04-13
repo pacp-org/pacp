@@ -299,7 +299,11 @@
         "id": { "type": "string", "minLength": 1 },
         "attribute_id": { "type": "string", "minLength": 1 },
         "label": { "type": "string" },
-        "value": { "$ref": "#/$defs/scalar_value" }
+        "value": { "$ref": "#/$defs/scalar_value" },
+        "images": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/image" }
+        }
       }
     },
 
@@ -550,6 +554,15 @@
       "properties": {
         "url": { "type": "string", "format": "uri" },
         "label": { "type": "string" },
+        "alt": {
+          "type": "string",
+          "description": "Texto alternativo descritivo da imagem (acessibilidade)."
+        },
+        "position": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Ordem explícita de exibição; quando presente, consumidores DEVEM ordenar por position crescente."
+        },
         "type": {
           "type": "string",
           "enum": ["MAIN", "DETAIL", "AMBIANCE", "TECHNICAL", "OTHER"]

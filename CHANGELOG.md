@@ -2,6 +2,17 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.1.0] - 2026-04-13
+
+**npm:** `@pacp/spec@1.1.0`
+
+### Added
+
+- **`image`**: campos opcionais `alt` (texto alternativo / acessibilidade) e `position` (inteiro ≥ 0 para ordenação explícita de exibição).
+- **`option.images`**: array de `image` por variante, com mesma estrutura de `product.images`; consumidores devem priorizar imagens da option selecionada sobre as do produto para exibição contextual.
+- **Pacote `@pacp/spec`**: tipos `Image` e `Option` alinhados ao schema (`alt`, `position`, `Option.images`).
+- **Docs**: `docs/integration-guide.md` atualizado com `alt`, `position` e `option.images`.
+
 ## [3.0.0] - 2026-04-07
 
 ### Breaking Changes

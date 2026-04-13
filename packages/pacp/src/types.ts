@@ -5,6 +5,8 @@ export type ImageType = "MAIN" | "DETAIL" | "AMBIANCE" | "TECHNICAL" | "OTHER";
 export interface Image {
   url: string;
   label?: string;
+  alt?: string;
+  position?: number;
   type?: ImageType;
 }
 
@@ -36,6 +38,7 @@ export interface Option {
   attribute_id: string;
   value: ScalarValue;
   label?: string;
+  images?: Image[];
 }
 
 export interface LotPolicy {

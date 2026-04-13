@@ -55,6 +55,8 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 - `product_refs[].path` DEVE ser resolvido de forma determinística a partir do diretório do manifesto.
 - Produtos PODEM declarar `attributes[]` (atributos disponíveis) e `options[]` (valores selecionáveis).
 - Cada `option` DEVE referenciar o atributo via `attribute_id`.
+- Cada `option` PODE declarar `images` (`array of image`) com as mesmas regras de `product.images`.
+- Quando uma option possui `images`, consumidores DEVEM priorizar essas imagens sobre as de `product.images` para exibição contextual daquela variante.
 - PACP descreve motor + dados; produtores de dados NÃO DEVE gerar combinações completas de variantes para obedecer ao padrão.
 
 ### 4.1 Lote por produto (`lot_policy`)
@@ -95,9 +97,10 @@ Em `PACP PACP`, `product` PODE incluir os campos descritivos abaixo. Todos são 
 
 **Imagens:**
 
-- `images` (`array of imageRef`): referências a imagens do produto.
+- `images` (`array of image`): referências a imagens do produto.
   - Cada `image` DEVE conter `url` (URI válida).
-  - `image` PODE conter `label` (rótulo legível) e `type` (enum: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`).
+  - `image` PODE conter `label` (rótulo legível / legenda), `alt` (texto alternativo descritivo para acessibilidade), `position` (inteiro ≥ 0 para ordenação explícita) e `type` (enum: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`).
+  - Quando `position` estiver presente em imagens do mesmo conjunto (`product.images` ou `option.images`), consumidores DEVEM ordenar por `position` crescente; quando ausente em todas as imagens relevantes, a ordem do array prevalece.
 
 **Dados físicos:**
 
@@ -351,7 +354,7 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `unit`: unidade base do produto na qual `base_price` é cotado (default implícito: `"un"`).
 - `sku`: código identificador do produto no sistema comercial/ERP.
 - `gtin`: código de barras global (EAN/GTIN) no padrão GS1.
-- `image`: referência a imagem com URL, tipo e rótulo opcional.
+- `image`: referência a imagem com `url` obrigatória; `label`, `alt`, `position`, `type` opcionais.
 - `measure`: objeto com valor numérico e unidade de medida.
 - `physical_dimensions`: objeto com largura, altura, profundidade e unidade.
 - `profile`: schema de extensão por vertical que padroniza campos `x-*`.

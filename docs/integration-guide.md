@@ -113,12 +113,14 @@ Esses campos existem no core do PACP para que o catálogo seja autocontido, sem 
 | `category` | string | Categoria principal |
 | `gtin` | string (8-14 dígitos) | Código de barras EAN/GTIN |
 | `base_price` | number | Preço base unitário |
-| `images` | array | Referências a imagens (cada uma com `url`, `type`, `label`) |
+| `images` | array | Referências a imagens (cada uma com `url` obrigatório; opcionais `label`, `alt`, `position`, `type`) |
 | `tags` | array de strings | Tags livres para busca e classificação |
 | `weight` | object | Peso: `{ "value": 12.5, "unit": "kg" }` |
 | `dimensions` | object | Dimensões: `{ "width": 180, "height": 90, "depth": 3, "unit": "cm" }` |
 
-Tipos de imagem: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`.
+Tipos de imagem: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`. Campo `alt` é recomendado para acessibilidade; `position` (inteiro ≥ 0) define ordem explícita de exibição quando informado.
+
+Cada **option** também pode declarar `images` com a mesma estrutura. Na exibição da variante selecionada, consumidores devem priorizar `option.images` sobre `product.images`.
 
 ---
 

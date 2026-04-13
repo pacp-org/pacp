@@ -14,8 +14,20 @@
     "weight": { "value": 65, "unit": "kg" },
     "dimensions": { "width": 230, "height": 95, "depth": 100, "unit": "cm" },
     "images": [
-      { "url": "https://example.com/img/sof-ret-003-main.jpg", "type": "MAIN", "label": "Visao frontal" },
-      { "url": "https://example.com/img/sof-ret-003-detail.jpg", "type": "DETAIL", "label": "Detalhe do tecido" }
+      {
+        "url": "https://example.com/img/sof-ret-003-main.jpg",
+        "type": "MAIN",
+        "label": "Visao frontal",
+        "alt": "Sofa retratil tres lugares em suede, vista frontal",
+        "position": 0
+      },
+      {
+        "url": "https://example.com/img/sof-ret-003-detail.jpg",
+        "type": "DETAIL",
+        "label": "Detalhe do tecido",
+        "alt": "Close do tecido suede e costura",
+        "position": 1
+      }
     ],
     "tags": ["sofa", "retratil", "3-lugares", "suede"],
     "attributes": [
@@ -25,8 +37,34 @@
     "options": [
       { "id": "opt_suede", "attribute_id": "tecido", "value": "SUEDE" },
       { "id": "opt_linho", "attribute_id": "tecido", "value": "LINHO" },
-      { "id": "opt_nogueira", "attribute_id": "cor", "value": "NOGUEIRA" },
-      { "id": "opt_grafite", "attribute_id": "cor", "value": "GRAFITE" }
+      {
+        "id": "opt_nogueira",
+        "attribute_id": "cor",
+        "value": "NOGUEIRA",
+        "images": [
+          {
+            "url": "https://example.com/img/sof-ret-003-cor-nogueira.jpg",
+            "type": "MAIN",
+            "label": "Acabamento cor nogueira",
+            "alt": "Sofa na cor nogueira, ambiente iluminado",
+            "position": 0
+          }
+        ]
+      },
+      {
+        "id": "opt_grafite",
+        "attribute_id": "cor",
+        "value": "GRAFITE",
+        "images": [
+          {
+            "url": "https://example.com/img/sof-ret-003-cor-grafite.jpg",
+            "type": "MAIN",
+            "label": "Acabamento cor grafite",
+            "alt": "Sofa na cor grafite, vista tres quartos",
+            "position": 0
+          }
+        ]
+      }
     ],
     "ruleset_ids": ["rs_base"],
     "x-assembly_required": true,
