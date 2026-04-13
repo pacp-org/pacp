@@ -4,7 +4,7 @@ Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
 ## [3.1.0] - 2026-04-13
 
-**npm:** `@pacp/spec@1.1.0`
+**npm:** `@pacp/spec@3.1.0`
 
 ### Added
 
