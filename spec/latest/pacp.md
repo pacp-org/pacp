@@ -117,7 +117,18 @@ Regras normativas:
 - Dois paths podem compartilhar o mesmo segmento folha sob ancestrais diferentes; a identidade da categoria é definida pelo path completo.
 - Campos descritivos existem para que o catálogo PACP seja autocontido, sem exigir sistema PIM externo para dados universais de produto.
 
-### 4.5 Unidade base do produto (`unit`)
+### 4.5 Visibilidade do produto (`visibility`)
+
+- Produto PODE declarar `visibility` (`string`) para indicar se deve aparecer em catálogos públicos.
+- Valores válidos:
+  - `PUBLIC`: produto é exibível em vitrines, e-commerce e catálogos voltados ao cliente final. Este é o default quando `visibility` estiver ausente.
+  - `INTERNAL`: produto existe no catálogo para uso em orçamentos, configuração e precificação, mas NÃO DEVE ser exibido em catálogos públicos.
+- Quando `visibility` estiver ausente, consumidores DEVEM tratar o produto como `PUBLIC`.
+- Consumidores que geram vitrines ou catálogos públicos DEVEM filtrar produtos com `visibility: "INTERNAL"`.
+- Produtos `INTERNAL` continuam plenamente válidos para referência em rules, constraints, dependencies e cálculos de preço — a visibilidade afeta apenas exibição, não semântica de precificação.
+- Caso de uso típico: componentes, insumos ou peças avulsas (parafusos, espumas, ferragens) que o orçamentista manipula mas que não fazem sentido como item de vitrine.
+
+### 4.6 Unidade base do produto (`unit`)
 
 - Produto PODE declarar `unit` (`string`) para indicar a unidade base na qual `base_price` é cotado.
 - Exemplos de valores: `"un"`, `"m"`, `"m2"`, `"m3"`, `"L"`, `"kg"`, `"saca"`, `"arroba"`.
@@ -357,6 +368,7 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `image`: referência a imagem com `url` obrigatória; `label`, `alt`, `position`, `type` opcionais.
 - `measure`: objeto com valor numérico e unidade de medida.
 - `physical_dimensions`: objeto com largura, altura, profundidade e unidade.
+- `visibility`: nível de exposição do produto (`PUBLIC` ou `INTERNAL`); controla se o produto aparece em catálogos públicos.
 - `profile`: schema de extensão por vertical que padroniza campos `x-*`.
 
 ## 15. Conformidade PACP PACP
@@ -375,6 +387,7 @@ Um arquivo é PACP compliant quando:
 - [ ] Define ordem de aplicação e desempate determinístico.
 - [ ] Suporta `price_lists` e `context` quando usados.
 - [ ] Quando `unit` e `sales_unit` coexistem, `sales_unit.requested_unit` é igual a `product.unit`.
+- [ ] Quando `visibility` é `INTERNAL`, consumidores de catálogo público filtram o produto.
 - [ ] Permite e preserva extensões `x-*`.
 - [ ] Quando declara `profiles`, usa IDs válidos de profiles oficiais ou customizados.
 - [ ] Valida contra `spec/latest/pacp.schema.json`.

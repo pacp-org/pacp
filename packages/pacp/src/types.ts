@@ -59,6 +59,7 @@ export interface SalesUnit {
 export interface Product {
   id: string;
   name?: string;
+  visibility?: "PUBLIC" | "INTERNAL";
   sku?: string;
   manufacturer?: string;
   brand?: string;

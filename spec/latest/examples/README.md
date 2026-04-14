@@ -9,7 +9,7 @@ Cada exemplo demonstra um aspecto especifico da spec. Todos os JSONs validam con
 | `minimal.json` | Catalogo minimo: 1 produto, 2 atributos, 1 regra ADD |
 | `matrix_lookup.json` | Tabela matricial (largura x acabamento) com operacao LOOKUP |
 | `max_of_components.json` | Agregacao MAX_OF entre 2 tabelas + PERCENT_OF no TOTAL |
-| `dependencies.json` | REQUIRES, AVAILABLE_OPTIONS_WHEN e DENY constraint |
+| `dependencies.json` | REQUIRES, AVAILABLE_OPTIONS_WHEN, DENY constraint e produto `INTERNAL` |
 | `multi_price_list.json` | Multiplas listas de preco selecionadas por context |
 | `extensions.json` | Campos x-* em catalogo, produto, regra e dicionarios |
 
@@ -29,6 +29,7 @@ examples/
     ├── prod_mesa.json
     ├── prod_mesa_config.json
     ├── prod_camiseta.json
+    ├── prod_ferragem.json
     └── prod_sofa.json
 ```
 

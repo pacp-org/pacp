@@ -1,0 +1,37 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_deps",
+  "product": {
+    "id": "prod_ferragem",
+    "name": "Kit Ferragem Mesa - Parafusos e Buchas",
+    "sku": "FER-KIT-001",
+    "visibility": "INTERNAL",
+    "base_price": 18.5,
+    "unit": "un",
+    "options": [
+      { "id": "opt_ferro", "attribute_id": "material_ferragem", "value": "FERRO" },
+      { "id": "opt_inox", "attribute_id": "material_ferragem", "value": "INOX" }
+    ],
+    "attributes": [
+      { "id": "material_ferragem" }
+    ]
+  },
+  "rulesets": [
+    {
+      "id": "rs_ferragem_inox",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_adicional_inox",
+          "operation": "ADD",
+          "value": 7.5,
+          "when": {
+            "all": [
+              { "fact": "material_ferragem", "operator": "EQ", "value": "INOX" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

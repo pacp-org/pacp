@@ -2,6 +2,15 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.2.0] - 2026-04-14
+
+**npm:** `@pacp/spec@3.2.0`
+
+### Added
+
+- **`product.visibility`**: campo opcional com valores `PUBLIC` (default) ou `INTERNAL`. Permite marcar produtos como internos (componentes, insumos, ferragens) que não devem aparecer em catálogos públicos mas continuam válidos para orçamento e precificação.
+- **Exemplo**: produto `prod_ferragem.json` com `visibility: "INTERNAL"` adicionado ao catálogo de dependencies.
+
 ## [3.1.0] - 2026-04-13
 
 **npm:** `@pacp/spec@3.1.0`

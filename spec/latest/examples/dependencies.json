@@ -62,6 +62,10 @@
     {
       "id": "prod_mesa_config",
       "path": "products/prod_mesa_config.json"
+    },
+    {
+      "id": "prod_ferragem",
+      "path": "products/prod_ferragem.json"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "channel": "latest",
-  "published_at": "2026-04-13",
+  "published_at": "2026-04-14",
   "cdn": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/",
   "paths": {
     "spec": "spec/latest/pacp.md",
