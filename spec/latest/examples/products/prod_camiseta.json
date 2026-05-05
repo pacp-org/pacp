@@ -6,6 +6,7 @@
     "name": "Camiseta Basica Algodao",
     "sku": "CAM-BAS-001",
     "category": [["Vestuario", "Camisetas"]],
+    "collections": ["verao_2026", "linha_essentials"],
     "base_price": 0,
     "attributes": [
       { "id": "tamanho" },

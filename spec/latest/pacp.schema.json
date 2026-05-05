@@ -194,6 +194,12 @@
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
         },
+        "collections": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Identificadores de coleções às quais o produto pertence (ex.: \"verao_2026\", \"linha_premium\"). Cada item é um ID estável, único por catálogo, com semântica de agrupamento curatorial/sazonal."
+        },
         "weight": { "$ref": "#/$defs/measure" },
         "dimensions": { "$ref": "#/$defs/physical_dimensions" },
         "lot_policy": { "$ref": "#/$defs/lot_policy" },

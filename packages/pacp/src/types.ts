@@ -64,12 +64,13 @@ export interface Product {
   manufacturer?: string;
   brand?: string;
   description?: string;
-  category?: string;
+  category?: string[][];
   gtin?: string;
   base_price?: number;
   unit?: string;
   images?: Image[];
   tags?: string[];
+  collections?: string[];
   weight?: Measure;
   dimensions?: PhysicalDimensions;
   lot_policy?: LotPolicy;

@@ -1,0 +1,21 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_collections",
+  "product": {
+    "id": "prod_camisa_inverno",
+    "name": "Camisa Flanela Inverno",
+    "sku": "CAM-FLN-INV-001",
+    "category": [["Vestuario", "Camisas"]],
+    "collections": ["inverno_2025"],
+    "base_price": 199.90,
+    "attributes": [
+      { "id": "tamanho" }
+    ],
+    "options": [
+      { "id": "opt_camisa_p", "attribute_id": "tamanho", "value": "P" },
+      { "id": "opt_camisa_m", "attribute_id": "tamanho", "value": "M" },
+      { "id": "opt_camisa_g", "attribute_id": "tamanho", "value": "G" }
+    ],
+    "ruleset_ids": ["rs_queima_colecao"]
+  }
+}

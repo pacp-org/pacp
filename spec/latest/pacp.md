@@ -88,6 +88,7 @@ Em `PACP PACP`, `product` PODE incluir os campos descritivos abaixo. Todos são 
 - `gtin` (`string`, 8-14 dígitos): código de barras no padrão GS1 (EAN-8, EAN-13 ou GTIN-14).
 - `category` (`array of path`): categorias hierárquicas do produto. Cada elemento é um **path** (array de strings) representando o caminho da raiz até a folha na árvore de categorias. Permite classificação múltipla e hierárquica. Exemplo: `[["Móveis Internos", "Sofá"], ["Promoções"]]`.
 - `tags` (`array of string`): tags livres para busca e classificação.
+- `collections` (`array of string`): identificadores de coleções às quais o produto pertence (ex.: `["verao_2026", "linha_premium"]`). Diferente de `tags`, coleção é um agrupamento **curatorial/sazonal** com identidade estável dentro do catálogo. Ver seção 4.7.
 
 **Informações comerciais:**
 
@@ -137,6 +138,24 @@ Regras normativas:
 - Para exibição de preço, consumidores PODEM formatar como `"R$ {base_price} / {unit}"`.
 - Para integração com ERPs e sistemas de comércio, `unit` PODE ser usado como unidade de medida padrão do cadastro de produto.
 - Quando o produto declarar `unit` e `sales_unit` simultaneamente, `sales_unit.requested_unit` DEVE ser igual a `product.unit`. Validadores DEVEM reportar inconsistência caso divirjam.
+
+### 4.7 Coleções (`collections`)
+
+- Produto PODE declarar `collections` (`array of string`) para indicar coleções às quais pertence.
+- Cada item DEVE ser um ID não-vazio (`minLength: 1`); itens DEVEM ser únicos no array (`uniqueItems`).
+- IDs de coleção DEVEM seguir as regras gerais de IDs (seção 3): estáveis, case-sensitive e únicos por catálogo.
+- Convenção recomendada: `snake_case` legível por humanos (ex.: `verao_2026`, `linha_premium`, `capsule_artisan`, `black_friday_2026`).
+- Um produto PODE pertencer a múltiplas coleções simultaneamente (ex.: `["verao_2026", "linha_premium"]`); essa pluralidade é semântica esperada.
+- `collections` é descritivo: NÃO altera por si só a mecânica de cálculo de preço. Implementações PODEM usar coleções para:
+  - Filtros e organização em vitrines/catálogos.
+  - Condições em `rules`, expostas como fato `product.collections` (operadores `IN` / `NOT_IN` aplicados ao array). Por exemplo, descontos de queima de coleção que disparam quando `product.collections` contém `colecao_inverno_2025`.
+- Diferença em relação a `tags`:
+  - `tags` são marcadores livres, sem garantia de estabilidade ou curadoria.
+  - `collections` são agrupamentos curatoriais/sazonais com identidade estável; espera-se que o conjunto de coleções de um catálogo seja gerido como vocabulário controlado.
+- Diferença em relação a `category`:
+  - `category` representa a árvore taxonômica do catálogo (estrutura).
+  - `collections` representa agrupamentos transversais (campanha, sazão, linha curatorial), ortogonais à categoria.
+- Quando uma implementação mantiver metadados de coleção (rótulo legível, descrição, datas de vigência), esses dados PODEM viver em dicionários do catálogo (`dictionaries`) ou em sistemas externos, indexados pelo mesmo ID. PACP não normatiza estrutura desses metadados nesta versão.
 
 ### 4.4 Valores de atributos por produto (`attribute_values`)
 
@@ -346,6 +365,7 @@ Os exemplos oficiais desta versão são:
 - `spec/latest/examples/geral/extensions.json`
 - `spec/latest/examples/pisos-e-revestimentos/cost_plus.json`
 - `spec/latest/examples/geral/unit_conversion_volume.json`
+- `spec/latest/examples/geral/collections.json`
 
 Cada manifesto acima referencia seus produtos em subpastas `products/`, com um arquivo JSON por produto.
 
@@ -369,6 +389,7 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `measure`: objeto com valor numérico e unidade de medida.
 - `physical_dimensions`: objeto com largura, altura, profundidade e unidade.
 - `visibility`: nível de exposição do produto (`PUBLIC` ou `INTERNAL`); controla se o produto aparece em catálogos públicos.
+- `collections`: lista de IDs de coleções (agrupamento curatorial/sazonal) às quais o produto pertence; campo descritivo, não altera cálculo por si só.
 - `profile`: schema de extensão por vertical que padroniza campos `x-*`.
 
 ## 15. Conformidade PACP PACP

@@ -1,0 +1,54 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_collections",
+    "name": "Catalogo Demonstrativo de Colecoes",
+    "default_price_list_id": "pl_brl",
+    "price_lists": [
+      {
+        "id": "pl_brl",
+        "label": "Tabela Brasil",
+        "currency": "BRL"
+      }
+    ]
+  },
+  "rulesets": [
+    {
+      "id": "rs_queima_colecao",
+      "target": "SUBTOTAL",
+      "rules": [
+        {
+          "id": "rule_desconto_inverno_2025",
+          "operation": "PERCENT_OF",
+          "percent": -30,
+          "when": {
+            "all": [
+              { "fact": "product.collections", "operator": "IN", "value": "inverno_2025" }
+            ]
+          }
+        },
+        {
+          "id": "rule_premium_protegido",
+          "operation": "PERCENT_OF",
+          "percent": -5,
+          "when": {
+            "all": [
+              { "fact": "product.collections", "operator": "IN", "value": "linha_premium" },
+              { "fact": "product.collections", "operator": "NOT_IN", "value": "inverno_2025" }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_camisa_inverno",
+      "path": "products/prod_camisa_inverno.json"
+    },
+    {
+      "id": "prod_jaqueta_premium",
+      "path": "products/prod_jaqueta_premium.json"
+    }
+  ]
+}

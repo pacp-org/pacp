@@ -78,7 +78,7 @@ site/                        ← site estático (GitHub Pages)
 
 ## Extension Profiles
 
-O PACP adota um modelo híbrido: campos universais no core do `product` (`sku`, `manufacturer`, `brand`, `description`, `gtin`, `images`, `weight`, `dimensions`, `tags`) e **extension profiles** para campos específicos de cada vertical.
+O PACP adota um modelo híbrido: campos universais no core do `product` (`sku`, `manufacturer`, `brand`, `description`, `category`, `gtin`, `images`, `weight`, `dimensions`, `tags`, `collections`, `visibility`, `unit`) e **extension profiles** para campos específicos de cada vertical.
 
 Profiles são JSON Schemas que padronizam campos `x-*` por setor, com validação formal.
 

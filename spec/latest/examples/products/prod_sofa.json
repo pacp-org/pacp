@@ -9,6 +9,7 @@
     "brand": "ConfortMax",
     "description": "Sofa retratil e reclinavel em suede com pes em aluminio escovado.",
     "category": [["Móveis", "Estofados", "Sofá"], ["Sala de Estar"]],
+    "collections": ["linha_premium", "lancamento_2026"],
     "gtin": "78912345678901",
     "base_price": 2800,
     "weight": { "value": 65, "unit": "kg" },

@@ -1,0 +1,21 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_collections",
+  "product": {
+    "id": "prod_jaqueta_premium",
+    "name": "Jaqueta Couro Premium",
+    "sku": "JAQ-CRO-PRM-001",
+    "category": [["Vestuario", "Jaquetas"]],
+    "collections": ["linha_premium", "outono_2026"],
+    "base_price": 1899.90,
+    "attributes": [
+      { "id": "tamanho" }
+    ],
+    "options": [
+      { "id": "opt_jaqueta_p", "attribute_id": "tamanho", "value": "P" },
+      { "id": "opt_jaqueta_m", "attribute_id": "tamanho", "value": "M" },
+      { "id": "opt_jaqueta_g", "attribute_id": "tamanho", "value": "G" }
+    ],
+    "ruleset_ids": ["rs_queima_colecao"]
+  }
+}

@@ -2,6 +2,22 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.3.0] - 2026-05-05
+
+**npm:** `@pacp/spec@3.3.0`
+
+### Added
+
+- **`product.collections`**: campo opcional `array of string` que lista IDs de coleções às quais o produto pertence (ex.: `["verao_2026", "linha_premium"]`). Itens devem ser únicos (`uniqueItems`) e seguem as regras gerais de IDs (estáveis, case-sensitive, únicos por catálogo).
+- **Spec normativa (4.7)**: nova seção definindo semântica de coleção como agrupamento curatorial/sazonal, distinto de `tags` (livre) e `category` (taxonomia). Implementações podem usar coleções em condições de `rules` via fact `product.collections` com operadores `IN`/`NOT_IN`.
+- **Exemplo dedicado**: `examples/collections.json` + `prod_camisa_inverno.json` + `prod_jaqueta_premium.json` demonstrando "queima de coleção" (`-30%` para `inverno_2025`) com proteção de linha premium.
+- **Exemplos existentes** atualizados: `prod_camiseta.json`, `prod_sofa.json` e `prod_mesa.json` ganham `collections` para refletir uso típico em moda e mobiliário.
+- **Pacote `@pacp/spec`**: tipo `Product.collections?: string[]` adicionado e `Product.category` corrigido para `string[][]` (alinhado ao schema desde v3.0.0).
+
+### Fixed
+
+- **Tipo `Product.category`** no pacote npm estava `string` por engano desde a v3.0.0; agora é `string[][]` (array de paths hierárquicos), alinhado ao schema.
+
 ## [3.2.0] - 2026-04-14
 
 **npm:** `@pacp/spec@3.2.0`

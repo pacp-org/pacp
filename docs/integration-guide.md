@@ -73,7 +73,8 @@ Cada produto vive em seu próprio arquivo JSON. O manifesto referencia via `prod
     "manufacturer": "Moveis Artisan",
     "brand": "Artisan Home",
     "description": "Painel ripado em MDF com acabamento nogueira.",
-    "category": "Paineis",
+    "category": [["Moveis", "Paineis"]],
+    "collections": ["linha_artisan", "lancamento_2026"],
     "gtin": "7891234567890",
     "base_price": 100,
     "images": [
@@ -94,7 +95,7 @@ Cada produto vive em seu próprio arquivo JSON. O manifesto referencia via `prod
 ```
 
 **Campos obrigatórios do produto:** `id`, `options`.
-**Campos universais opcionais:** `name`, `sku`, `manufacturer`, `brand`, `description`, `category`, `gtin`, `images`, `tags`, `weight`, `dimensions`, `base_price`.
+**Campos universais opcionais:** `name`, `visibility`, `sku`, `manufacturer`, `brand`, `description`, `category`, `gtin`, `images`, `tags`, `collections`, `weight`, `dimensions`, `base_price`, `unit`.
 
 ---
 
@@ -106,15 +107,18 @@ Esses campos existem no core do PACP para que o catálogo seja autocontido, sem 
 |-------|------|----------------|
 | `id` | string | Identificador interno (referências PACP). **Obrigatório.** |
 | `name` | string | Nome legível para exibição |
+| `visibility` | enum (`PUBLIC` \| `INTERNAL`) | `PUBLIC` (default) aparece em vitrine; `INTERNAL` é só para orçamento |
 | `sku` | string | Código SKU para integração com ERP/e-commerce |
 | `manufacturer` | string | Fabricante do produto |
 | `brand` | string | Marca comercial (pode diferir do fabricante) |
 | `description` | string | Descrição para catálogos e lojas |
-| `category` | string | Categoria principal |
+| `category` | array de paths (`string[][]`) | Categorias hierárquicas. Cada item é o caminho da raiz à folha (ex.: `[["Móveis", "Painéis"], ["Promoções"]]`) |
 | `gtin` | string (8-14 dígitos) | Código de barras EAN/GTIN |
 | `base_price` | number | Preço base unitário |
+| `unit` | string | Unidade base do produto (ex.: `"un"`, `"m2"`, `"kg"`); default implícito `"un"` |
 | `images` | array | Referências a imagens (cada uma com `url` obrigatório; opcionais `label`, `alt`, `position`, `type`) |
 | `tags` | array de strings | Tags livres para busca e classificação |
+| `collections` | array de strings | IDs de coleções (agrupamento curatorial/sazonal). Itens únicos. Ex.: `["verao_2026", "linha_premium"]` |
 | `weight` | object | Peso: `{ "value": 12.5, "unit": "kg" }` |
 | `dimensions` | object | Dimensões: `{ "width": 180, "height": 90, "depth": 3, "unit": "cm" }` |
 

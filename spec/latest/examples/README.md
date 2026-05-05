@@ -12,6 +12,7 @@ Cada exemplo demonstra um aspecto especifico da spec. Todos os JSONs validam con
 | `dependencies.json` | REQUIRES, AVAILABLE_OPTIONS_WHEN, DENY constraint e produto `INTERNAL` |
 | `multi_price_list.json` | Multiplas listas de preco selecionadas por context |
 | `extensions.json` | Campos x-* em catalogo, produto, regra e dicionarios |
+| `collections.json` | Campo `collections` no produto + regras condicionais usando fact `product.collections` (queima de colecao + protecao de linha premium) |
 
 ## Estrutura
 
@@ -23,12 +24,15 @@ examples/
 ├── dependencies.json
 ├── multi_price_list.json
 ├── extensions.json
+├── collections.json
 └── products/
     ├── prod_cadeira.json
     ├── prod_banner.json
     ├── prod_mesa.json
     ├── prod_mesa_config.json
     ├── prod_camiseta.json
+    ├── prod_camisa_inverno.json
+    ├── prod_jaqueta_premium.json
     ├── prod_ferragem.json
     └── prod_sofa.json
 ```

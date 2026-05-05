@@ -89,6 +89,8 @@ const product: Product = {
   sku: 'MES-001',
   manufacturer: 'Moveis Artisan',
   brand: 'Artisan Home',
+  category: [['Móveis', 'Mesas']],
+  collections: ['linha_artisan', 'lancamento_2026'],
   base_price: 2500,
   weight: { value: 45, unit: 'kg' },
   dimensions: { width: 160, height: 78, depth: 90, unit: 'cm' },

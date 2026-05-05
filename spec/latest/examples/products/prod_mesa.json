@@ -5,6 +5,7 @@
     "id": "prod_mesa",
     "name": "Mesa de Jantar Artisan",
     "sku": "MES-ART-001",
+    "collections": ["linha_artisan"],
     "base_price": 0,
     "weight": { "value": 42, "unit": "kg" },
     "dimensions": { "width": 160, "height": 78, "depth": 90, "unit": "cm" },

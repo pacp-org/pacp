@@ -25,7 +25,7 @@ Extensões `x-*` PODEM coexistir com o contrato base sem quebrar consumidores co
 
 ## 6. Core universal + Profiles por vertical
 
-Campos que mais de 80% dos implementadores precisam (independente do setor) pertencem ao core do `product`: `sku`, `manufacturer`, `brand`, `description`, `gtin`, `images`, `weight`, `dimensions`, `tags`.
+Campos que mais de 80% dos implementadores precisam (independente do setor) pertencem ao core do `product`: `sku`, `manufacturer`, `brand`, `description`, `category`, `gtin`, `images`, `weight`, `dimensions`, `tags`, `collections`, `visibility`, `unit`.
 
 Campos específicos de um setor (ex.: `x-lumens` para iluminação, `x-pei` para pisos) são padronizados via **extension profiles** — JSON Schemas independentes que definem e validam extensões `x-*` por vertical.
 
