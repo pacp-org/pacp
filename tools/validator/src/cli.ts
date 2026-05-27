@@ -423,6 +423,96 @@ function checkLotAndSalesUnitSemantics(doc: Record<string, unknown>, issues: Iss
   }
 }
 
+function checkSuppliedMaterials(
+  product: Record<string, unknown>,
+  productPath: string,
+  productId: string,
+  issues: Issue[]
+): void {
+  const suppliedMaterials = getArray<Record<string, unknown>>(product.supplied_materials);
+  if (suppliedMaterials.length === 0) {
+    return;
+  }
+
+  const attributes = getArray<Record<string, unknown>>(product.attributes);
+  const attributeIds = new Set<string>();
+  for (const attr of attributes) {
+    if (typeof attr.id === "string") {
+      attributeIds.add(attr.id);
+    }
+  }
+
+  const optionsByAttribute = new Map<string, Set<string | number | boolean>>();
+  const options = getArray<Record<string, unknown>>(product.options);
+  for (const opt of options) {
+    const attrId = opt.attribute_id;
+    const value = opt.value;
+    if (typeof attrId !== "string") continue;
+    if (typeof value !== "string" && typeof value !== "number" && typeof value !== "boolean") continue;
+    if (!optionsByAttribute.has(attrId)) {
+      optionsByAttribute.set(attrId, new Set());
+    }
+    optionsByAttribute.get(attrId)!.add(value);
+  }
+
+  const seenIds = new Set<string>();
+  for (let i = 0; i < suppliedMaterials.length; i += 1) {
+    const sm = suppliedMaterials[i];
+    const smPath = `${productPath}/supplied_materials[${i}]`;
+    const smId = sm.id;
+
+    if (typeof smId !== "string" || smId.trim().length === 0) {
+      continue;
+    }
+
+    if (seenIds.has(smId)) {
+      issues.push({
+        code: "DUPLICATE_SUPPLIED_MATERIAL_ID",
+        path: `${smPath}/id`,
+        message: `ID duplicado em supplied_materials do produto "${productId}": "${smId}"`
+      });
+      continue;
+    }
+    seenIds.add(smId);
+
+    const sourcingAttrId = sm.sourcing_attribute_id;
+    if (typeof sourcingAttrId === "string") {
+      if (!attributeIds.has(sourcingAttrId)) {
+        issues.push({
+          code: "MISSING_SOURCING_ATTRIBUTE",
+          path: `${smPath}/sourcing_attribute_id`,
+          message: `Produto "${productId}" referencia sourcing_attribute_id="${sourcingAttrId}" inexistente em product.attributes`
+        });
+        continue;
+      }
+
+      const sourceWhen = sm.source_when;
+      if (!isRecord(sourceWhen)) {
+        issues.push({
+          code: "INVALID_SOURCE_WHEN",
+          path: `${smPath}/source_when`,
+          message: `Produto "${productId}" declara sourcing_attribute_id mas omite source_when`
+        });
+        continue;
+      }
+
+      const factoryValues = new Set(getArray(sourceWhen.factory));
+      const customerValues = new Set(getArray(sourceWhen.customer));
+      const optionValues = optionsByAttribute.get(sourcingAttrId) ?? new Set();
+
+      for (const v of optionValues) {
+        if (!factoryValues.has(v) && !customerValues.has(v)) {
+          issues.push({
+            code: "UNCOVERED_OPTION_VALUE",
+            path: `${smPath}/source_when`,
+            message: `Produto "${productId}": option.value="${String(v)}" do attribute "${sourcingAttrId}" não está mapeado em source_when.factory nem .customer`
+          });
+        }
+      }
+    }
+  }
+}
+
 function checkProductDocumentSemanticBasics(doc: Record<string, unknown>, issues: Issue[]): void {
   if (!isRecord(doc.product)) {
     return;
@@ -473,6 +563,8 @@ function checkProductDocumentSemanticBasics(doc: Record<string, unknown>, issues
       });
     }
   }
+
+  checkSuppliedMaterials(product, "/product", productId, issues);
 }
 
 function loadProfileSchema(profileId: string): Record<string, unknown> | null {
@@ -735,6 +827,11 @@ function validatePacp(filePath: string): number {
       checkRulesSemanticBasics(mergedDoc, issues);
       checkLotAndSalesUnitSemantics(mergedDoc, issues);
       checkProfileExtensions(objectDoc, loadedProducts, issues, ajv);
+      for (let i = 0; i < loadedProducts.length; i += 1) {
+        const p = loadedProducts[i];
+        const pid = typeof p.id === "string" ? p.id : `index_${i}`;
+        checkSuppliedMaterials(p, `/products[${i}]`, pid, issues);
+      }
     } else if (documentType === "PRODUCT") {
       checkProductDocumentSemanticBasics(objectDoc, issues);
       if (isRecord(objectDoc.product)) {
