@@ -56,6 +56,53 @@ export interface SalesUnit {
   min_sell_units?: number;
 }
 
+export type SuppliedMaterialSource = "FACTORY" | "CUSTOMER";
+
+export interface SuppliedMaterialQuantityValue {
+  value: number;
+  unit: string;
+}
+
+export interface SuppliedMaterialQuantityTable {
+  table_id: string;
+  unit: string;
+}
+
+export type SuppliedMaterialQuantity = SuppliedMaterialQuantityValue | SuppliedMaterialQuantityTable;
+
+export interface SuppliedMaterialCostValue { value: number; }
+export interface SuppliedMaterialCostTable { table_id: string; }
+export interface SuppliedMaterialCostRuleset { ruleset_id: string; }
+export type SuppliedMaterialCost =
+  | SuppliedMaterialCostValue
+  | SuppliedMaterialCostTable
+  | SuppliedMaterialCostRuleset;
+
+export interface SourceWhen {
+  factory: ScalarValue[];
+  customer: ScalarValue[];
+}
+
+export interface SuppliedMaterial {
+  id: string;
+  material: string;
+  quantity: SuppliedMaterialQuantity;
+  default_source?: SuppliedMaterialSource;
+  sourcing_attribute_id?: string;
+  source_when?: SourceWhen;
+  factory_cost?: SuppliedMaterialCost;
+  requirements?: Record<string, unknown>;
+  [key: `x-${string}`]: unknown;
+}
+
+export interface SupplyOutputEntry {
+  material_id: string;
+  material: string;
+  quantity: number;
+  unit: string;
+  requirements?: Record<string, unknown>;
+}
+
 export interface Product {
   id: string;
   name?: string;
@@ -78,6 +125,7 @@ export interface Product {
   attributes?: AttributeRef[];
   attribute_values?: AttributeValue[];
   options: Option[];
+  supplied_materials?: SuppliedMaterial[];
   ruleset_ids?: string[];
   [key: `x-${string}`]: unknown;
 }
