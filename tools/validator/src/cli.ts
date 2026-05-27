@@ -469,7 +469,7 @@ function checkSuppliedMaterials(
       issues.push({
         code: "DUPLICATE_SUPPLIED_MATERIAL_ID",
         path: `${smPath}/id`,
-        message: `ID duplicado em supplied_materials do produto "${productId}": "${smId}"`
+        message: `ID duplicado em supplied_materials do produto "${productId}": "${smId}". Fix: renomeie um deles (IDs DEVEM ser únicos por produto).`
       });
       continue;
     }
@@ -478,10 +478,11 @@ function checkSuppliedMaterials(
     const sourcingAttrId = sm.sourcing_attribute_id;
     if (typeof sourcingAttrId === "string") {
       if (!attributeIds.has(sourcingAttrId)) {
+        const known = Array.from(attributeIds).map(a => `"${a}"`).join(", ") || "(nenhum)";
         issues.push({
           code: "MISSING_SOURCING_ATTRIBUTE",
           path: `${smPath}/sourcing_attribute_id`,
-          message: `Produto "${productId}" referencia sourcing_attribute_id="${sourcingAttrId}" inexistente em product.attributes`
+          message: `Produto "${productId}" referencia sourcing_attribute_id="${sourcingAttrId}" inexistente em product.attributes. Attributes declarados: ${known}. Fix: adicione { "id": "${sourcingAttrId}" } a product.attributes ou ajuste sourcing_attribute_id para um attribute existente.`
         });
         continue;
       }
@@ -491,7 +492,7 @@ function checkSuppliedMaterials(
         issues.push({
           code: "INVALID_SOURCE_WHEN",
           path: `${smPath}/source_when`,
-          message: `Produto "${productId}" declara sourcing_attribute_id mas omite source_when`
+          message: `Produto "${productId}" declara sourcing_attribute_id="${sourcingAttrId}" mas omite source_when. Fix: adicione source_when: { factory: [...], customer: [...] } mapeando cada option.value do attribute. Ver AGENTS.md ou spec §4.8.`
         });
         continue;
       }
@@ -505,7 +506,7 @@ function checkSuppliedMaterials(
           issues.push({
             code: "UNCOVERED_OPTION_VALUE",
             path: `${smPath}/source_when`,
-            message: `Produto "${productId}": option.value="${String(v)}" do attribute "${sourcingAttrId}" não está mapeado em source_when.factory nem .customer`
+            message: `Produto "${productId}": option.value="${String(v)}" do attribute "${sourcingAttrId}" não está mapeado em source_when.factory nem .customer. Fix: adicione "${String(v)}" em source_when.factory ou source_when.customer (decida quem fornece quando essa option é selecionada).`
           });
         }
       }

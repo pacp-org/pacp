@@ -2,6 +2,18 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.4.2] - 2026-05-27
+
+**npm:** `@pacp/spec@3.4.2`
+
+### Added
+
+- **`docs/cookbook.md`** — 13 receitas prontas e copiáveis cobrindo casos comuns: produto mínimo, sofá com `supplied_materials`, piso com `sales_unit`, lookup matricial 2D, queima de coleção (com proteção de premium), constraint DENY, `lot_policy` obrigatório, produto `INTERNAL`, `MAX_OF`/`MIN_OF`, `PERCENT_OF` em SUBTOTAL, múltiplas listas de preço (B2B/B2C), dependency `REQUIRES`, produto com profile `moveis` + `x-fabric_requirements`. Voltado para agentes (LLMs) e humanos que precisam gerar PACP rápido.
+
+### Changed
+
+- **Mensagens do validador para erros de `supplied_materials`** ganham hint inline com instrução exata de fix e referência cruzada à doc (AGENTS.md / spec §4.8). Códigos afetados: `DUPLICATE_SUPPLIED_MATERIAL_ID`, `MISSING_SOURCING_ATTRIBUTE` (agora lista attributes declarados), `INVALID_SOURCE_WHEN`, `UNCOVERED_OPTION_VALUE`. Agentes LLM debugam significativamente mais rápido.
+
 ## [3.4.1] - 2026-05-27
 
 **npm:** `@pacp/spec@3.4.1`
