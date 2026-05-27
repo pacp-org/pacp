@@ -1,0 +1,57 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_supplied_materials",
+    "name": "Exemplo — Supplied Materials",
+    "default_price_list_id": "pl_varejo",
+    "price_lists": [
+      { "id": "pl_varejo", "currency": "BRL", "label": "Varejo" }
+    ]
+  },
+  "profiles": ["moveis"],
+  "product_refs": [
+    { "id": "prod_sofa_modular", "path": "products/prod_sofa_modular.json" }
+  ],
+  "tables": [
+    {
+      "id": "tbl_tecido_qty_por_lugares",
+      "type": "LOOKUP",
+      "dimensions": [
+        { "key": "lugares", "source": "ATTRIBUTE", "attribute_id": "lugares" }
+      ],
+      "rows": [
+        { "key": { "lugares": "3_LUGARES" }, "value": 15.0 },
+        { "key": { "lugares": "4_LUGARES" }, "value": 22.0 }
+      ]
+    },
+    {
+      "id": "tbl_tecido_preco_por_tipo",
+      "type": "LOOKUP",
+      "dimensions": [
+        { "key": "tecido_tipo", "source": "ATTRIBUTE", "attribute_id": "tecido_tipo" }
+      ],
+      "rows": [
+        { "key": { "tecido_tipo": "LINHO" }, "value": 800 },
+        { "key": { "tecido_tipo": "VELUDO" }, "value": 1200 }
+      ]
+    }
+  ],
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_tecido_factory",
+          "operation": "LOOKUP",
+          "table_id": "tbl_tecido_preco_por_tipo",
+          "when": {
+            "all": [
+              { "fact": "supplied_materials.mat_tecido.source", "operator": "EQ", "value": "FACTORY" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

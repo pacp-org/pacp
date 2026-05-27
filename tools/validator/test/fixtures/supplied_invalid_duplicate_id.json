@@ -1,0 +1,12 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_test",
+    "options": [],
+    "supplied_materials": [
+      { "id": "mat_x", "material": "TECIDO", "quantity": { "value": 15, "unit": "m2" } },
+      { "id": "mat_x", "material": "COURO",  "quantity": { "value": 2,  "unit": "m2" } }
+    ]
+  }
+}

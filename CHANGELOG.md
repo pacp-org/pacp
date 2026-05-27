@@ -2,6 +2,25 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.4.0] - 2026-05-27
+
+**npm:** `@pacp/spec@3.4.0`
+
+### Added
+
+- **`product.supplied_materials`**: campo opcional `array` que declara insumos consumidos pelo produto (tecido, couro, vidro, etc.) com regra de quem fornece (fábrica ou cliente). Resolve casos como "sofá com tecido fornecido pelo lojista". Cada item declara `id`, `material`, `quantity` (fixa ou via `table_id`), `default_source`, `sourcing_attribute_id` opcional (vincula a uma escolha de attribute/option no orçamento) com `source_when` correspondente, `factory_cost` opcional (custo quando fonte=FACTORY) e bloco livre `requirements`.
+- **Spec normativa (4.8)**: nova seção definindo modelo, semântica do engine (resolução de fonte/quantidade, output `supplied_quantities[]`) e fatos expostos para rules/constraints (`supplied_materials.<id>.source`, `.quantity`, agregados `any`/`all`).
+- **Pipeline (5.2)**: novo passo 5 de resolução de `supplied_materials` entre `sales_unit` e inicialização de `base_price`.
+- **Profile `moveis`**: novo schema `x-fabric_requirements` para padronizar requisitos de tecido (`min_weight_gsm`, `max_weight_gsm`, `min_width_cm`, `allowed_compositions`, `abrasion_min_cycles_martindale`, `flammability_standard`).
+- **Validador CLI**: novas validações `MISSING_SOURCING_ATTRIBUTE`, `INVALID_SOURCE_WHEN`, `UNCOVERED_OPTION_VALUE`, `DUPLICATE_SUPPLIED_MATERIAL_ID`.
+- **Pacote `@pacp/spec`**: tipos `SuppliedMaterial`, `SuppliedMaterialQuantity`, `SuppliedMaterialCost`, `SourceWhen`, `SuppliedMaterialSource`, `SupplyOutputEntry`; `Product.supplied_materials?: SuppliedMaterial[]`.
+- **Exemplo oficial**: `examples/supplied_materials.json` + `products/prod_sofa_modular.json` com tabelas `tbl_tecido_qty_por_lugares` e `tbl_tecido_preco_por_tipo`.
+- **Docs**: `integration-guide.md`, `import-guidelines.md` e `pricing-engine.md` atualizados.
+
+### Convention
+
+- Quando `supplied_materials` está presente, `base_price` representa o produto SEM os materiais declarados. Custo do material vive em `factory_cost`. Importadores que recebem planilha "tudo incluso" precisam desentrelaçar.
+
 ## [3.3.0] - 2026-05-05
 
 **npm:** `@pacp/spec@3.3.0`

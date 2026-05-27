@@ -1,0 +1,49 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_supplied_materials",
+  "product": {
+    "id": "prod_sofa_modular",
+    "name": "Sofá Modular Retrátil",
+    "sku": "SOF-MOD-RET",
+    "manufacturer": "Estofados Atelier",
+    "brand": "AtelierLine",
+    "description": "Sofá modular retrátil com tecido configurável (fábrica ou cliente).",
+    "category": [["Móveis", "Estofados", "Sofá"]],
+    "base_price": 4200,
+    "attributes": [
+      { "id": "lugares" },
+      { "id": "modo_tecido" },
+      { "id": "tecido_tipo" }
+    ],
+    "options": [
+      { "id": "opt_3lug", "attribute_id": "lugares", "value": "3_LUGARES" },
+      { "id": "opt_4lug", "attribute_id": "lugares", "value": "4_LUGARES" },
+      { "id": "opt_tec_fab", "attribute_id": "modo_tecido", "value": "FABRICA" },
+      { "id": "opt_tec_eu",  "attribute_id": "modo_tecido", "value": "EU_FORNECO" },
+      { "id": "opt_linho",   "attribute_id": "tecido_tipo", "value": "LINHO" },
+      { "id": "opt_veludo",  "attribute_id": "tecido_tipo", "value": "VELUDO" }
+    ],
+    "supplied_materials": [
+      {
+        "id": "mat_tecido",
+        "material": "TECIDO",
+        "quantity": { "table_id": "tbl_tecido_qty_por_lugares", "unit": "m2" },
+        "default_source": "FACTORY",
+        "sourcing_attribute_id": "modo_tecido",
+        "source_when": {
+          "factory":  ["FABRICA"],
+          "customer": ["EU_FORNECO"]
+        },
+        "factory_cost": { "table_id": "tbl_tecido_preco_por_tipo" },
+        "requirements": {
+          "x-fabric_requirements": {
+            "min_weight_gsm": 380,
+            "min_width_cm": 140,
+            "allowed_compositions": ["LINHO", "ALGODAO", "VELUDO"]
+          }
+        }
+      }
+    ],
+    "ruleset_ids": ["rs_base"]
+  }
+}
