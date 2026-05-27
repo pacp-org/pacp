@@ -47,3 +47,16 @@ Este guia descreve como um engine compatível com PACP DEVE processar um documen
 - Referência quebrada DEVE ser erro de validação.
 - `LOOKUP` sem célula encontrada DEVE seguir fallback ou falhar explicitamente.
 - Entrada inválida NÃO DEVE gerar preço parcial silencioso.
+
+### Passo 5: Resolução de `supplied_materials`
+
+Após normalização de `sales_unit` e antes de inicializar `base_price`, o engine resolve, para cada `supplied_material` declarado no produto:
+
+1. **Fonte**: combina `sourcing_attribute_id` + option selecionada + `source_when` (ou usa `default_source`).
+2. **Quantidade**: avalia `quantity.value` direto ou executa lookup em `quantity.table_id`.
+
+A fonte resolvida fica disponível como fato (`supplied_materials.<id>.source`, `.quantity`, e agregados `any`/`all`) para os rulesets de `BASE`/`SUBTOTAL`/`TOTAL` que vêm a seguir.
+
+**Custos:** quando a fonte resolvida = `FACTORY` e o material declara `factory_cost`, o engine soma o custo ao preço corrente nos rulesets de `BASE`. Quando = `CUSTOMER`, `factory_cost` é ignorado.
+
+**Output adicional do orçamento:** para cada material com fonte = `CUSTOMER`, o resultado inclui uma entrada em `supplied_quantities[]` com `material_id`, `material`, `quantity`, `unit` e `requirements` (quando presente).

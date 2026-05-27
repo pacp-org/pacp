@@ -669,3 +669,41 @@ npm run validate:examples
 - Engine guide: `docs/pricing-engine.md`
 - Import guide: `docs/import-guidelines.md`
 - Design principles: `docs/design-principles.md`
+
+## Materiais fornecidos pelo cliente (`supplied_materials`)
+
+Quando o produto declara `supplied_materials`, o consumidor (PDV, e-commerce, sistema da loja) deve tratar dois fluxos:
+
+**1. Resolver a fonte no orçamento.** Para cada material com `sourcing_attribute_id`, a `option` selecionada decide entre `FACTORY` e `CUSTOMER` via `source_when`. Quando o atributo não está mapeado para opção alguma, usar `default_source`.
+
+**2. Consumir o output `supplied_quantities[]`.** O engine de precificação deve expor, no resultado do orçamento, uma lista de materiais com fonte resolvida = `CUSTOMER`:
+
+```json
+{
+  "total": 4200,
+  "supplied_quantities": [
+    {
+      "material_id": "mat_tecido",
+      "material": "TECIDO",
+      "quantity": 15,
+      "unit": "m2",
+      "requirements": {
+        "x-fabric_requirements": {
+          "min_weight_gsm": 380,
+          "min_width_cm": 140
+        }
+      }
+    }
+  ]
+}
+```
+
+O PDV exibe ao vendedor: "Fornecer 15 m² de tecido, gramatura ≥ 380 g/m², largura do rolo ≥ 140 cm". Sistemas downstream (gestão da loja) usam o array para gerar pedidos de fornecimento à fábrica.
+
+**Convenção de preço.** Quando `supplied_materials` está presente, `base_price` é o produto **sem** os materiais declarados. O custo do material aparece em `factory_cost` (somado quando fonte=FACTORY, ignorado quando CUSTOMER).
+
+**Rules e constraints.** Condições podem referenciar:
+- `supplied_materials.<id>.source` (== / != / IN / NOT_IN)
+- `supplied_materials.<id>.quantity` (numeric ops)
+- `supplied_materials.any.source == "CUSTOMER"` (ao menos um)
+- `supplied_materials.all.source == "CUSTOMER"` (todos)
