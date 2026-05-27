@@ -25,11 +25,14 @@ jobs:
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref }}
 
+      # Sem registry-url: setup-node criaria .npmrc com _authToken=$NODE_AUTH_TOKEN.
+      # Como NODE_AUTH_TOKEN não é setado (OIDC via Trusted Publisher), o npm
+      # tentaria autenticar com placeholder vazio e falharia com 404.
+      # OIDC requer .npmrc SEM _authToken pra disparar troca id-token → npm token.
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
           node-version: "22"
-          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         working-directory: packages/pacp
