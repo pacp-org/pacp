@@ -37,6 +37,25 @@
       "type": "string",
       "enum": ["INDOOR", "OUTDOOR", "BOTH"],
       "description": "Indicacao de uso interno, externo ou ambos."
+    },
+    "x-fabric_requirements": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "min_weight_gsm": { "type": "number", "exclusiveMinimum": 0, "description": "Gramatura mínima do tecido (g/m²)." },
+        "max_weight_gsm": { "type": "number", "exclusiveMinimum": 0, "description": "Gramatura máxima do tecido (g/m²)." },
+        "min_width_cm": { "type": "number", "exclusiveMinimum": 0, "description": "Largura mínima do rolo (cm)." },
+        "allowed_compositions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+          "description": "Composições aceitas (uppercase, ex: LINHO, ALGODAO, VELUDO)."
+        },
+        "abrasion_min_cycles_martindale": { "type": "integer", "minimum": 0, "description": "Resistência mínima à abrasão (ciclos Martindale)." },
+        "flammability_standard": { "type": "string", "minLength": 1, "description": "Norma de inflamabilidade exigida (ex: NBR_15805)." }
+      },
+      "description": "Requisitos para tecido fornecido pelo cliente. Usado dentro de supplied_materials[].requirements."
     }
   },
   "additionalProperties": true
