@@ -157,6 +157,34 @@ Regras normativas:
   - `collections` representa agrupamentos transversais (campanha, sazão, linha curatorial), ortogonais à categoria.
 - Quando uma implementação mantiver metadados de coleção (rótulo legível, descrição, datas de vigência), esses dados PODEM viver em dicionários do catálogo (`dictionaries`) ou em sistemas externos, indexados pelo mesmo ID. PACP não normatiza estrutura desses metadados nesta versão.
 
+### 4.8 Materiais fornecidos (`supplied_materials`)
+
+- Produto PODE declarar `supplied_materials` (`array`) para listar insumos consumidos pelo produto e a regra de quem os fornece (fábrica ou cliente).
+- Cada item DEVE conter `id` (único por produto), `material` (string em SNAKE_UPPER, ex.: `TECIDO`, `COURO`, `VIDRO`) e `quantity`.
+- `quantity` DEVE conter `unit` e exatamente um de `value` (number > 0) OU `table_id` (referência a tabela LOOKUP). O lookup usa as dimensões PACP padrão (`ATTRIBUTE`, `CONTEXT`, `LITERAL`).
+- `default_source` (`FACTORY` | `CUSTOMER`, default `FACTORY`) DEFINE quem fornece quando não há escolha do orçamentista.
+- `sourcing_attribute_id`, quando presente, DEVE apontar para um `attribute` declarado no produto. A `option` selecionada para esse attribute determina a fonte no orçamento.
+- `source_when` é OBRIGATÓRIO quando `sourcing_attribute_id` está presente. DEVE conter arrays `factory` e `customer` mapeando `option.value` para o modo. Cada `value` distinto de option do attribute referenciado DEVE aparecer em `factory[]` OU `customer[]` (validadores DEVEM reportar `UNCOVERED_OPTION_VALUE` caso contrário).
+- `factory_cost`, quando presente, declara o custo do material quando a fonte resolvida = `FACTORY`. Aceita um de `value`, `table_id` ou `ruleset_id`. Ausente → o engine NÃO soma nada (custo já incluso em `base_price` por convenção).
+- `requirements` é bloco livre (`x-*`); profiles PODEM padronizar subgrupos (ver `x-fabric_requirements` no profile `moveis`).
+
+**Convenção normativa de `base_price`:** quando `supplied_materials` está presente, `base_price` DEVE representar o produto SEM os materiais declarados. Importadores que recebem planilha "tudo incluso" DEVEM desentrelaçar.
+
+**Semântica do engine** (resolução, por material):
+1. Fonte: se `sourcing_attribute_id` ausente → `default_source`. Se presente: ler `option` selecionada; primeiro match em `source_when.factory`/`.customer` define a fonte. Sem option selecionada → `default_source`. Option fora dos mapas → falha `UNRESOLVED_MATERIAL_SOURCE`.
+2. Quantidade: `value` direto ou lookup em `table_id` (pode falhar com `LOOKUP_MISS`).
+3. Preço: fonte=`FACTORY` + `factory_cost` presente → soma. Fonte=`CUSTOMER` → ignora `factory_cost`.
+4. Output: para cada material com fonte=`CUSTOMER`, o resultado do orçamento DEVE incluir uma entrada em `supplied_quantities[]` com `material_id`, `material`, `quantity`, `unit` e (quando presente) `requirements`.
+
+**Fatos disponíveis em rules e constraints:**
+
+| Fato | Tipo | Operadores |
+|---|---|---|
+| `supplied_materials.<id>.source` | enum (`FACTORY`/`CUSTOMER`) | `EQ`, `NEQ`, `IN`, `NOT_IN` |
+| `supplied_materials.<id>.quantity` | number | `EQ`, `NEQ`, `LT`, `LTE`, `GT`, `GTE`, `BETWEEN` |
+| `supplied_materials.any.source` | enum | `EQ` (verdadeiro se PELO MENOS UM material tem essa fonte) |
+| `supplied_materials.all.source` | enum | `EQ` (verdadeiro se TODOS têm essa fonte) |
+
 ### 4.4 Valores de atributos por produto (`attribute_values`)
 
 Em `PACP PACP`, `product.attribute_values` PODE ser usado para declarar valores fixos de atributos no nível do produto.
@@ -185,13 +213,14 @@ A execução DEVE seguir esta ordem:
 2. Avaliação de `constraints` e `dependencies` (bloqueio de combinação).
 3. Validação de dados de entrada de lote e quantidade solicitada (quando o produto exigir).
 4. Normalização da quantidade mínima vendável (`sales_unit`) com arredondamento normativo.
-5. Inicialização do preço base.
-6. Aplicação de rulesets de `BASE`.
-7. Formação de subtotal.
-8. Aplicação de rulesets de `SUBTOTAL`.
-9. Formação de total.
-10. Aplicação de rulesets de `TOTAL`.
-11. Pós-processamento de arredondamento/limites (`ROUND`, `CAP`, `FLOOR`), quando configurado.
+5. Resolução de `supplied_materials` (fonte + quantidade); rulesets de `BASE` em diante PODEM ler fatos `supplied_materials.<id>.source`, `.quantity` e agregados `any`/`all`.
+6. Inicialização do preço base.
+7. Aplicação de rulesets de `BASE`.
+8. Formação de subtotal.
+9. Aplicação de rulesets de `SUBTOTAL`.
+10. Formação de total.
+11. Aplicação de rulesets de `TOTAL`.
+12. Pós-processamento de arredondamento/limites (`ROUND`, `CAP`, `FLOOR`), quando configurado.
 
 Se qualquer constraint bloquear a entrada, o motor DEVE interromper o cálculo e retornar bloqueio determinístico.
 
@@ -391,6 +420,10 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `visibility`: nível de exposição do produto (`PUBLIC` ou `INTERNAL`); controla se o produto aparece em catálogos públicos.
 - `collections`: lista de IDs de coleções (agrupamento curatorial/sazonal) às quais o produto pertence; campo descritivo, não altera cálculo por si só.
 - `profile`: schema de extensão por vertical que padroniza campos `x-*`.
+- `supplied_material`: insumo declarado em `product.supplied_materials[]` (ex.: tecido, couro), com quantidade necessária e regra de quem fornece.
+- `source` (em supplied_material): valor `FACTORY` (fábrica fornece) ou `CUSTOMER` (cliente fornece) resolvido pelo engine no orçamento.
+- `supplied_quantities`: lista no output do orçamento com os materiais que a fonte resolveu como `CUSTOMER`, indicando quantidade que o cliente precisa fornecer.
+- `x-fabric_requirements`: subgrupo de `requirements` padronizado pelo profile `moveis` para descrever requisitos de tecido (gramatura, largura, composição, abrasão, inflamabilidade).
 
 ## 15. Conformidade PACP PACP
 
@@ -409,6 +442,8 @@ Um arquivo é PACP compliant quando:
 - [ ] Suporta `price_lists` e `context` quando usados.
 - [ ] Quando `unit` e `sales_unit` coexistem, `sales_unit.requested_unit` é igual a `product.unit`.
 - [ ] Quando `visibility` é `INTERNAL`, consumidores de catálogo público filtram o produto.
+- [ ] Quando `supplied_materials` é declarado, cada item segue regras da seção 4.8: `quantity` válido, `sourcing_attribute_id` (se presente) aponta para attribute existente e implica `source_when` com cobertura de todos os `option.value` do attribute.
+- [ ] Quando `supplied_materials` é declarado, `base_price` representa o produto sem os materiais listados (custo via `factory_cost` por material).
 - [ ] Permite e preserva extensões `x-*`.
 - [ ] Quando declara `profiles`, usa IDs válidos de profiles oficiais ou customizados.
 - [ ] Valida contra `spec/latest/pacp.schema.json`.
