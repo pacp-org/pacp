@@ -2,6 +2,19 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.4.1] - 2026-05-27
+
+**npm:** `@pacp/spec@3.4.1`
+
+### Added
+
+- **`AGENTS.md`** no root do repo: guia conciso para agentes (Claude Code, Codex, etc.) que geram ou consomem PACP. Cobre quickstart, convenções não-óbvias, receitas comuns (supplied_materials, sales_unit, lookup, queima de coleção, constraint), tabela de erros do validador → fix, e don'ts.
+- **JSDoc** em todas as interfaces e tipos exportados pelo pacote `@pacp/spec`. Descrições inline em PT-BR, com referência cruzada às seções da spec normativa (§4, §4.7, §4.8, §5.2, §5.5, §6, etc.). Tornam `Product.supplied_materials`, `SuppliedMaterial`, `SourceWhen`, `SalesUnit`, `Rule`, `Predicate` autoexplicativos quando consumidos via TS server / completions / agentes.
+
+### Changed
+
+- Tamanho do bundle `.d.ts` cresceu de ~7 KB para ~20 KB (JSDoc included). Sem mudança de runtime.
+
 ## [3.4.0] - 2026-05-27
 
 **npm:** `@pacp/spec@3.4.0`
