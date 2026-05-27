@@ -20,6 +20,20 @@ jobs:
       # Em release, github.ref_name é a tag; em workflow_dispatch, vem do input (GITHUB_REF_NAME seria a branch).
       TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
     steps:
+      # Hardening: valida formato do input ANTES de qualquer uso como ref.
+      # Sem isso, atacante com write access poderia rodar workflow_dispatch com
+      # `tag=main` (ou qualquer ref) e publicar um snapshot da branch como release.
+      - name: Validate tag format (workflow_dispatch)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+        run: |
+          if [[ ! "$INPUT_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::Tag inválida: '$INPUT_TAG'. Formato esperado: vX.Y.Z (ex: v3.4.2)"
+            exit 1
+          fi
+          echo "Tag validada: $INPUT_TAG"
+
       - name: Checkout
         uses: actions/checkout@v5
         with:
