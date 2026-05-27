@@ -663,6 +663,35 @@
         }
       },
       "description": "Mapeia option.value -> modo de sourcing. Cada valor da option do attribute referenciado por sourcing_attribute_id deve aparecer em factory[] OU customer[]."
+    },
+
+    "supplied_material": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": { "^x-": true },
+      "required": ["id", "material", "quantity"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "material": { "type": "string", "minLength": 1, "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "quantity": { "$ref": "#/$defs/supplied_material_quantity" },
+        "default_source": { "type": "string", "enum": ["FACTORY", "CUSTOMER"], "default": "FACTORY" },
+        "sourcing_attribute_id": { "type": "string", "minLength": 1 },
+        "source_when": { "$ref": "#/$defs/source_when" },
+        "factory_cost": { "$ref": "#/$defs/supplied_material_cost" },
+        "requirements": {
+          "type": "object",
+          "additionalProperties": true,
+          "patternProperties": { "^x-": true },
+          "description": "Bloco livre de requisitos do material. Profiles podem padronizar subgrupos como x-fabric_requirements."
+        }
+      },
+      "allOf": [
+        {
+          "if": { "required": ["sourcing_attribute_id"] },
+          "then": { "required": ["source_when"] }
+        }
+      ],
+      "description": "Insumo consumido pelo produto, com regra de quem fornece (fábrica ou cliente). Ver seção 4.8 da spec."
     }
   }
 }
