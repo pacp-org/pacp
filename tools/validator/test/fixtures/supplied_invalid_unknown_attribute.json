@@ -1,0 +1,21 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_test",
+    "attributes": [{ "id": "modo_tecido" }],
+    "options": [
+      { "id": "opt_fab", "attribute_id": "modo_tecido", "value": "FABRICA" },
+      { "id": "opt_eu",  "attribute_id": "modo_tecido", "value": "EU_FORNECO" }
+    ],
+    "supplied_materials": [
+      {
+        "id": "mat_tecido",
+        "material": "TECIDO",
+        "quantity": { "value": 15, "unit": "m2" },
+        "sourcing_attribute_id": "modo_inexistente",
+        "source_when": { "factory": ["FABRICA"], "customer": ["EU_FORNECO"] }
+      }
+    ]
+  }
+}
