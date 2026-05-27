@@ -607,6 +607,61 @@
 
     "scalar_value": {
       "type": ["string", "number", "boolean"]
+    },
+
+    "supplied_material_quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": { "^x-": true },
+      "properties": {
+        "value": { "type": "number", "exclusiveMinimum": 0 },
+        "table_id": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 }
+      },
+      "required": ["unit"],
+      "oneOf": [
+        { "required": ["value"], "not": { "required": ["table_id"] } },
+        { "required": ["table_id"], "not": { "required": ["value"] } }
+      ],
+      "description": "Quantidade de insumo necessária. Aceita value fixo (number > 0) OU table_id (lookup). Sempre exige unit."
+    },
+
+    "supplied_material_cost": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": { "^x-": true },
+      "properties": {
+        "value": { "type": "number" },
+        "table_id": { "type": "string", "minLength": 1 },
+        "ruleset_id": { "type": "string", "minLength": 1 }
+      },
+      "oneOf": [
+        { "required": ["value"], "not": { "anyOf": [{ "required": ["table_id"] }, { "required": ["ruleset_id"] }] } },
+        { "required": ["table_id"], "not": { "anyOf": [{ "required": ["value"] }, { "required": ["ruleset_id"] }] } },
+        { "required": ["ruleset_id"], "not": { "anyOf": [{ "required": ["value"] }, { "required": ["table_id"] }] } }
+      ],
+      "description": "Custo do material quando fonte=FACTORY. Exatamente um de value, table_id ou ruleset_id."
+    },
+
+    "source_when": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["factory", "customer"],
+      "properties": {
+        "factory": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": ["string", "number", "boolean"] }
+        },
+        "customer": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": ["string", "number", "boolean"] }
+        }
+      },
+      "description": "Mapeia option.value -> modo de sourcing. Cada valor da option do attribute referenciado por sourcing_attribute_id deve aparecer em factory[] OU customer[]."
     }
   }
 }
