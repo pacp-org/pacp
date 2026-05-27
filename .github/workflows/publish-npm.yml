@@ -34,6 +34,10 @@ jobs:
         with:
           node-version: "22"
 
+      # OIDC Trusted Publisher requer npm >= 11.5.1. Node 22 LTS vem com npm 10.x.
+      - name: Upgrade npm to latest (OIDC support)
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         working-directory: packages/pacp
         run: npm ci
