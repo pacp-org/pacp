@@ -216,6 +216,11 @@
           "type": "array",
           "items": { "$ref": "#/$defs/option" }
         },
+        "supplied_materials": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/supplied_material" },
+          "description": "Materiais consumidos pelo produto, com sourcing factory/customer. Ver seção 4.8."
+        },
         "ruleset_ids": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
