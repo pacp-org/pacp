@@ -1,0 +1,17 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_test" },
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_lookup",
+          "operation": "LOOKUP",
+          "table_id": "tbl_inexistente"
+        }
+      ]
+    }
+  ]
+}

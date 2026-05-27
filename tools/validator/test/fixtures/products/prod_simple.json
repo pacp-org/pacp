@@ -1,0 +1,8 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_simple",
+    "options": []
+  }
+}

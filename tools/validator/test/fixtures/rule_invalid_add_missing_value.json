@@ -1,0 +1,16 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_test" },
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_add_sem_value",
+          "operation": "ADD"
+        }
+      ]
+    }
+  ]
+}

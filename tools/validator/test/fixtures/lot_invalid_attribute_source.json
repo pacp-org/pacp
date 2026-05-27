@@ -1,0 +1,15 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_test",
+    "options": [
+      { "id": "opt_cor_azul", "attribute_id": "cor", "value": "AZUL" }
+    ],
+    "lot_policy": {
+      "required": true,
+      "source": "ATTRIBUTE",
+      "attribute_id": "lote_inexistente"
+    }
+  }
+}

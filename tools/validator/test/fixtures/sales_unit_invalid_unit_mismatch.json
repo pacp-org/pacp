@@ -1,0 +1,15 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_test",
+    "unit": "m2",
+    "sales_unit": {
+      "requested_unit": "L",
+      "sell_unit": "LATA",
+      "quantity_per_sell_unit": 3.6,
+      "rounding": "CEIL"
+    },
+    "options": []
+  }
+}

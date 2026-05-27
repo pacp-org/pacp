@@ -1,0 +1,13 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_with_lot",
+    "options": [],
+    "lot_policy": {
+      "required": true,
+      "source": "CONTEXT",
+      "context_key": "lot_id"
+    }
+  }
+}

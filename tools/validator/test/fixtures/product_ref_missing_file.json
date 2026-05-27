@@ -1,0 +1,8 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_test" },
+  "rulesets": [{ "id": "rs_base", "target": "BASE", "rules": [] }],
+  "product_refs": [
+    { "id": "prod_inexistente", "path": "products/inexistente.json" }
+  ]
+}

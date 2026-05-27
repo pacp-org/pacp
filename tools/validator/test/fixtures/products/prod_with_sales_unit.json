@@ -1,0 +1,15 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_with_sales_unit",
+    "unit": "m2",
+    "sales_unit": {
+      "requested_unit": "m2",
+      "sell_unit": "ROLO",
+      "quantity_per_sell_unit": 10,
+      "rounding": "CEIL"
+    },
+    "options": []
+  }
+}

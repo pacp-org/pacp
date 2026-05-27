@@ -1,0 +1,11 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_test" },
+  "rulesets": [{ "id": "rs_base", "target": "BASE", "rules": [] }],
+  "product_refs": [
+    { "id": "prod_with_sales_unit", "path": "products/prod_with_sales_unit.json" }
+  ],
+  "context": {
+    "requested_unit": "m2"
+  }
+}
