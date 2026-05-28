@@ -1,0 +1,26 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_outono_2026",
+    "name": "Catalogo Outono 2026",
+    "notes": "Catalogo valido de 01/03/2026 a 31/05/2026. Precos em BRL, prazo padrao 20 dias uteis. Para condicoes especiais, consultar comercial.",
+    "internal_notes": "Margem alvo 42% na linha premium. Ferragens importadas com lead time longo — confirmar estoque antes de fechar pedido. Politica de desconto definida no documento operacional v3.",
+    "default_price_list_id": "pl_varejo",
+    "price_lists": [
+      { "id": "pl_varejo", "currency": "BRL" }
+    ]
+  },
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_frete_fixo",
+          "operation": "ADD",
+          "value": 50
+        }
+      ]
+    }
+  ]
+}

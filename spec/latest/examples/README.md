@@ -13,6 +13,7 @@ Cada exemplo demonstra um aspecto especifico da spec. Todos os JSONs validam con
 | `multi_price_list.json` | Multiplas listas de preco selecionadas por context |
 | `extensions.json` | Campos x-* em catalogo, produto, regra e dicionarios |
 | `collections.json` | Campo `collections` no produto + regras condicionais usando fact `product.collections` (queima de colecao + protecao de linha premium) |
+| `catalog_notes.json` | Campos `catalog.notes` (publicas) e `catalog.internal_notes` (filtradas em catalogos publicos) |
 
 ## Estrutura
 
@@ -25,6 +26,7 @@ examples/
 ├── multi_price_list.json
 ├── extensions.json
 ├── collections.json
+├── catalog_notes.json
 └── products/
     ├── prod_cadeira.json
     ├── prod_banner.json

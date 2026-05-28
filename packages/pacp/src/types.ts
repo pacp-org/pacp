@@ -506,6 +506,10 @@ export interface PriceList {
 export interface Catalog {
   id: string;
   name?: string;
+  /** Observações públicas sobre o catálogo. Consumidores PODEM exibir. */
+  notes?: string;
+  /** Anotações não-públicas. Consumidores que geram catálogos públicos DEVEM omitir. Ver spec §9.1. */
+  internal_notes?: string;
   default_price_list_id?: string;
   price_lists?: PriceList[];
   [key: `x-${string}`]: unknown;

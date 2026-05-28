@@ -2,6 +2,22 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.5.0] - 2026-05-28
+
+**npm:** `@pacp/spec@3.5.0`
+**spec_version:** `3.5.0`
+
+### Added
+
+- **`catalog.notes`** (`string`, opcional) — observações públicas sobre o catálogo (vigência, escopo, instruções de uso). Consumidores PODEM exibir em vitrines e documentação voltadas ao cliente final.
+- **`catalog.internal_notes`** (`string`, opcional) — anotações não-públicas (contexto operacional, decisões internas, ressalvas comerciais). Consumidores que geram vitrines, e-commerce ou catálogos públicos **DEVEM omitir** este campo da saída. Semântica análoga ao `product.visibility="INTERNAL"`, mas no nível de catálogo. Ver spec §9.1.
+- Exemplo oficial `spec/latest/examples/catalog_notes.json` demonstrando os dois campos.
+- Item normativo no checklist de conformidade (§15).
+
+### Changed
+
+- Versão da spec: `3.4.0` → `3.5.0` (adição aditiva, sem quebra).
+
 ## [3.4.2] - 2026-05-27
 
 **npm:** `@pacp/spec@3.4.2`
