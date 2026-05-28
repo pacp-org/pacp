@@ -2,6 +2,33 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.6.0] - 2026-05-28
+
+**npm:** `@pacp/spec@3.6.0`
+**spec_version:** `3.6.0`
+
+### Added
+
+- **`product.role`** (`enum`, opcional, default implícito `"STANDALONE"`) — papel do produto na hierarquia família/módulo. Valores: `STANDALONE` (default, retrocompatível), `FAMILY` (agrupador conceitual), `MODULE` (componente vendável vinculado a uma família).
+- **`product.family_product_id`** (`string`, opcional) — referência ao `product.id` de um produto `role="FAMILY"` no mesmo catálogo. **Obrigatório** quando `role="MODULE"`; **proibido** quando `role="FAMILY"` ou `role="STANDALONE"`.
+- **`product.member_product_ids`** (`string[]`, opcional, `uniqueItems`) — lista dos `product.id` dos módulos da família. Permitido apenas quando `role="FAMILY"`. Recomendado em emissão para evitar scan no consumidor.
+- **`product.standalone_sellable`** (`boolean`, opcional, default `true`) — `false` indica que o módulo só pode ser vendido como parte da composição da família. Permitido apenas quando `role="MODULE"`.
+- **Regras condicionais no JSON Schema** (`$defs.product.allOf`) — exigem `family_product_id` em MODULE; proíbem `base_price`/`family_product_id`/`standalone_sellable` em FAMILY; proíbem `member_product_ids` em MODULE; proíbem todos os 3 campos novos relacionados (`family_product_id`, `member_product_ids`, `standalone_sellable`) em STANDALONE.
+- **Validações cross-document no validador CLI** — `MISSING_FAMILY_PRODUCT`, `INVALID_FAMILY_TARGET`, `MISSING_MEMBER_PRODUCT`, `INVALID_MEMBER_ROLE`, `FAMILY_MEMBER_MISMATCH`, `FAMILY_DEPTH_EXCEEDED`. Garantem que `family_product_id` aponta para FAMILY existente, que `member_product_ids` aponta para MODULEs cujo `family_product_id` casa de volta, e que a hierarquia tem profundidade máxima 1.
+- **Spec normativa (§4.9)** — nova seção "Hierarquia família/módulo (`role`)" com tabela de regras estruturais e cross-document.
+- **Tipos TypeScript** — `ProductRole` exportado; `Product.role?`, `Product.family_product_id?`, `Product.member_product_ids?`, `Product.standalone_sellable?` adicionados.
+- **Exemplo oficial** — `spec/latest/examples/family_hierarchy.json` + 4 `products/prod_*` demonstrando Sofá ADANA (Century) com 3 módulos (último com `standalone_sellable: false`).
+- **Cookbook** — receita "Família modular com módulos vendáveis" em `docs/cookbook.md`.
+- **6 fixtures negativas** em `tools/validator/test/fixtures/` cobrindo as 6 regras estruturais + cross-document.
+
+### Changed
+
+- Versão da spec: `3.5.0` → `3.6.0` (adição aditiva, sem quebra).
+
+### Backwards Compatibility
+
+Catálogos PACP existentes (sem `role` em nenhum produto) continuam **100% válidos** sem alteração. O default implícito `STANDALONE` preserva o comportamento histórico 1:1.
+
 ## [3.5.0] - 2026-05-28
 
 **npm:** `@pacp/spec@3.5.0`

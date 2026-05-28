@@ -1,6 +1,6 @@
 {
   "name": "@pacp/spec",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "PACP - Padrão Aberto de Catálogo e Precificação. Schema, profiles e validador para catálogos de produtos.",
   "type": "module",
   "main": "./dist/index.cjs",
