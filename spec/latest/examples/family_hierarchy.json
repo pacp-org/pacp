@@ -1,0 +1,18 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_family_hierarchy",
+    "name": "Exemplo — Hierarquia Família/Módulo (Sofá ADANA)",
+    "default_price_list_id": "pl_varejo",
+    "price_lists": [{ "id": "pl_varejo", "currency": "BRL", "label": "Varejo" }]
+  },
+  "rulesets": [
+    { "id": "rs_base", "target": "BASE", "rules": [] }
+  ],
+  "product_refs": [
+    { "id": "prod_family_sofa_adana", "path": "products/prod_family_sofa_adana.json" },
+    { "id": "prod_module_sofa_adana_1b_140", "path": "products/prod_module_sofa_adana_1b_140.json" },
+    { "id": "prod_module_sofa_adana_2b_180", "path": "products/prod_module_sofa_adana_2b_180.json" },
+    { "id": "prod_module_sofa_adana_3b_220", "path": "products/prod_module_sofa_adana_3b_220.json" }
+  ]
+}

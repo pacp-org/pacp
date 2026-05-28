@@ -14,6 +14,7 @@ Cada exemplo demonstra um aspecto especifico da spec. Todos os JSONs validam con
 | `extensions.json` | Campos x-* em catalogo, produto, regra e dicionarios |
 | `collections.json` | Campo `collections` no produto + regras condicionais usando fact `product.collections` (queima de colecao + protecao de linha premium) |
 | `catalog_notes.json` | Campos `catalog.notes` (publicas) e `catalog.internal_notes` (filtradas em catalogos publicos) |
+| `family_hierarchy.json` | Hierarquia família/módulo: 1 FAMILY (Sofá ADANA) + 3 MODULEs com `standalone_sellable` true/false |
 
 ## Estrutura
 
@@ -27,6 +28,7 @@ examples/
 ├── extensions.json
 ├── collections.json
 ├── catalog_notes.json
+├── family_hierarchy.json
 └── products/
     ├── prod_cadeira.json
     ├── prod_banner.json
@@ -36,7 +38,11 @@ examples/
     ├── prod_camisa_inverno.json
     ├── prod_jaqueta_premium.json
     ├── prod_ferragem.json
-    └── prod_sofa.json
+    ├── prod_sofa.json
+    ├── prod_family_sofa_adana.json
+    ├── prod_module_sofa_adana_1b_140.json
+    ├── prod_module_sofa_adana_2b_180.json
+    └── prod_module_sofa_adana_3b_220.json
 ```
 
 ## Validacao

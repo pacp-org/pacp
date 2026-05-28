@@ -1,0 +1,18 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_family_hierarchy",
+  "product": {
+    "id": "prod_module_sofa_adana_1b_140",
+    "name": "Sofá ADANA 1B 1,40m Pintado",
+    "sku": "ADANA-1B-140-PINT",
+    "manufacturer": "Century",
+    "brand": "Century Estofados",
+    "category": [["Móveis", "Estofados", "Sofá"]],
+    "role": "MODULE",
+    "family_product_id": "prod_family_sofa_adana",
+    "standalone_sellable": true,
+    "base_price": 4200,
+    "dimensions": { "width": 140, "height": 85, "depth": 95, "unit": "cm" },
+    "options": []
+  }
+}
