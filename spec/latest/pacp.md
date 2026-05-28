@@ -314,6 +314,14 @@ Validações de lote obrigatório e unidade solicitada incompatível com `sales_
 - Quando o produto tiver `lot_policy.required=true` e `source=CONTEXT`, o motor DEVE exigir `context[lot_policy.context_key]`.
 - Quando o produto tiver `sales_unit`, o motor DEVE exigir `context.requested_quantity` e `context.requested_unit`.
 
+### 9.1 Observações de catálogo (`notes` / `internal_notes`)
+
+- `catalog` PODE declarar `notes` (`string`) e `internal_notes` (`string`). Ambos são opcionais e aceitam texto livre, multilinha.
+- `notes` carrega observações **públicas** sobre o catálogo (ex.: vigência, escopo, instruções de uso para consumidores). Consumidores PODEM exibir em vitrines, documentação ou interfaces voltadas ao cliente final.
+- `internal_notes` carrega anotações **não-públicas** (ex.: contexto operacional, decisões internas, ressalvas para a equipe comercial). Consumidores que geram vitrines, e-commerce ou catálogos voltados ao cliente final DEVEM omitir `internal_notes` da saída.
+- Ambos os campos são informacionais e NÃO alteram a mecânica de cálculo do engine.
+- Para anotações por produto, use `product.description` (público) ou extensões `x-*` (custom). PACP não padroniza notas internas por produto neste nível.
+
 ## 10. Extensibilidade (`x-*`)
 
 - Qualquer objeto PACP PODE incluir propriedades `x-*`.
@@ -442,6 +450,7 @@ Um arquivo é PACP compliant quando:
 - [ ] Suporta `price_lists` e `context` quando usados.
 - [ ] Quando `unit` e `sales_unit` coexistem, `sales_unit.requested_unit` é igual a `product.unit`.
 - [ ] Quando `visibility` é `INTERNAL`, consumidores de catálogo público filtram o produto.
+- [ ] Quando `catalog.internal_notes` está presente, consumidores que geram catálogos públicos omitem o campo na saída.
 - [ ] Quando `supplied_materials` é declarado, cada item segue regras da seção 4.8: `quantity` válido, `sourcing_attribute_id` (se presente) aponta para attribute existente e implica `source_when` com cobertura de todos os `option.value` do attribute.
 - [ ] Quando `supplied_materials` é declarado, `base_price` representa o produto sem os materiais listados (custo via `factory_cost` por material).
 - [ ] Permite e preserva extensões `x-*`.

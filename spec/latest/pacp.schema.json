@@ -106,6 +106,14 @@
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "name": { "type": "string", "minLength": 1 },
+        "notes": {
+          "type": "string",
+          "description": "Observações públicas sobre o catálogo (vigência, escopo, instruções de uso). Texto livre, multilinha permitido. Consumidores PODEM exibir."
+        },
+        "internal_notes": {
+          "type": "string",
+          "description": "Anotações internas (não-públicas) sobre o catálogo. Consumidores que geram vitrines/catálogos públicos DEVEM omitir este campo. Ver spec §9.1."
+        },
         "default_price_list_id": { "type": "string", "minLength": 1 },
         "price_lists": {
           "type": "array",
