@@ -1,0 +1,10 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_bad_family",
+    "role": "FAMILY",
+    "base_price": 999,
+    "options": []
+  }
+}
