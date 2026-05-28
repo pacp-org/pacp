@@ -21,7 +21,7 @@ Para o ponto de partida, leia [`AGENTS.md`](../AGENTS.md). Para a spec normativa
 11. [Múltiplas listas de preço (varejo + atacado)](#11-múltiplas-listas-de-preço-varejo--atacado)
 12. [Dependency `REQUIRES` entre opções](#12-dependency-requires-entre-opções)
 13. [Produto com profile móveis + `x-fabric_requirements`](#13-produto-com-profile-móveis--x-fabric_requirements)
-14. [Família modular com módulos vendáveis](#família-modular-com-módulos-vendáveis)
+14. [Família modular com módulos vendáveis](#14-família-modular-com-módulos-vendáveis)
 
 ---
 
@@ -348,7 +348,7 @@ E no produto:
 
 Profile `moveis` valida `x-assembly_required`, `x-load_capacity`, `x-warranty_months`, `x-finish`, `x-style`, `x-indoor_outdoor` no nível do produto. `x-fabric_requirements` é validado quando aninhado em `requirements` por consumidores que carregam o schema do profile.
 
-## Família modular com módulos vendáveis
+## 14. Família modular com módulos vendáveis
 
 Use quando: o cliente compõe a unidade vendida a partir de módulos pré-definidos (linhas modulares de sofá, cozinhas montáveis, racks). Não use para variantes de configuração — `attributes`+`options` já resolvem isso.
 
