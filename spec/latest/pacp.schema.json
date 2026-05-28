@@ -232,6 +232,28 @@
         "ruleset_ids": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
+        },
+        "role": {
+          "type": "string",
+          "enum": ["STANDALONE", "FAMILY", "MODULE"],
+          "default": "STANDALONE",
+          "description": "Papel do produto na hierarquia. STANDALONE (default, retrocompatível) é vendido independentemente. FAMILY é agrupador conceitual sem SKU/preço próprios (ex.: linha de sofá modular). MODULE é componente vendável vinculado a uma FAMILY. Ver spec §4.9."
+        },
+        "family_product_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Referência ao product.id de um produto com role=FAMILY no mesmo catalog document. Obrigatório quando role=MODULE; proibido para role=FAMILY ou STANDALONE."
+        },
+        "member_product_ids": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true,
+          "description": "Lista dos product.id dos módulos pertencentes a esta família. Emitido pelo materializer/exporter por conveniência do consumidor (evita scan); permitido apenas quando role=FAMILY."
+        },
+        "standalone_sellable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Indica se um MODULE pode ser vendido isoladamente (true) ou apenas como parte de composição da família (false). Permitido apenas quando role=MODULE."
         }
       },
       "allOf": [
@@ -248,6 +270,38 @@
           "then": {
             "properties": {
               "lot_policy": { "required": ["attribute_id"] }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "role": { "const": "MODULE" } }, "required": ["role"] },
+          "then": { "required": ["family_product_id"] }
+        },
+        {
+          "if": { "properties": { "role": { "const": "FAMILY" } }, "required": ["role"] },
+          "then": {
+            "not": {
+              "anyOf": [
+                { "required": ["family_product_id"] },
+                { "required": ["base_price"] }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "anyOf": [
+              { "properties": { "role": { "const": "STANDALONE" } }, "required": ["role"] },
+              { "not": { "required": ["role"] } }
+            ]
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                { "required": ["family_product_id"] },
+                { "required": ["member_product_ids"] },
+                { "required": ["standalone_sellable"] }
+              ]
             }
           }
         }
