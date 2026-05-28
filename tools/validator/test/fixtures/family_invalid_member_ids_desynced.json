@@ -1,0 +1,9 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_family_test" },
+  "rulesets": [{ "id": "rs_base", "target": "BASE", "rules": [] }],
+  "product_refs": [
+    { "id": "prod_family_fam", "path": "products/prod_family_fam.json" },
+    { "id": "prod_family_module_desynced", "path": "products/prod_family_module_desynced.json" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_family_test",
+  "product": {
+    "id": "prod_family_module_orphan",
+    "role": "MODULE",
+    "family_product_id": "prod_family_that_does_not_exist",
+    "base_price": 100,
+    "options": []
+  }
+}
