@@ -1,0 +1,10 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_family_test",
+  "product": {
+    "id": "prod_family_fam",
+    "role": "FAMILY",
+    "options": [],
+    "member_product_ids": ["prod_family_module_desynced"]
+  }
+}

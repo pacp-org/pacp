@@ -1,0 +1,11 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_family_test",
+  "product": {
+    "id": "prod_family_module_to_standalone",
+    "role": "MODULE",
+    "family_product_id": "prod_family_standalone_target",
+    "base_price": 200,
+    "options": []
+  }
+}

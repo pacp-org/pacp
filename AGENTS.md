@@ -81,6 +81,8 @@ Coisas que LLMs erram com frequência. Memorize.
 
 7. **`unit` no produto e `sales_unit.requested_unit` DEVEM ser iguais** quando coexistem.
 
+8. **Hierarquia família/módulo é opt-in via `product.role`.** Sem `role` (ou `role="STANDALONE"`) o comportamento é o histórico. Quando usar: `FAMILY` é agrupador sem `base_price` e sem `family_product_id`; `MODULE` exige `family_product_id` apontando para a FAMILY no mesmo catálogo; profundidade é 1 (não dá pra aninhar famílias). Ver spec §4.9 e exemplo `family_hierarchy.json`.
+
 ## Receitas comuns
 
 ### Sofá com tecido fornecido pelo cliente
@@ -224,6 +226,9 @@ if (!result.valid) {
 | `INVALID_SOURCE_WHEN` | `sourcing_attribute_id` presente sem `source_when` | Adicione `source_when: { factory: [...], customer: [...] }` |
 | `UNCOVERED_OPTION_VALUE` | `source_when` não cobre todos os `option.value` do attribute | Adicione o valor faltante em `source_when.factory` ou `.customer` |
 | `DUPLICATE_SUPPLIED_MATERIAL_ID` | Dois materials com mesmo `id` no produto | Renomeie |
+| `MISSING_FAMILY_PRODUCT` | MODULE com `family_product_id` apontando para ID inexistente | Declare o produto FAMILY ou corrija a referência |
+| `INVALID_FAMILY_TARGET` | MODULE.`family_product_id` aponta para produto que existe mas com role ≠ FAMILY | O alvo precisa ter `role="FAMILY"` |
+| `FAMILY_MEMBER_MISMATCH` | FAMILY.`member_product_ids` lista um módulo que aponta para outra família | Sincronize os dois lados |
 | `UNIT_SALES_UNIT_MISMATCH` | `product.unit` ≠ `sales_unit.requested_unit` | Sincronize |
 | `MISSING_REQUIRED_LOT` | `lot_policy.required=true` mas `context.lot_id` ausente | Forneça lote no `context` |
 | `MISSING_REQUESTED_QUANTITY` | `sales_unit` presente sem `context.requested_quantity` | Adicione no context |

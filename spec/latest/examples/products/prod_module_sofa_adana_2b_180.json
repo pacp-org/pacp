@@ -1,0 +1,18 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_family_hierarchy",
+  "product": {
+    "id": "prod_module_sofa_adana_2b_180",
+    "name": "Sofá ADANA 2B 1,80m Pintado",
+    "sku": "ADANA-2B-180-PINT",
+    "manufacturer": "Century",
+    "brand": "Century Estofados",
+    "category": [["Móveis", "Estofados", "Sofá"]],
+    "role": "MODULE",
+    "family_product_id": "prod_family_sofa_adana",
+    "standalone_sellable": true,
+    "base_price": 5400,
+    "dimensions": { "width": 180, "height": 85, "depth": 95, "unit": "cm" },
+    "options": []
+  }
+}

@@ -51,13 +51,24 @@ Cada execução deve sair com **exit code 2** (validação falhou) e imprimir o 
 |---|---|---|
 | `rule_invalid_add_missing_value.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="ADD"` sem campo `value` |
 
+## Fixtures: hierarquia família/módulo
+
+| Arquivo | Código esperado | Notas |
+|---|---|---|
+| `family_invalid_module_missing_family_id.json` | `[SCHEMA]` | PRODUCT `role=MODULE` sem `family_product_id`; rejeitado pelo schema (allOf if/then). |
+| `family_invalid_family_with_base_price.json` | `[SCHEMA]` | PRODUCT `role=FAMILY` com `base_price`; rejeitado pelo schema. |
+| `family_invalid_standalone_with_family_id.json` | `[SCHEMA]` | PRODUCT `role=STANDALONE` com `family_product_id`; rejeitado pelo schema. |
+| `family_invalid_module_unknown_family.json` | `MISSING_FAMILY_PRODUCT` | CATALOG: MODULE aponta para `family_product_id` que não existe no catálogo. |
+| `family_invalid_member_ids_desynced.json` | `FAMILY_MEMBER_MISMATCH` + `MISSING_FAMILY_PRODUCT` | CATALOG: FAMILY lista MODULE em `member_product_ids`, mas MODULE.`family_product_id` aponta para outra família (inexistente). |
+| `family_invalid_module_pointing_to_standalone.json` | `INVALID_FAMILY_TARGET` | CATALOG: MODULE.`family_product_id` aponta para um produto que existe mas tem `role=STANDALONE`. |
+
 ## Verificação rápida (todos devem sair exit=2)
 
 ```bash
 cd tools/validator
 for f in test/fixtures/*.json; do
   node dist/cli.js "$f" >/dev/null 2>&1
-  echo "$(basename $f) exit=$?"
+  code=$?; echo "$(basename $f) exit=$code"
 done
 ```
 
@@ -72,3 +83,8 @@ Os fixtures CATALOG que precisam carregar produtos via `product_refs` usam arqui
 | `prod_with_lot.json` | `lot_invalid_missing_required.json` |
 | `prod_with_sales_unit.json` | `sales_unit_invalid_missing_qty.json`, `sales_unit_invalid_unit_request_mismatch.json` |
 | `prod_simple.json` | `ids_invalid_duplicate_product.json` |
+| `prod_family_module_orphan.json` | `family_invalid_module_unknown_family.json` |
+| `prod_family_fam.json` | `family_invalid_member_ids_desynced.json` |
+| `prod_family_module_desynced.json` | `family_invalid_member_ids_desynced.json` |
+| `prod_family_standalone_target.json` | `family_invalid_module_pointing_to_standalone.json` |
+| `prod_family_module_to_standalone.json` | `family_invalid_module_pointing_to_standalone.json` |

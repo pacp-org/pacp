@@ -1,0 +1,18 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_family_hierarchy",
+  "product": {
+    "id": "prod_module_sofa_adana_3b_220",
+    "name": "Sofá ADANA 3B 2,20m Pintado",
+    "sku": "ADANA-3B-220-PINT",
+    "manufacturer": "Century",
+    "brand": "Century Estofados",
+    "category": [["Móveis", "Estofados", "Sofá"]],
+    "role": "MODULE",
+    "family_product_id": "prod_family_sofa_adana",
+    "standalone_sellable": false,
+    "base_price": 6800,
+    "dimensions": { "width": 220, "height": 85, "depth": 95, "unit": "cm" },
+    "options": []
+  }
+}

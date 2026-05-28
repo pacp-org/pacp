@@ -185,6 +185,36 @@ Regras normativas:
 | `supplied_materials.any.source` | enum | `EQ` (verdadeiro se PELO MENOS UM material tem essa fonte) |
 | `supplied_materials.all.source` | enum | `EQ` (verdadeiro se TODOS têm essa fonte) |
 
+### 4.9 Hierarquia família/módulo (`role`)
+
+Produtos PACP suportam uma hierarquia de profundidade 1 entre um produto agrupador (família) e seus produtos vendáveis (módulos). É opcional e aditiva: catálogos pré-3.6 continuam válidos sem qualquer mudança.
+
+Campo controlador: `product.role` ∈ `{"STANDALONE", "FAMILY", "MODULE"}`. Ausência ≡ `"STANDALONE"`.
+
+- **`STANDALONE`** (default implícito): produto vendido independentemente. Comportamento PACP histórico — sem nenhum dos campos novos de hierarquia.
+- **`FAMILY`**: agrupador conceitual. NÃO tem `base_price` nem `family_product_id`. PODE listar seus módulos em `member_product_ids` (recomendado em emissão por materializer/exporter para evitar scan do consumidor).
+- **`MODULE`**: componente vendável vinculado a uma FAMILY via `family_product_id` (**obrigatório**). Tem `base_price` próprio. Pode marcar `standalone_sellable: false` para indicar que só faz sentido vendido como parte da composição da família. Default `standalone_sellable: true`.
+
+**Regras estruturais (schema):**
+
+| role | `family_product_id` | `member_product_ids` | `standalone_sellable` | `base_price` |
+|---|---|---|---|---|
+| `STANDALONE` (ou ausente) | proibido | proibido | proibido | livre |
+| `FAMILY` | proibido | permitido | proibido | proibido |
+| `MODULE` | **obrigatório** | proibido | permitido | livre |
+
+**Regras cross-document (validador):**
+
+1. `MODULE.family_product_id` DEVE existir como produto com `role="FAMILY"` no mesmo `CatalogDocument`.
+2. Cada ID em `FAMILY.member_product_ids` DEVE existir como produto com `role="MODULE"` cujo `family_product_id` aponte de volta para a mesma família. Códigos do validador: `MISSING_FAMILY_PRODUCT`, `INVALID_FAMILY_TARGET`, `MISSING_MEMBER_PRODUCT`, `INVALID_MEMBER_ROLE`, `FAMILY_MEMBER_MISMATCH`.
+3. Hierarquia tem profundidade máxima 1: FAMILY NÃO PODE ter `family_product_id`. Código: `FAMILY_DEPTH_EXCEEDED`.
+
+**Convenção de uso (não-normativa):**
+
+Use a hierarquia quando o cliente compõe a unidade vendida a partir de módulos (caso típico: linhas modulares de sofá, kits de cozinha, racks). Não use para variantes de configuração — para isso, continue usando `attributes` + `options` no mesmo produto.
+
+Exemplo: `spec/latest/examples/family_hierarchy.json` demonstra uma FAMILY ADANA com 3 MODULEs (1B/1,40m, 2B/1,80m, 3B/2,20m — o último com `standalone_sellable: false`).
+
 ### 4.4 Valores de atributos por produto (`attribute_values`)
 
 Em `PACP PACP`, `product.attribute_values` PODE ser usado para declarar valores fixos de atributos no nível do produto.

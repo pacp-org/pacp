@@ -255,6 +255,19 @@ export interface SupplyOutputEntry {
 }
 
 /**
+ * Papel do produto na hierarquia família/módulo. Ver spec §4.9.
+ *
+ * - `STANDALONE` (default quando ausente): produto vendido independentemente — comportamento PACP histórico.
+ * - `FAMILY`: agrupador conceitual sem SKU/preço próprios (ex.: linha de sofá modular ADANA).
+ *   Não pode ter `base_price` nem `family_product_id`. Pode listar seus módulos em `member_product_ids`.
+ * - `MODULE`: componente vendável vinculado a uma FAMILY via `family_product_id` (obrigatório).
+ *   Tem `base_price` próprio. Pode marcar `standalone_sellable=false` se só for vendido como parte da composição.
+ *
+ * Profundidade da hierarquia é 1 (FAMILY não pode ter `family_product_id`).
+ */
+export type ProductRole = "STANDALONE" | "FAMILY" | "MODULE";
+
+/**
  * Produto único do catálogo. Ver spec §4.
  *
  * Campos descritivos (`sku`, `manufacturer`, `category`, etc.) são opcionais e não alteram cálculo.
@@ -322,6 +335,14 @@ export interface Product {
   supplied_materials?: SuppliedMaterial[];
   /** IDs de rulesets aplicados a este produto. */
   ruleset_ids?: string[];
+  /** Papel do produto na hierarquia. Default implícito quando ausente: `STANDALONE`. Ver spec §4.9. */
+  role?: ProductRole;
+  /** ID da família (produto com `role="FAMILY"`) à qual este módulo pertence. Obrigatório quando `role="MODULE"`; proibido em outros casos. */
+  family_product_id?: string;
+  /** IDs dos módulos pertencentes a esta família. Permitido apenas quando `role="FAMILY"`. */
+  member_product_ids?: string[];
+  /** `false` quando o módulo só pode ser vendido como parte da composição da família. Default `true`. Permitido apenas quando `role="MODULE"`. */
+  standalone_sellable?: boolean;
   [key: `x-${string}`]: unknown;
 }
 

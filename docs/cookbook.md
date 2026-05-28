@@ -21,6 +21,7 @@ Para o ponto de partida, leia [`AGENTS.md`](../AGENTS.md). Para a spec normativa
 11. [Múltiplas listas de preço (varejo + atacado)](#11-múltiplas-listas-de-preço-varejo--atacado)
 12. [Dependency `REQUIRES` entre opções](#12-dependency-requires-entre-opções)
 13. [Produto com profile móveis + `x-fabric_requirements`](#13-produto-com-profile-móveis--x-fabric_requirements)
+14. [Família modular com módulos vendáveis](#14-família-modular-com-módulos-vendáveis)
 
 ---
 
@@ -346,6 +347,42 @@ E no produto:
 ```
 
 Profile `moveis` valida `x-assembly_required`, `x-load_capacity`, `x-warranty_months`, `x-finish`, `x-style`, `x-indoor_outdoor` no nível do produto. `x-fabric_requirements` é validado quando aninhado em `requirements` por consumidores que carregam o schema do profile.
+
+## 14. Família modular com módulos vendáveis
+
+Use quando: o cliente compõe a unidade vendida a partir de módulos pré-definidos (linhas modulares de sofá, cozinhas montáveis, racks). Não use para variantes de configuração — `attributes`+`options` já resolvem isso.
+
+**Família (sem SKU, sem preço):**
+
+```json
+{
+  "id": "prod_family_sofa_adana",
+  "name": "Sofá ADANA (Família)",
+  "role": "FAMILY",
+  "options": [],
+  "member_product_ids": [
+    "prod_module_sofa_adana_1b_140",
+    "prod_module_sofa_adana_2b_180"
+  ]
+}
+```
+
+**Módulo (vendável, vinculado à família):**
+
+```json
+{
+  "id": "prod_module_sofa_adana_1b_140",
+  "name": "Sofá ADANA 1B 1,40m Pintado",
+  "sku": "ADANA-1B-140-PINT",
+  "role": "MODULE",
+  "family_product_id": "prod_family_sofa_adana",
+  "standalone_sellable": true,
+  "base_price": 4200,
+  "options": []
+}
+```
+
+Profundidade máxima é 1 (FAMILY não pode ter `family_product_id`). Use `standalone_sellable: false` em módulos que só fazem sentido vendidos compostos (ex.: meia-peça de uma seccional). Exemplo completo: `spec/latest/examples/family_hierarchy.json`. Spec normativa: §4.9.
 
 ---
 

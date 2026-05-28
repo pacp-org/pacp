@@ -656,6 +656,97 @@ function checkProfileExtensions(
   }
 }
 
+function checkFamilyHierarchy(
+  products: Record<string, unknown>[],
+  issues: Issue[]
+): void {
+  type RoleInfo = { role: "STANDALONE" | "FAMILY" | "MODULE"; index: number };
+  const byId = new Map<string, RoleInfo>();
+
+  for (let i = 0; i < products.length; i += 1) {
+    const p = products[i];
+    const id = typeof p.id === "string" ? p.id : null;
+    if (!id) continue;
+    const rawRole = typeof p.role === "string" ? p.role : "STANDALONE";
+    const role: RoleInfo["role"] =
+      rawRole === "FAMILY" || rawRole === "MODULE" ? rawRole : "STANDALONE";
+    byId.set(id, { role, index: i });
+  }
+
+  for (let i = 0; i < products.length; i += 1) {
+    const p = products[i];
+    const productId = typeof p.id === "string" ? p.id : `index_${i}`;
+    const productPath = `/products[${i}]`;
+    const rawRole = typeof p.role === "string" ? p.role : "STANDALONE";
+
+    if (rawRole === "MODULE") {
+      const familyId = p.family_product_id;
+      if (typeof familyId !== "string" || familyId.trim().length === 0) {
+        // Schema already catches this; no extra issue here.
+        continue;
+      }
+      const target = byId.get(familyId);
+      if (!target) {
+        issues.push({
+          code: "MISSING_FAMILY_PRODUCT",
+          path: `${productPath}/family_product_id`,
+          message: `Produto MODULE "${productId}" referencia family_product_id="${familyId}" que nao existe no catalogo. Fix: declare um produto com id="${familyId}" e role="FAMILY", ou ajuste family_product_id.`
+        });
+        continue;
+      }
+      if (target.role !== "FAMILY") {
+        issues.push({
+          code: "INVALID_FAMILY_TARGET",
+          path: `${productPath}/family_product_id`,
+          message: `Produto MODULE "${productId}" referencia family_product_id="${familyId}" que existe mas tem role="${target.role}". Fix: family_product_id DEVE apontar para um produto com role="FAMILY".`
+        });
+      }
+    }
+
+    if (rawRole === "FAMILY") {
+      // Depth 1: a FAMILY cannot itself point to another family.
+      if (typeof p.family_product_id === "string" && p.family_product_id.trim().length > 0) {
+        issues.push({
+          code: "FAMILY_DEPTH_EXCEEDED",
+          path: `${productPath}/family_product_id`,
+          message: `Produto FAMILY "${productId}" declara family_product_id; hierarquia tem profundidade maxima 1 (FAMILY nao pode ter FAMILY pai). Fix: remova family_product_id.`
+        });
+      }
+
+      const memberIds = Array.isArray(p.member_product_ids) ? p.member_product_ids : [];
+      for (let j = 0; j < memberIds.length; j += 1) {
+        const memberId = memberIds[j];
+        if (typeof memberId !== "string" || memberId.trim().length === 0) continue;
+        const target = byId.get(memberId);
+        if (!target) {
+          issues.push({
+            code: "MISSING_MEMBER_PRODUCT",
+            path: `${productPath}/member_product_ids[${j}]`,
+            message: `FAMILY "${productId}" lista member_product_ids[${j}]="${memberId}" que nao existe no catalogo. Fix: declare o modulo ou remova-o de member_product_ids.`
+          });
+          continue;
+        }
+        if (target.role !== "MODULE") {
+          issues.push({
+            code: "INVALID_MEMBER_ROLE",
+            path: `${productPath}/member_product_ids[${j}]`,
+            message: `FAMILY "${productId}" lista member_product_ids[${j}]="${memberId}" que tem role="${target.role}". Fix: membros DEVEM ter role="MODULE".`
+          });
+          continue;
+        }
+        const memberProduct = products[target.index];
+        if (memberProduct.family_product_id !== productId) {
+          issues.push({
+            code: "FAMILY_MEMBER_MISMATCH",
+            path: `${productPath}/member_product_ids[${j}]`,
+            message: `FAMILY "${productId}" lista "${memberId}" em member_product_ids, mas o MODULE "${memberId}" declara family_product_id="${String(memberProduct.family_product_id ?? "")}". Fix: sincronize os dois lados ou remova um deles.`
+          });
+        }
+      }
+    }
+  }
+}
+
 function loadProductsFromRefs(
   catalogDoc: Record<string, unknown>,
   catalogFilePath: string,
@@ -833,6 +924,7 @@ function validatePacp(filePath: string): number {
         const pid = typeof p.id === "string" ? p.id : `index_${i}`;
         checkSuppliedMaterials(p, `/products[${i}]`, pid, issues);
       }
+      checkFamilyHierarchy(loadedProducts, issues);
     } else if (documentType === "PRODUCT") {
       checkProductDocumentSemanticBasics(objectDoc, issues);
       if (isRecord(objectDoc.product)) {

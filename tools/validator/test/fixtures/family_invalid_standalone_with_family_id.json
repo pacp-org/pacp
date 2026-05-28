@@ -1,0 +1,11 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_bad_standalone",
+    "role": "STANDALONE",
+    "family_product_id": "prod_some_family",
+    "base_price": 100,
+    "options": []
+  }
+}

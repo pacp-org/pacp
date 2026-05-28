@@ -1,0 +1,19 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_family_hierarchy",
+  "product": {
+    "id": "prod_family_sofa_adana",
+    "name": "Sofá ADANA (Família)",
+    "manufacturer": "Century",
+    "brand": "Century Estofados",
+    "description": "Linha modular ADANA. Selecione um módulo (configuração + dimensão + acabamento de base) para orçar.",
+    "category": [["Móveis", "Estofados", "Sofá"]],
+    "role": "FAMILY",
+    "options": [],
+    "member_product_ids": [
+      "prod_module_sofa_adana_1b_140",
+      "prod_module_sofa_adana_2b_180",
+      "prod_module_sofa_adana_3b_220"
+    ]
+  }
+}
