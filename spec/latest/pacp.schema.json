@@ -275,7 +275,10 @@
         },
         {
           "if": { "properties": { "role": { "const": "MODULE" } }, "required": ["role"] },
-          "then": { "required": ["family_product_id"] }
+          "then": {
+            "required": ["family_product_id"],
+            "not": { "required": ["member_product_ids"] }
+          }
         },
         {
           "if": { "properties": { "role": { "const": "FAMILY" } }, "required": ["role"] },
@@ -283,7 +286,8 @@
             "not": {
               "anyOf": [
                 { "required": ["family_product_id"] },
-                { "required": ["base_price"] }
+                { "required": ["base_price"] },
+                { "required": ["standalone_sellable"] }
               ]
             }
           }
