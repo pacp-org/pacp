@@ -705,7 +705,7 @@ function checkFamilyHierarchy(
 
     if (rawRole === "FAMILY") {
       // Depth 1: a FAMILY cannot itself point to another family.
-      if (typeof p.family_product_id === "string") {
+      if (typeof p.family_product_id === "string" && p.family_product_id.trim().length > 0) {
         issues.push({
           code: "FAMILY_DEPTH_EXCEEDED",
           path: `${productPath}/family_product_id`,
