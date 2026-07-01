@@ -178,6 +178,7 @@ Cada conjunto de regras (`ruleset`) atua em um estágio:
 | `CAP` | Teto máximo | `max` |
 | `FLOOR` | Piso mínimo | `min` |
 | `TAX` | Soma percentual (`rate`) sobre `base` (`"CURRENT"` default = valor corrente; `"BASE_PRICE"` = `product.base_price`) | `rate` |
+| `DISCOUNT` | Subtrai desconto do valor corrente (`value` R$ fixo ou `rate` % — exatamente um) | `value` \| `rate` |
 
 ### Ordem de execução (determinística)
 

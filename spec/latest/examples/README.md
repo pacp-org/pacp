@@ -16,6 +16,7 @@ Cada exemplo demonstra um aspecto especifico da spec. Todos os JSONs validam con
 | `catalog_notes.json` | Campos `catalog.notes` (publicas) e `catalog.internal_notes` (filtradas em catalogos publicos) |
 | `family_hierarchy.json` | Hierarquia família/módulo: 1 FAMILY (Sofá ADANA) + 3 MODULEs com `standalone_sellable` true/false |
 | `tax_operation.json` | Operação `TAX`: `base="CURRENT"` (default, incide sobre o valor corrente no SUBTOTAL) e `base="BASE_PRICE"` (incide sobre `product.base_price` original no TOTAL, ignorando o ADD acumulado em BASE) |
+| `discount_operation.json` | Operação `DISCOUNT`: `value` (R$ fixo) e `rate` (% do valor corrente) abatendo o preço de venda no TOTAL |
 
 ## Estrutura
 
@@ -31,12 +32,14 @@ examples/
 ├── catalog_notes.json
 ├── family_hierarchy.json
 ├── tax_operation.json
+├── discount_operation.json
 └── products/
     ├── prod_cadeira.json
     ├── prod_banner.json
     ├── prod_mesa.json
     ├── prod_mesa_config.json
     ├── prod_camiseta.json
+    ├── prod_camiseta_discount.json
     ├── prod_camisa_inverno.json
     ├── prod_jaqueta_premium.json
     ├── prod_ferragem.json

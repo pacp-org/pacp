@@ -1,0 +1,31 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_discount",
+    "name": "Catalogo DISCOUNT - Vestuario"
+  },
+  "rulesets": [
+    {
+      "id": "rs_total",
+      "target": "TOTAL",
+      "rules": [
+        {
+          "id": "rule_desconto_fixo",
+          "operation": "DISCOUNT",
+          "value": 10
+        },
+        {
+          "id": "rule_desconto_percentual",
+          "operation": "DISCOUNT",
+          "rate": 5
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_camiseta",
+      "path": "products/prod_camiseta_discount.json"
+    }
+  ]
+}

@@ -294,6 +294,17 @@ function checkRulesSemanticBasics(doc: Record<string, unknown>, issues: Issue[])
           message: "Operacao TAX exige campo numerico \"rate\""
         });
       }
+      if (op === "DISCOUNT") {
+        const hasValue = typeof rule.value === "number";
+        const hasRate = typeof rule.rate === "number";
+        if (hasValue === hasRate) {
+          issues.push({
+            code: "INVALID_OPERATION_PARAMS",
+            path: rulePath,
+            message: "Operacao DISCOUNT exige exatamente um de \"value\" ou \"rate\""
+          });
+        }
+      }
     }
   }
 }

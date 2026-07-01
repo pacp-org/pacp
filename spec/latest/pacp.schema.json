@@ -419,7 +419,7 @@
         "when": { "$ref": "#/$defs/condition" },
         "operation": {
           "type": "string",
-          "enum": ["ADD", "PERCENT_OF", "OVERRIDE", "LOOKUP", "MAX_OF", "MIN_OF", "PICK", "ROUND", "CAP", "FLOOR", "TAX"]
+          "enum": ["ADD", "PERCENT_OF", "OVERRIDE", "LOOKUP", "MAX_OF", "MIN_OF", "PICK", "ROUND", "CAP", "FLOOR", "TAX", "DISCOUNT"]
         },
         "value": { "type": "number" },
         "percent": { "type": "number" },

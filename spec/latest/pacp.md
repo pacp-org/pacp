@@ -277,7 +277,7 @@ Em PACP, motores NÃO DEVE usar `FLOOR` ou arredondamento comercial para este c�
 - Regras habilitadas em um mesmo `target` DEVE ser ordenadas por:
   1. `priority` (maior primeiro).
   2. `id` em ordem lexicográfica crescente (desempate determinístico).
-- Operações acumulativas (`ADD`, `PERCENT_OF`, `TAX`) DEVE compor resultado na ordem definida.
+- Operações acumulativas (`ADD`, `PERCENT_OF`, `TAX`, `DISCOUNT`) DEVE compor resultado na ordem definida.
 - Operações de substituição (`OVERRIDE`, `PICK`) DEVE substituir o valor corrente quando a condição for verdadeira.
 - Em conflito de múltiplos `OVERRIDE` verdadeiros no mesmo passo, prevalece a regra vencedora pela ordenação acima.
 
@@ -303,6 +303,7 @@ As operações abaixo são normativas:
 - `CAP`: aplica teto máximo.
 - `FLOOR`: aplica piso mínimo.
 - `TAX`: soma percentual (`rate`) sobre uma base de incidência (`base`). `base="CURRENT"` (default) incide sobre o valor corrente na cadeia (mesmo comportamento acumulativo de `PERCENT_OF`); `base="BASE_PRICE"` incide sobre `product.base_price`, independente do valor já acumulado por regras anteriores.
+- `DISCOUNT`: subtrai um desconto do valor corrente. `value` (R$ fixo) OU `rate` (percentual do valor corrente) — exatamente um. `result = current - value` ou `result = current - (current * rate / 100)`.
 
 Erros normativos:
 
@@ -310,6 +311,7 @@ Erros normativos:
 - Operação sem parâmetros obrigatórios DEVE falhar em validação.
 - Referência a `table_id` inexistente DEVE falhar em validação.
 - `TAX` sem `rate` DEVE falhar em validação.
+- `DISCOUNT` sem `value` nem `rate`, ou com ambos, DEVE falhar em validação.
 
 ## 7. Tabelas de preço (`tables`)
 

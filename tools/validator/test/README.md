@@ -51,6 +51,7 @@ Cada execução deve sair com **exit code 2** (validação falhou) e imprimir o 
 |---|---|---|
 | `rule_invalid_add_missing_value.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="ADD"` sem campo `value` |
 | `rule_invalid_tax_missing_rate.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="TAX"` sem campo `rate` |
+| `rule_invalid_discount_missing_params.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="DISCOUNT"` sem `value` nem `rate` |
 
 ## Fixtures: hierarquia família/módulo
 
