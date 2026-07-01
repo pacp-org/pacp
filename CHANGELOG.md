@@ -2,6 +2,28 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.7.0] - 2026-07-01
+
+**npm:** `@pacp/spec@3.7.0`
+**spec_version:** `3.7.0`
+
+### Added
+
+- **Operação `TAX`** (`rule.operation`) — soma percentual (`rate`) sobre uma base de incidência configurável (`rule.base`, `"BASE"` | `"COST"`, default `"COST"`). `base="COST"` acumula sobre o alvo corrente na cadeia (mesmo comportamento de `PERCENT_OF`); `base="BASE"` incide sempre sobre `product.base_price`, independente de regras já aplicadas antes — útil para imposto/markup calculado sobre o custo original em vez do valor já acrescido por frete/taxas anteriores.
+- **Campos `rule.rate` e `rule.base`** no schema (`$defs.rule`) e nos tipos TypeScript (`Rule.rate`, `Rule.base`, novo tipo `TaxBase`).
+- **Regra condicional no JSON Schema** — `operation="TAX"` exige `rate`.
+- **Validação semântica no CLI** — `INVALID_OPERATION_PARAMS` quando `TAX` não tem `rate` numérico (mesmo padrão de `ADD`/`PERCENT_OF`/`LOOKUP`).
+- **Exemplo oficial** — `spec/latest/examples/tax_operation.json` + `products/prod_luminaria.json`, demonstrando `base="COST"` no SUBTOTAL e `base="BASE"` no TOTAL.
+- **Fixture negativa** — `tools/validator/test/fixtures/rule_invalid_tax_missing_rate.json`.
+
+### Changed
+
+- Versão da spec: `3.6.0` → `3.7.0` (adição aditiva, sem quebra).
+
+### Backwards Compatibility
+
+Catálogos PACP existentes (sem regras `operation="TAX"`) continuam **100% válidos** sem alteração. Nenhum campo ou operação existente foi alterado.
+
 ## [3.6.0] - 2026-05-28
 
 **npm:** `@pacp/spec@3.6.0`

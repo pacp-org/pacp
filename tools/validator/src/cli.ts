@@ -287,6 +287,13 @@ function checkRulesSemanticBasics(doc: Record<string, unknown>, issues: Issue[])
           message: `Operacao ${op} exige ao menos 2 componentes`
         });
       }
+      if (op === "TAX" && typeof rule.rate !== "number") {
+        issues.push({
+          code: "INVALID_OPERATION_PARAMS",
+          path: `${rulePath}/rate`,
+          message: "Operacao TAX exige campo numerico \"rate\""
+        });
+      }
     }
   }
 }

@@ -50,6 +50,7 @@ Cada execução deve sair com **exit code 2** (validação falhou) e imprimir o 
 | Arquivo | Código esperado | Notas |
 |---|---|---|
 | `rule_invalid_add_missing_value.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="ADD"` sem campo `value` |
+| `rule_invalid_tax_missing_rate.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="TAX"` sem campo `rate` |
 
 ## Fixtures: hierarquia família/módulo
 

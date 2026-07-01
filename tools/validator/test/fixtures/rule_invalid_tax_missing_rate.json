@@ -1,0 +1,16 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_test" },
+  "rulesets": [
+    {
+      "id": "rs_total",
+      "target": "TOTAL",
+      "rules": [
+        {
+          "id": "rule_tax_sem_rate",
+          "operation": "TAX"
+        }
+      ]
+    }
+  ]
+}
