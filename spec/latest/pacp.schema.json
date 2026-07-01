@@ -476,6 +476,10 @@
         {
           "if": { "properties": { "operation": { "const": "TAX" } } },
           "then": { "required": ["rate"] }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "DISCOUNT" } } },
+          "then": { "oneOf": [{ "required": ["value"] }, { "required": ["rate"] }] }
         }
       ]
     },

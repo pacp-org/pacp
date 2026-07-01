@@ -277,7 +277,7 @@ Em PACP, motores NÃO DEVE usar `FLOOR` ou arredondamento comercial para este c�
 - Regras habilitadas em um mesmo `target` DEVE ser ordenadas por:
   1. `priority` (maior primeiro).
   2. `id` em ordem lexicográfica crescente (desempate determinístico).
-- Operações acumulativas (`ADD`, `PERCENT_OF`, `TAX`, `DISCOUNT`) DEVE compor resultado na ordem definida.
+- Operações que compõem o valor corrente (`ADD`, `PERCENT_OF`, `TAX` somam; `DISCOUNT` subtrai) DEVE compor resultado na ordem definida.
 - Operações de substituição (`OVERRIDE`, `PICK`) DEVE substituir o valor corrente quando a condição for verdadeira.
 - Em conflito de múltiplos `OVERRIDE` verdadeiros no mesmo passo, prevalece a regra vencedora pela ordenação acima.
 
@@ -302,8 +302,8 @@ As operações abaixo são normativas:
 - `ROUND`: arredonda para precisão configurada.
 - `CAP`: aplica teto máximo.
 - `FLOOR`: aplica piso mínimo.
-- `TAX`: soma percentual (`rate`) sobre uma base de incidência (`base`). `base="CURRENT"` (default) incide sobre o valor corrente na cadeia (mesmo comportamento acumulativo de `PERCENT_OF`); `base="BASE_PRICE"` incide sobre `product.base_price`, independente do valor já acumulado por regras anteriores.
-- `DISCOUNT`: subtrai um desconto do valor corrente. `value` (R$ fixo) OU `rate` (percentual do valor corrente) — exatamente um. `result = current - value` ou `result = current - (current * rate / 100)`.
+- `TAX`: soma percentual (`rate`) sobre uma base de incidência (`base`). `base="CURRENT"` (default) incide sobre o valor corrente na cadeia (mesmo comportamento acumulativo de `PERCENT_OF`); `base="BASE_PRICE"` incide sobre `product.base_price`, independente do valor já acumulado por regras anteriores. Fórmula: `result = current + (base_incidente * rate / 100)`, onde `base_incidente` é o valor corrente (`CURRENT`) ou `product.base_price` (`BASE_PRICE`).
+- `DISCOUNT`: subtrai um desconto do valor corrente. `value` (R$ fixo) OU `rate` (percentual do valor corrente) — exatamente um. `result = current - value` ou `result = current - (current * rate / 100)`. DISCOUNT PODE produzir valor negativo; não há piso automático — usar `FLOOR` se necessário.
 
 Erros normativos:
 
