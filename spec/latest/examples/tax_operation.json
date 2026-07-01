@@ -1,0 +1,50 @@
+{
+  "document_type": "CATALOG",
+  "catalog": {
+    "id": "cat_tax",
+    "name": "Catalogo TAX - Iluminacao"
+  },
+  "rulesets": [
+    {
+      "id": "rs_base",
+      "target": "BASE",
+      "rules": [
+        {
+          "id": "rule_frete",
+          "operation": "ADD",
+          "value": 50
+        }
+      ]
+    },
+    {
+      "id": "rs_subtotal",
+      "target": "SUBTOTAL",
+      "rules": [
+        {
+          "id": "rule_taxa_servico",
+          "operation": "TAX",
+          "rate": 5,
+          "base": "CURRENT"
+        }
+      ]
+    },
+    {
+      "id": "rs_total",
+      "target": "TOTAL",
+      "rules": [
+        {
+          "id": "rule_icms_sobre_base",
+          "operation": "TAX",
+          "rate": 10,
+          "base": "BASE_PRICE"
+        }
+      ]
+    }
+  ],
+  "product_refs": [
+    {
+      "id": "prod_luminaria",
+      "path": "products/prod_luminaria.json"
+    }
+  ]
+}

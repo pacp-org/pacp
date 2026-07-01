@@ -2,6 +2,32 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.7.0] - 2026-07-01
+
+**npm:** `@pacp/spec@3.7.0`
+**spec_version:** `3.7.0`
+
+### Added
+
+- **Operação `TAX`** (`rule.operation`) — soma percentual (`rate`) sobre uma base de incidência configurável (`rule.base`, `"CURRENT"` | `"BASE_PRICE"`, default `"CURRENT"`). `base="CURRENT"` acumula sobre o valor corrente na cadeia (mesmo comportamento de `PERCENT_OF`); `base="BASE_PRICE"` incide sempre sobre `product.base_price`, independente de regras já aplicadas antes — útil para imposto/markup calculado sobre o custo original em vez do valor já acrescido por frete/taxas anteriores.
+- **Campos `rule.rate` e `rule.base`** no schema (`$defs.rule`) e nos tipos TypeScript (`Rule.rate`, `Rule.base`, novo tipo `TaxBase`).
+- **Regra condicional no JSON Schema** — `operation="TAX"` exige `rate`.
+- **Validação semântica no CLI** — `INVALID_OPERATION_PARAMS` quando `TAX` não tem `rate` numérico (mesmo padrão de `ADD`/`PERCENT_OF`/`LOOKUP`).
+- **Exemplo oficial** — `spec/latest/examples/tax_operation.json` + `products/prod_luminaria.json`, demonstrando `base="CURRENT"` no SUBTOTAL e `base="BASE_PRICE"` no TOTAL.
+- **Fixture negativa** — `tools/validator/test/fixtures/rule_invalid_tax_missing_rate.json`.
+- **Operação `DISCOUNT`** (`rule.operation`) — subtrai um desconto do valor corrente, usando `value` (R$ fixo) OU `rate` (percentual do valor corrente) — exatamente um dos dois. Reutiliza os campos já existentes `rule.value` e `rule.rate`, sem `base` (a operação sempre incide sobre o valor corrente na cadeia).
+- **Validação semântica no CLI** — `INVALID_OPERATION_PARAMS` quando `DISCOUNT` não tem exatamente um de `value`/`rate` (nem os dois, nem nenhum).
+- **Exemplo oficial** — `spec/latest/examples/discount_operation.json` + `products/prod_camiseta_discount.json`, demonstrando desconto fixo (`value`) e percentual (`rate`) no TOTAL.
+- **Fixture negativa** — `tools/validator/test/fixtures/rule_invalid_discount_missing_params.json`.
+
+### Changed
+
+- Versão da spec: `3.6.0` → `3.7.0` (adição aditiva, sem quebra).
+
+### Backwards Compatibility
+
+Catálogos PACP existentes (sem regras `operation="TAX"` ou `operation="DISCOUNT"`) continuam **100% válidos** sem alteração. Nenhum campo ou operação existente foi alterado.
+
 ## [3.6.0] - 2026-05-28
 
 **npm:** `@pacp/spec@3.6.0`

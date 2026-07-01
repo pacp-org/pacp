@@ -1,0 +1,12 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_tax",
+  "product": {
+    "id": "prod_luminaria",
+    "name": "Luminaria Pendente Industrial",
+    "sku": "LUM-IND-001",
+    "base_price": 200,
+    "options": [],
+    "ruleset_ids": ["rs_base", "rs_subtotal", "rs_total"]
+  }
+}

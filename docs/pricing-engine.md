@@ -31,6 +31,8 @@ Este guia descreve como um engine compatível com PACP DEVE processar um documen
 - `MAX_OF`/`MIN_OF`: escolhe extremo entre componentes.
 - `PICK`: seleciona primeiro componente elegível.
 - `ROUND`, `CAP`, `FLOOR`: ajustes finais de arredondamento/limites.
+- `TAX`: soma percentual (`rate`) sobre `base` (`"CURRENT"` = valor corrente, default; `"BASE_PRICE"` = `product.base_price`).
+- `DISCOUNT`: subtrai desconto do valor corrente (`value` R$ fixo ou `rate` % do corrente; exatamente um).
 
 ## Quantidade vendável e lote
 

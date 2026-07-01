@@ -383,7 +383,8 @@ export interface Component {
 /**
  * Operação executada por uma regra. Ver spec §6.
  *
- * - `ADD` / `PERCENT_OF`: acumulam.
+ * - `ADD` / `PERCENT_OF` / `TAX`: acumulam (somam).
+ * - `DISCOUNT`: subtrai (`value` fixo ou `rate` % do valor corrente).
  * - `OVERRIDE` / `PICK`: substituem.
  * - `LOOKUP`: busca em tabela.
  * - `MAX_OF` / `MIN_OF`: agregam componentes.
@@ -391,7 +392,10 @@ export interface Component {
  */
 export type RuleOperation =
   | "ADD" | "PERCENT_OF" | "OVERRIDE" | "LOOKUP"
-  | "MAX_OF" | "MIN_OF" | "PICK" | "ROUND" | "CAP" | "FLOOR";
+  | "MAX_OF" | "MIN_OF" | "PICK" | "ROUND" | "CAP" | "FLOOR" | "TAX" | "DISCOUNT";
+
+/** Base de incidência da operação `TAX`. Default `"CURRENT"`. */
+export type TaxBase = "CURRENT" | "BASE_PRICE";
 
 /**
  * Regra de precificação aplicada dentro de um ruleset.
@@ -427,6 +431,14 @@ export interface Rule {
   fallback?: number;
   option_id?: string;
   option_ids?: string[];
+  /** Para `TAX`. Percentual somado sobre `base`. */
+  rate?: number;
+  /**
+   * Para `TAX`. `"BASE_PRICE"` incide sobre `product.base_price` (independe
+   * do valor corrente acumulado); `"CURRENT"` (default) incide sobre o valor
+   * corrente na cadeia de aplicação.
+   */
+  base?: TaxBase;
   [key: `x-${string}`]: unknown;
 }
 
