@@ -1,0 +1,11 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_merge",
+  "product": { "id": "prod_merge", "base_price": 50, "options": [] },
+  "rulesets": [ { "id": "rs_prod_merge", "target": "BASE", "rules": [ { "id": "r_lk2", "operation": "LOOKUP", "table_id": "tbl_merge" } ] } ],
+  "tables": [
+    { "id": "tbl_merge", "type": "LOOKUP",
+      "dimensions": [ { "key": "faixa", "source": "LITERAL", "literal": "A" } ],
+      "rows": [ { "key": { "faixa_typo": "A" }, "value": 9 } ] }
+  ]
+}

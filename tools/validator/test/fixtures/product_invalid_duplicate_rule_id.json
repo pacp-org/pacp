@@ -1,0 +1,11 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_x",
+  "product": { "id": "prod_p3", "base_price": 100, "options": [] },
+  "rulesets": [
+    { "id": "rs_p3", "target": "BASE", "rules": [
+      { "id": "r_dup", "operation": "ADD", "value": 5 },
+      { "id": "r_dup", "operation": "ADD", "value": 7 }
+    ] }
+  ]
+}

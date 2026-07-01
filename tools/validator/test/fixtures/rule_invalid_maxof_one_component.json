@@ -1,0 +1,9 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_g" },
+  "rulesets": [
+    { "id": "rs_g", "target": "SUBTOTAL", "rules": [
+      { "id": "r_max1", "operation": "MAX_OF", "components": [ { "value": 5 } ] }
+    ] }
+  ]
+}

@@ -2,6 +2,23 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.7.1] - 2026-07-01
+
+**npm:** `@pacp/spec@3.7.1`
+**spec_version:** `3.7.1`
+
+### Fixed
+
+- **Spec §2** — removida a exigência de um campo `spec: "1.0.0"` em cada documento: o campo nunca existiu no schema (`additionalProperties: false` o rejeitava) e nenhum exemplo o usava. A versão da spec é atributo do canal de release (`spec/latest.json` / `@pacp/spec`), não de cada documento. Listas de campos obrigatórios da §2 e checklist da §15 realinhadas ao schema (`document_type`/`catalog`/`rulesets` para CATALOG; `document_type`/`catalog_id`/`product` para PRODUCT).
+- **Spec §13** — caminhos dos exemplos oficiais corrigidos (estrutura flat em `examples/`, sem subpastas de categoria inexistentes); removidos refs a `max_of.json`, `cost_plus.json` e `unit_conversion_volume.json` (não existem); adicionados os exemplos omitidos (catalog_notes, supplied_materials, family_hierarchy, tax, discount, collections).
+- **Docs** — refs de exemplo quebradas em `docs/integration-guide.md` (`moveis/max_of.json` → `max_of_components.json`) e `AGENTS.md` (`cost_plus.json`). Corrigido "PACP PACP" (§2/§4.3/§4.4/§15) e a §4.4 reposicionada na ordem numérica.
+
+### Changed
+
+- **Validador (`tools/validator`)** — documentos `PRODUCT` isolados agora passam por checks semânticos auto-contidos (`checkRulesSemanticBasics`, `checkLookupDimensions`): antes só o schema rodava, deixando passar `INVALID_LOOKUP_KEY`, `DUPLICATE_ID` de regra e params inválidos em `rulesets`/`tables` do próprio produto.
+- **Validador** — no fluxo CATALOG, `rulesets`/`tables` declarados dentro dos arquivos `PRODUCT` referenciados via `product_refs` passam a ser mesclados e validados (antes eram silenciosamente descartados).
+- **Schema (`$defs.rule`)** — `MAX_OF`/`MIN_OF` agora exigem `components` com `minItems: 2` (alinha o schema ao check já existente no CLI). `PICK` continua exigindo apenas presença de `components`.
+
 ## [3.7.0] - 2026-07-01
 
 **npm:** `@pacp/spec@3.7.0`

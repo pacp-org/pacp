@@ -53,6 +53,17 @@ Cada execução deve sair com **exit code 2** (validação falhou) e imprimir o 
 | `rule_invalid_tax_missing_rate.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="TAX"` sem campo `rate` |
 | `rule_invalid_discount_missing_params.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="DISCOUNT"` sem `value` nem `rate` |
 | `rule_invalid_discount_both_params.json` | `INVALID_OPERATION_PARAMS` | CATALOG com regra `operation="DISCOUNT"` com `value` E `rate` (deve ter exatamente um) |
+| `rule_invalid_maxof_one_component.json` | `[SCHEMA]` + `INVALID_OPERATION_PARAMS` | CATALOG com `MAX_OF` de 1 componente; schema exige `minItems: 2` e o CLI reforça. |
+
+## Fixtures: documento PRODUCT isolado (checks semânticos)
+
+Garantem que um arquivo `PRODUCT` avulso tem seus `rulesets`/`tables` validados (antes só o schema rodava).
+
+| Arquivo | Código esperado | Notas |
+|---|---|---|
+| `product_invalid_lookup_key.json` | `INVALID_LOOKUP_KEY` | PRODUCT com `tables` inline cuja `row.key` usa chave não declarada em `dimensions`. |
+| `product_invalid_duplicate_rule_id.json` | `DUPLICATE_ID` | PRODUCT com dois `rules` de mesmo `id` no mesmo ruleset. |
+| `catalog_ref_product_invalid_rule.json` | `INVALID_LOOKUP_KEY` | CATALOG cujo produto (via `product_refs`) traz `tables` inline com chave inválida — valida que rulesets/tables de arquivo-produto são mesclados e checados. Usa `products/prod_ref_bad_lookup.json`. |
 
 ## Fixtures: hierarquia família/módulo
 
@@ -91,3 +102,4 @@ Os fixtures CATALOG que precisam carregar produtos via `product_refs` usam arqui
 | `prod_family_module_desynced.json` | `family_invalid_member_ids_desynced.json` |
 | `prod_family_standalone_target.json` | `family_invalid_module_pointing_to_standalone.json` |
 | `prod_family_module_to_standalone.json` | `family_invalid_module_pointing_to_standalone.json` |
+| `prod_ref_bad_lookup.json` | `catalog_ref_product_invalid_rule.json` |

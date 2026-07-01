@@ -129,7 +129,7 @@ Use quando: produto é vendido por unidade comercial fechada (caixa, galão, sac
 }
 ```
 
-Cliente pede 18 m² → engine retorna 8 caixas (CEIL(18/2.5)). Exemplo: `examples/cost_plus.json`.
+Cliente pede 18 m² → engine retorna 8 caixas (CEIL(18/2.5)).
 
 ### Lookup de preço por combinação de atributos
 

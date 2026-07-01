@@ -1,0 +1,6 @@
+{
+  "document_type": "CATALOG",
+  "catalog": { "id": "cat_merge" },
+  "rulesets": [ { "id": "rs_cat", "target": "BASE", "rules": [ { "id": "r_noop", "operation": "ADD", "value": 0 } ] } ],
+  "product_refs": [ { "id": "prod_merge", "path": "products/prod_ref_bad_lookup.json" } ]
+}
