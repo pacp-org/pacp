@@ -458,7 +458,11 @@
           "then": { "required": ["table_id"] }
         },
         {
-          "if": { "properties": { "operation": { "enum": ["MAX_OF", "MIN_OF", "PICK"] } } },
+          "if": { "properties": { "operation": { "enum": ["MAX_OF", "MIN_OF"] } } },
+          "then": { "required": ["components"], "properties": { "components": { "minItems": 2 } } }
+        },
+        {
+          "if": { "properties": { "operation": { "const": "PICK" } } },
           "then": { "required": ["components"] }
         },
         {

@@ -1,0 +1,20 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_x",
+  "product": {
+    "id": "prod_p2",
+    "base_price": 100,
+    "options": [],
+    "ruleset_ids": ["rs_p2"]
+  },
+  "rulesets": [
+    { "id": "rs_p2", "target": "BASE", "rules": [
+      { "id": "r_lk", "operation": "LOOKUP", "table_id": "tbl_p2" }
+    ] }
+  ],
+  "tables": [
+    { "id": "tbl_p2", "type": "LOOKUP",
+      "dimensions": [ { "key": "faixa", "source": "LITERAL", "literal": "A" } ],
+      "rows": [ { "key": { "faixa_errada": "A" }, "value": 10 } ] }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "channel": "latest",
-  "spec_version": "3.7.0",
+  "spec_version": "3.7.1",
   "published_at": "2026-07-01",
   "cdn": "https://cdn.jsdelivr.net/npm/@pacp/spec@latest/dist/",
   "paths": {

@@ -21,25 +21,26 @@ PACP (Padrão Aberto de Catálogo e Precificação) define um contrato de dados 
 
 ## 2. Modelo de dados (visão geral)
 
-PACP PACP define dois tipos de documento JSON válidos contra `spec/latest/pacp.schema.json`:
+PACP define dois tipos de documento JSON válidos contra `spec/latest/pacp.schema.json`:
 
 - `document_type=CATALOG`: manifesto do catálogo.
 - `document_type=PRODUCT`: definição isolada de um produto.
 
 Um manifesto `CATALOG` DEVE conter, no mínimo:
 
-- `spec`: versão da spec (`1.0.0`).
+- `document_type`: `"CATALOG"`.
 - `catalog`: metadados do catálogo e listas de preço.
-- `product_refs`: referências para arquivos de produto.
-- `rulesets`: regras de precificação.
+- `rulesets`: regras de precificação (ao menos uma).
 
 Um documento `PRODUCT` DEVE conter, no mínimo:
 
-- `spec`: versão da spec (`1.0.0`).
+- `document_type`: `"PRODUCT"`.
 - `catalog_id`: ID do catálogo ao qual pertence.
 - `product`: produto único e suas opções.
 
-Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `context`, `pricing`, `dictionaries`, `profiles` e extensões `x-*`. Documentos `PRODUCT` PODEM conter `rulesets`, `tables`, `constraints`, `dependencies`, `profiles` e extensões `x-*`.
+Documentos não carregam campo de versão próprio: a versão da spec é atributo do canal de release (`spec/latest.json` / `@pacp/spec`), não de cada documento.
+
+Documentos `CATALOG` PODEM conter `product_refs`, `tables`, `dependencies`, `constraints`, `context`, `pricing`, `dictionaries`, `profiles` e extensões `x-*`. Documentos `PRODUCT` PODEM conter `rulesets`, `tables`, `constraints`, `dependencies`, `profiles` e extensões `x-*`.
 
 ## 3. Dicionários e IDs
 
@@ -80,7 +81,7 @@ Documentos `CATALOG` PODEM conter `tables`, `dependencies`, `constraints`, `cont
 
 ### 4.3 Campos descritivos de produto
 
-Em `PACP PACP`, `product` PODE incluir os campos descritivos abaixo. Todos são opcionais e NÃO DEVEM alterar semântica de cálculo de preço por si só.
+Em PACP, `product` PODE incluir os campos descritivos abaixo. Todos são opcionais e NÃO DEVEM alterar semântica de cálculo de preço por si só.
 
 **Identificação e classificação:**
 
@@ -117,6 +118,16 @@ Regras normativas:
 - O primeiro path do array PODE ser tratado como categoria principal quando a implementação exigir distinção.
 - Dois paths podem compartilhar o mesmo segmento folha sob ancestrais diferentes; a identidade da categoria é definida pelo path completo.
 - Campos descritivos existem para que o catálogo PACP seja autocontido, sem exigir sistema PIM externo para dados universais de produto.
+
+### 4.4 Valores de atributos por produto (`attribute_values`)
+
+Em PACP, `product.attribute_values` PODE ser usado para declarar valores fixos de atributos no nível do produto.
+
+- `attribute_values` é uma lista de pares atributo/valor.
+- Cada item DEVE conter `attribute_id` e `value`.
+- `value` aceita tipos escalares (`string`, `number`, `boolean`).
+- `attribute_values` NÃO substitui `options`; é complementar.
+- `options` continua sendo o mecanismo para escolhas configuráveis no orçamento.
 
 ### 4.5 Visibilidade do produto (`visibility`)
 
@@ -214,16 +225,6 @@ Campo controlador: `product.role` ∈ `{"STANDALONE", "FAMILY", "MODULE"}`. Aus�
 Use a hierarquia quando o cliente compõe a unidade vendida a partir de módulos (caso típico: linhas modulares de sofá, kits de cozinha, racks). Não use para variantes de configuração — para isso, continue usando `attributes` + `options` no mesmo produto.
 
 Exemplo: `spec/latest/examples/family_hierarchy.json` demonstra uma FAMILY ADANA com 3 MODULEs (1B/1,40m, 2B/1,80m, 3B/2,20m — o último com `standalone_sellable: false`).
-
-### 4.4 Valores de atributos por produto (`attribute_values`)
-
-Em `PACP PACP`, `product.attribute_values` PODE ser usado para declarar valores fixos de atributos no nível do produto.
-
-- `attribute_values` é uma lista de pares atributo/valor.
-- Cada item DEVE conter `attribute_id` e `value`.
-- `value` aceita tipos escalares (`string`, `number`, `boolean`).
-- `attribute_values` NÃO substitui `options`; é complementar.
-- `options` continua sendo o mecanismo para escolhas configuráveis no orçamento.
 
 ## 5. Precificação
 
@@ -428,15 +429,18 @@ Implementações PODEM referenciar o schema via `$id` ou URL CDN para validaçã
 
 Os exemplos oficiais desta versão são:
 
-- `spec/latest/examples/geral/minimal.json`
-- `spec/latest/examples/iluminacao/matrix_lookup.json`
-- `spec/latest/examples/moveis/max_of.json`
-- `spec/latest/examples/tapetes/dependencies.json`
-- `spec/latest/examples/geral/multi_price_list.json`
-- `spec/latest/examples/geral/extensions.json`
-- `spec/latest/examples/pisos-e-revestimentos/cost_plus.json`
-- `spec/latest/examples/geral/unit_conversion_volume.json`
-- `spec/latest/examples/geral/collections.json`
+- `spec/latest/examples/minimal.json` — catálogo mínimo válido.
+- `spec/latest/examples/multi_price_list.json` — múltiplas listas de preço + seleção por `context`.
+- `spec/latest/examples/matrix_lookup.json` — precificação por tabela (`LOOKUP`).
+- `spec/latest/examples/max_of_components.json` — agregação `MAX_OF` de componentes.
+- `spec/latest/examples/dependencies.json` — dependencies/constraints entre opções.
+- `spec/latest/examples/collections.json` — `product.collections` como fato de regra.
+- `spec/latest/examples/extensions.json` — extensões `x-*`.
+- `spec/latest/examples/catalog_notes.json` — `catalog.notes` / `catalog.internal_notes`.
+- `spec/latest/examples/supplied_materials.json` — insumos fornecidos (fábrica/cliente).
+- `spec/latest/examples/family_hierarchy.json` — hierarquia família/módulo.
+- `spec/latest/examples/tax_operation.json` — operação `TAX` (`base` `CURRENT`/`BASE_PRICE`).
+- `spec/latest/examples/discount_operation.json` — operação `DISCOUNT` (`value`/`rate`).
 
 Cada manifesto acima referencia seus produtos em subpastas `products/`, com um arquivo JSON por produto.
 
@@ -467,14 +471,13 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `supplied_quantities`: lista no output do orçamento com os materiais que a fonte resolveu como `CUSTOMER`, indicando quantidade que o cliente precisa fornecer.
 - `x-fabric_requirements`: subgrupo de `requirements` padronizado pelo profile `moveis` para descrever requisitos de tecido (gramatura, largura, composição, abrasão, inflamabilidade).
 
-## 15. Conformidade PACP PACP
+## 15. Conformidade PACP
 
 Um arquivo é PACP compliant quando:
 
-- [ ] Declara `spec` compatível com `1.0.0`.
-- [ ] Possui `catalog.id` e IDs únicos por coleção.
 - [ ] Usa `document_type` válido (`CATALOG` ou `PRODUCT`).
-- [ ] Em `CATALOG`, define `product_refs` e paths resolvíveis.
+- [ ] Possui `catalog.id` (ou `catalog_id` em `PRODUCT`) e IDs únicos por coleção.
+- [ ] Em `CATALOG`, quando usa `product_refs`, os paths são resolvíveis.
 - [ ] Em `PRODUCT`, define exatamente um `product` com `id` e `options` sem ambiguidade.
 - [ ] Declara `rulesets` com `target` válido.
 - [ ] Separa constraints/dependencies da fase de cálculo.

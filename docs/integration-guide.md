@@ -551,7 +551,7 @@ cd tools/validator
 npm ci && npm run build
 
 # Validar um arquivo
-npm run validate -- ../../spec/latest/examples/moveis/max_of.json
+npm run validate -- ../../spec/latest/examples/max_of_components.json
 
 # Validar todos os exemplos oficiais
 npm run validate:examples

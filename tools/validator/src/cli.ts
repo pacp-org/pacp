@@ -765,12 +765,22 @@ function checkFamilyHierarchy(
   }
 }
 
+type LoadedRefs = {
+  products: Record<string, unknown>[];
+  /** Rulesets declarados dentro dos arquivos PRODUCT referenciados (mesclados no catalogo para validacao). */
+  rulesets: Record<string, unknown>[];
+  /** Tabelas declaradas dentro dos arquivos PRODUCT referenciados (mescladas no catalogo para validacao). */
+  tables: Record<string, unknown>[];
+};
+
 function loadProductsFromRefs(
   catalogDoc: Record<string, unknown>,
   catalogFilePath: string,
   issues: Issue[]
-): Record<string, unknown>[] {
+): LoadedRefs {
   const loadedProducts: Record<string, unknown>[] = [];
+  const loadedRulesets: Record<string, unknown>[] = [];
+  const loadedTables: Record<string, unknown>[] = [];
   const refs = getArray<Record<string, unknown>>(catalogDoc.product_refs);
   const seenRefIds = new Set<string>();
   const catalogId = isRecord(catalogDoc.catalog) && typeof catalogDoc.catalog.id === "string"
@@ -869,9 +879,18 @@ function loadProductsFromRefs(
     }
 
     loadedProducts.push(refDocData.product);
+    // Rulesets/tables declarados no proprio arquivo PRODUCT sao mesclados no
+    // catalogo para que suas regras, chaves de lookup e referencias sejam
+    // validadas (antes eram silenciosamente descartados).
+    for (const rs of getArray<Record<string, unknown>>(refDocData.rulesets)) {
+      loadedRulesets.push(rs);
+    }
+    for (const tbl of getArray<Record<string, unknown>>(refDocData.tables)) {
+      loadedTables.push(tbl);
+    }
   }
 
-  return loadedProducts;
+  return { products: loadedProducts, rulesets: loadedRulesets, tables: loadedTables };
 }
 
 function validatePacp(filePath: string): number {
@@ -928,8 +947,13 @@ function validatePacp(filePath: string): number {
 
     if (documentType === "CATALOG") {
       const mergedDoc: Record<string, unknown> = { ...objectDoc };
-      const loadedProducts = loadProductsFromRefs(objectDoc, absoluteFilePath, issues);
+      const loaded = loadProductsFromRefs(objectDoc, absoluteFilePath, issues);
+      const loadedProducts = loaded.products;
       mergedDoc.products = loadedProducts;
+      // Une rulesets/tables do catalogo com os declarados nos arquivos PRODUCT
+      // para validar regras e resolver referencias em ambos os niveis.
+      mergedDoc.rulesets = [...getArray(objectDoc.rulesets), ...loaded.rulesets];
+      mergedDoc.tables = [...getArray(objectDoc.tables), ...loaded.tables];
 
       const ids = collectIdsAndDuplicates(mergedDoc, issues);
       checkBrokenReferences(mergedDoc, ids, issues);
@@ -945,6 +969,18 @@ function validatePacp(filePath: string): number {
       checkFamilyHierarchy(loadedProducts, issues);
     } else if (documentType === "PRODUCT") {
       checkProductDocumentSemanticBasics(objectDoc, issues);
+      // Checks auto-contidos sobre os rulesets/tables do proprio documento.
+      // Referencias (ruleset_ids/table_id) NAO sao verificadas aqui porque um
+      // arquivo PRODUCT isolado pode apontar para tabelas/rulesets de escopo de
+      // catalogo; isso e validado quando o catalogo carrega o produto via refs.
+      checkRulesSemanticBasics(objectDoc, issues);
+      const emptyIds: CollectedIds = {
+        products: new Set<string>(),
+        tables: new Set<string>(),
+        rulesets: new Set<string>(),
+        options: new Set<string>()
+      };
+      checkLookupDimensions(objectDoc, emptyIds, issues);
       if (isRecord(objectDoc.product)) {
         checkProfileExtensions(objectDoc, [objectDoc.product], issues, ajv);
       }
