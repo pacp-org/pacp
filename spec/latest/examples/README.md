@@ -15,7 +15,7 @@ Cada exemplo demonstra um aspecto especifico da spec. Todos os JSONs validam con
 | `collections.json` | Campo `collections` no produto + regras condicionais usando fact `product.collections` (queima de colecao + protecao de linha premium) |
 | `catalog_notes.json` | Campos `catalog.notes` (publicas) e `catalog.internal_notes` (filtradas em catalogos publicos) |
 | `family_hierarchy.json` | Hierarquia família/módulo: 1 FAMILY (Sofá ADANA) + 3 MODULEs com `standalone_sellable` true/false |
-| `tax_operation.json` | Operação `TAX`: `base="COST"` (default, incide sobre o alvo corrente no SUBTOTAL) e `base="BASE"` (incide sobre `product.base_price` original no TOTAL, ignorando o ADD acumulado em BASE) |
+| `tax_operation.json` | Operação `TAX`: `base="CURRENT"` (default, incide sobre o valor corrente no SUBTOTAL) e `base="BASE_PRICE"` (incide sobre `product.base_price` original no TOTAL, ignorando o ADD acumulado em BASE) |
 
 ## Estrutura
 

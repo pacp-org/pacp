@@ -393,8 +393,8 @@ export type RuleOperation =
   | "ADD" | "PERCENT_OF" | "OVERRIDE" | "LOOKUP"
   | "MAX_OF" | "MIN_OF" | "PICK" | "ROUND" | "CAP" | "FLOOR" | "TAX";
 
-/** Base de incidência da operação `TAX`. Default `"COST"`. */
-export type TaxBase = "BASE" | "COST";
+/** Base de incidência da operação `TAX`. Default `"CURRENT"`. */
+export type TaxBase = "CURRENT" | "BASE_PRICE";
 
 /**
  * Regra de precificação aplicada dentro de um ruleset.
@@ -433,8 +433,8 @@ export interface Rule {
   /** Para `TAX`. Percentual somado sobre `base`. */
   rate?: number;
   /**
-   * Para `TAX`. `"BASE"` incide sobre `product.base_price` (independe do
-   * valor corrente acumulado); `"COST"` (default) incide sobre o alvo
+   * Para `TAX`. `"BASE_PRICE"` incide sobre `product.base_price` (independe
+   * do valor corrente acumulado); `"CURRENT"` (default) incide sobre o valor
    * corrente na cadeia de aplicação.
    */
   base?: TaxBase;

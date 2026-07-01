@@ -177,7 +177,7 @@ Cada conjunto de regras (`ruleset`) atua em um estágio:
 | `ROUND` | Arredondamento | `precision` |
 | `CAP` | Teto máximo | `max` |
 | `FLOOR` | Piso mínimo | `min` |
-| `TAX` | Soma percentual (`rate`) sobre `base` (`"COST"` default = alvo corrente; `"BASE"` = `product.base_price`) | `rate` |
+| `TAX` | Soma percentual (`rate`) sobre `base` (`"CURRENT"` default = valor corrente; `"BASE_PRICE"` = `product.base_price`) | `rate` |
 
 ### Ordem de execução (determinística)
 

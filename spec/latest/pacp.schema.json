@@ -438,7 +438,7 @@
           "items": { "type": "string" }
         },
         "rate": { "type": "number" },
-        "base": { "type": "string", "enum": ["BASE", "COST"] }
+        "base": { "type": "string", "enum": ["CURRENT", "BASE_PRICE"], "default": "CURRENT" }
       },
       "allOf": [
         {

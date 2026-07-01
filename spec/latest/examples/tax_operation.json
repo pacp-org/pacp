@@ -24,7 +24,7 @@
           "id": "rule_taxa_servico",
           "operation": "TAX",
           "rate": 5,
-          "base": "COST"
+          "base": "CURRENT"
         }
       ]
     },
@@ -36,7 +36,7 @@
           "id": "rule_icms_sobre_base",
           "operation": "TAX",
           "rate": 10,
-          "base": "BASE"
+          "base": "BASE_PRICE"
         }
       ]
     }

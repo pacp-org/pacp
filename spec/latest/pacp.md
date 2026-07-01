@@ -302,7 +302,7 @@ As operações abaixo são normativas:
 - `ROUND`: arredonda para precisão configurada.
 - `CAP`: aplica teto máximo.
 - `FLOOR`: aplica piso mínimo.
-- `TAX`: soma percentual (`rate`) sobre uma base de incidência (`base`). `base="COST"` (default) incide sobre o alvo corrente na cadeia (mesmo comportamento acumulativo de `PERCENT_OF`); `base="BASE"` incide sobre `product.base_price`, independente do valor já acumulado por regras anteriores.
+- `TAX`: soma percentual (`rate`) sobre uma base de incidência (`base`). `base="CURRENT"` (default) incide sobre o valor corrente na cadeia (mesmo comportamento acumulativo de `PERCENT_OF`); `base="BASE_PRICE"` incide sobre `product.base_price`, independente do valor já acumulado por regras anteriores.
 
 Erros normativos:
 
