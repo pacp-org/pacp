@@ -67,6 +67,37 @@
         ]
       }
     ],
+    "documents": [
+      {
+        "url": "https://example.com/docs/sof-ret-003-ficha-tecnica.pdf",
+        "label": "Ficha técnica e composição",
+        "category": "TECHNICAL"
+      },
+      {
+        "url": "https://example.com/docs/sof-ret-003-catalogo.pdf",
+        "label": "Catálogo da linha",
+        "category": "ILLUSTRATIVE"
+      }
+    ],
+    "videos": [
+      {
+        "url": "https://www.youtube.com/watch?v=exemplo-sof-ret-003",
+        "label": "Sofá retrátil em ambiente decorado",
+        "category": "ILLUSTRATIVE"
+      }
+    ],
+    "competitive_differential": "Mecanismo retrátil silencioso com curso duplo e estrutura em aço carbono reforçado, suportando até 300kg distribuídos — acima da média do segmento (180-220kg).",
+    "installation_manual": {
+      "text": "Posicionar o sofá nivelado, encaixar os pés fornecidos girando no sentido horário até travar, e testar o mecanismo retrátil antes de acomodar estofados.",
+      "document_url": "https://example.com/docs/sof-ret-003-manual-instalacao.pdf"
+    },
+    "intended_use": {
+      "text": "Sofá retrátil e reclinável para sala de estar, indicado para uso residencial diário."
+    },
+    "usage_manual": {
+      "text": "Acionar o mecanismo retrátil apenas com o assento livre de objetos. Evitar apoiar peso sobre o encosto reclinado. Limpeza do suede apenas a seco.",
+      "document_url": "https://example.com/docs/sof-ret-003-manual-uso.pdf"
+    },
     "ruleset_ids": ["rs_base"],
     "x-assembly_required": true,
     "x-warranty_months": 24,

@@ -226,6 +226,34 @@ Use a hierarquia quando o cliente compõe a unidade vendida a partir de módulos
 
 Exemplo: `spec/latest/examples/family_hierarchy.json` demonstra uma FAMILY ADANA com 3 MODULEs (1B/1,40m, 2B/1,80m, 3B/2,20m — o último com `standalone_sellable: false`).
 
+### 4.10 Mídia e conteúdo (`documents`, `videos`, `competitive_differential`, `installation_manual`, `intended_use`, `usage_manual`)
+
+Em PACP, `product` PODE incluir os campos abaixo para anexar mídia categorizada e conteúdo textual estruturado. Todos são opcionais, aditivos, e NÃO DEVEM alterar semântica de cálculo de preço.
+
+**Mídia adicional (além de `images`):**
+
+- `documents` (`array of document`): anexos de documento do produto (ex.: PDF de ficha técnica, catálogo, certificado).
+  - Cada `document` DEVE conter `url` (URI válida). PODE conter `label` e `category` (enum: `ILLUSTRATIVE`, `TECHNICAL`).
+- `videos` (`array of video`): vídeos externos do produto (ex.: YouTube, Vimeo). PACP não hospeda vídeo — apenas referencia a URL.
+  - Cada `video` DEVE conter `url` (URI válida). PODE conter `label` e `category` (enum: `ILLUSTRATIVE`, `TECHNICAL`).
+  - `category` em `document`/`video` é um enum simples de dois valores, deliberadamente menos granular que `image.type` (`MAIN`/`DETAIL`/`AMBIANCE`/`TECHNICAL`/`OTHER`): a variedade de ângulo/contexto que `image.type` distingue não se aplica a documento ou vídeo do mesmo jeito.
+
+**Conteúdo textual estruturado:**
+
+- `competitive_differential` (`string`): texto livre descrevendo o diferencial competitivo do produto frente a alternativas do mercado.
+- `installation_manual` (`content_field`): instruções de como montar/instalar fisicamente o produto.
+- `intended_use` (`content_field`): para que serve o produto — propósito e casos de uso.
+- `usage_manual` (`content_field`): instruções de como operar/usar o produto no dia a dia.
+- Um `content_field` é um objeto com `text` (`string`, opcional) e `document_url` (`string`, URI válida, opcional) — ambos independentes; um `content_field` PODE ter só texto, só documento, ambos, ou nenhum (`{}`).
+
+Regras normativas:
+
+- Estes campos existem para que o catálogo PACP sirva como base de dados autocontida também para conteúdo de vendas/pós-venda (não só para cálculo de preço) — incluindo consumo por sistemas de recomendação/geração de conteúdo automatizados.
+- Nenhum destes campos é lido pelo engine de regras (`rulesets`/`rules`); consumidores PODEM ignorá-los sem afetar o cálculo de preço.
+- Implementações NÃO DEVEM inferir automaticamente estes campos a partir de outros dados do produto — são conteúdo declarado explicitamente.
+
+Exemplo: `spec/latest/examples/products/prod_sofa.json` demonstra os seis campos em um produto real (sofá retrátil com ficha técnica em PDF, vídeo de ambientação e manuais de instalação/uso).
+
 ## 5. Precificação
 
 ### 5.1 Targets

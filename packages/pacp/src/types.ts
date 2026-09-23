@@ -32,6 +32,45 @@ export interface Image {
 }
 
 /**
+ * Categoria de mídia (documento ou vídeo): ILLUSTRATIVE (apresentação/marketing)
+ * ou TECHNICAL (ficha técnica, certificado, instalação, uso).
+ */
+export type MediaCategory = "ILLUSTRATIVE" | "TECHNICAL";
+
+/**
+ * Anexo de documento do produto (ex.: PDF de ficha técnica, catálogo, certificado).
+ */
+export interface Document {
+  /** URI válida do documento. */
+  url: string;
+  /** Rótulo legível / legenda. */
+  label?: string;
+  /** Natureza do documento. */
+  category?: MediaCategory;
+}
+
+/**
+ * Vídeo externo do produto (ex.: YouTube, Vimeo).
+ */
+export interface Video {
+  /** URI válida do vídeo. */
+  url: string;
+  /** Rótulo legível / legenda. */
+  label?: string;
+  /** Natureza do vídeo. */
+  category?: MediaCategory;
+}
+
+/**
+ * Bloco de conteúdo textual com anexo opcional de documento (ex.: PDF).
+ * Ambos os sub-campos são opcionais e independentes.
+ */
+export interface ContentField {
+  text?: string;
+  document_url?: string;
+}
+
+/**
  * Medida física com valor numérico e unidade.
  *
  * Exemplo: `{ value: 65, unit: "kg" }`.
@@ -295,6 +334,8 @@ export interface Product {
   manufacturer?: string;
   brand?: string;
   description?: string;
+  /** Texto livre descrevendo o diferencial competitivo do produto frente a alternativas do mercado. */
+  competitive_differential?: string;
   /**
    * Categorias hierárquicas. Cada path é um array da raiz à folha.
    * Permite múltipla classificação. Exemplo: `[["Móveis", "Estofados", "Sofá"], ["Promoções"]]`.
@@ -313,6 +354,10 @@ export interface Product {
    */
   unit?: string;
   images?: Image[];
+  /** Anexos de documento do produto (ex.: PDF de ficha técnica, catálogo, certificado). */
+  documents?: Document[];
+  /** Vídeos externos do produto (ex.: YouTube, Vimeo). */
+  videos?: Video[];
   /** Tags livres para busca. Sem garantia de estabilidade (diferente de `collections`). */
   tags?: string[];
   /**
@@ -343,6 +388,12 @@ export interface Product {
   member_product_ids?: string[];
   /** `false` quando o módulo só pode ser vendido como parte da composição da família. Default `true`. Permitido apenas quando `role="MODULE"`. */
   standalone_sellable?: boolean;
+  /** Instruções de como montar/instalar fisicamente o produto. */
+  installation_manual?: ContentField;
+  /** Para que serve o produto — propósito e casos de uso. */
+  intended_use?: ContentField;
+  /** Instruções de como operar/usar o produto no dia a dia. */
+  usage_manual?: ContentField;
   [key: `x-${string}`]: unknown;
 }
 

@@ -76,6 +76,12 @@ Garantem que um arquivo `PRODUCT` avulso tem seus `rulesets`/`tables` validados 
 | `family_invalid_member_ids_desynced.json` | `FAMILY_MEMBER_MISMATCH` + `MISSING_FAMILY_PRODUCT` | CATALOG: FAMILY lista MODULE em `member_product_ids`, mas MODULE.`family_product_id` aponta para outra família (inexistente). |
 | `family_invalid_module_pointing_to_standalone.json` | `INVALID_FAMILY_TARGET` | CATALOG: MODULE.`family_product_id` aponta para um produto que existe mas tem `role=STANDALONE`. |
 
+## Fixtures: mídia e conteúdo do produto
+
+| Arquivo | Código esperado | Notas |
+|---|---|---|
+| `product_invalid_media_category.json` | `[SCHEMA]` (enum) | PRODUCT com `documents[0].category="Ilustrativa"` (fora do enum `ILLUSTRATIVE`/`TECHNICAL`); rejeitado pelo schema. |
+
 ## Verificação rápida (todos devem sair exit=2)
 
 ```bash

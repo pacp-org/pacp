@@ -182,6 +182,10 @@
         "manufacturer": { "type": "string", "minLength": 1 },
         "brand": { "type": "string", "minLength": 1 },
         "description": { "type": "string" },
+        "competitive_differential": {
+          "type": "string",
+          "description": "Texto livre descrevendo o diferencial competitivo do produto frente a alternativas do mercado."
+        },
         "category": {
           "type": "array",
           "items": {
@@ -197,6 +201,16 @@
         "images": {
           "type": "array",
           "items": { "$ref": "#/$defs/image" }
+        },
+        "documents": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/document" },
+          "description": "Anexos de documento do produto (ex.: PDF de ficha técnica, catálogo, certificado)."
+        },
+        "videos": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/video" },
+          "description": "Vídeos externos do produto (ex.: YouTube, Vimeo)."
         },
         "tags": {
           "type": "array",
@@ -254,6 +268,18 @@
           "type": "boolean",
           "default": true,
           "description": "Indica se um MODULE pode ser vendido isoladamente (true) ou apenas como parte de composição da família (false). Permitido apenas quando role=MODULE."
+        },
+        "installation_manual": {
+          "$ref": "#/$defs/content_field",
+          "description": "Instruções de como montar/instalar fisicamente o produto."
+        },
+        "intended_use": {
+          "$ref": "#/$defs/content_field",
+          "description": "Para que serve o produto — propósito e casos de uso."
+        },
+        "usage_manual": {
+          "$ref": "#/$defs/content_field",
+          "description": "Instruções de como operar/usar o produto no dia a dia."
         }
       },
       "allOf": [
@@ -664,6 +690,49 @@
           "enum": ["MAIN", "DETAIL", "AMBIANCE", "TECHNICAL", "OTHER"]
         }
       }
+    },
+
+    "document": {
+      "type": "object",
+      "required": ["url"],
+      "additionalProperties": false,
+      "patternProperties": { "^x-": true },
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "label": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["ILLUSTRATIVE", "TECHNICAL"],
+          "description": "Natureza do documento: ILLUSTRATIVE (material de apresentação/marketing) ou TECHNICAL (ficha técnica, certificado, especificação)."
+        }
+      }
+    },
+
+    "video": {
+      "type": "object",
+      "required": ["url"],
+      "additionalProperties": false,
+      "patternProperties": { "^x-": true },
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "label": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["ILLUSTRATIVE", "TECHNICAL"],
+          "description": "Natureza do vídeo: ILLUSTRATIVE (ambientação/apresentação) ou TECHNICAL (instalação, uso, demonstração técnica)."
+        }
+      }
+    },
+
+    "content_field": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": { "^x-": true },
+      "properties": {
+        "text": { "type": "string" },
+        "document_url": { "type": "string", "format": "uri" }
+      },
+      "description": "Bloco de conteúdo textual com anexo opcional de documento (ex.: PDF). Ambos os sub-campos são opcionais e independentes."
     },
 
     "measure": {
