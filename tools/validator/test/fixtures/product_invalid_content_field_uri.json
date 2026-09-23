@@ -1,0 +1,12 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_bad_content_field_uri",
+    "options": [],
+    "installation_manual": {
+      "text": "Instale o produto seguindo as instruções do fabricante.",
+      "document_url": "not a uri"
+    }
+  }
+}

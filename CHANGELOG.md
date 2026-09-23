@@ -2,6 +2,15 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.8.0] - 2026-09-23
+
+**npm:** `@pacp/spec@3.8.0`
+**spec_version:** `3.8.0`
+
+### Added
+
+- **Mídia e conteúdo do produto** (`product.documents`, `product.videos`, `product.competitive_differential`, `product.installation_manual`, `product.intended_use`, `product.usage_manual`) — seis campos opcionais e aditivos cobrindo anexo de documento (PDF) e vídeo externo categorizados (`ILLUSTRATIVE`/`TECHNICAL`, análogo a `image.type` mas com enum mais simples) e conteúdo textual estruturado (diferencial competitivo, manual de instalação, para que serve, manual de uso — cada um com texto + documento opcional via novo `$defs.content_field`). Nenhum destes campos é lido pelo engine de regras. Motivação: consumidores do protocolo (ex.: Hoop) precisam de um catálogo de produto autocontido o suficiente pra alimentar sistemas de vendas/recomendação, sem depender de PIM externo pra esse conteúdo. Exemplo: `spec/latest/examples/products/prod_sofa.json`. Ver spec §4.10.
+
 ## [3.7.1] - 2026-07-01
 
 **npm:** `@pacp/spec@3.7.1`
