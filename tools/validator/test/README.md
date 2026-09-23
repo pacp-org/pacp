@@ -81,6 +81,7 @@ Garantem que um arquivo `PRODUCT` avulso tem seus `rulesets`/`tables` validados 
 | Arquivo | Código esperado | Notas |
 |---|---|---|
 | `product_invalid_media_category.json` | `[SCHEMA]` (enum) | PRODUCT com `documents[0].category="Ilustrativa"` (fora do enum `ILLUSTRATIVE`/`TECHNICAL`); rejeitado pelo schema. |
+| `product_invalid_content_field_uri.json` | `[SCHEMA]` (format uri) | PRODUCT com `installation_manual.document_url="not a uri"` (string que não é URI válida); rejeitado pelo schema. |
 
 ## Verificação rápida (todos devem sair exit=2)
 

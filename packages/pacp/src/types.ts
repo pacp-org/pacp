@@ -40,7 +40,7 @@ export type MediaCategory = "ILLUSTRATIVE" | "TECHNICAL";
 /**
  * Anexo de documento do produto (ex.: PDF de ficha técnica, catálogo, certificado).
  */
-export interface Document {
+export interface DocumentAttachment {
   /** URI válida do documento. */
   url: string;
   /** Rótulo legível / legenda. */
@@ -355,7 +355,7 @@ export interface Product {
   unit?: string;
   images?: Image[];
   /** Anexos de documento do produto (ex.: PDF de ficha técnica, catálogo, certificado). */
-  documents?: Document[];
+  documents?: DocumentAttachment[];
   /** Vídeos externos do produto (ex.: YouTube, Vimeo). */
   videos?: Video[];
   /** Tags livres para busca. Sem garantia de estabilidade (diferente de `collections`). */

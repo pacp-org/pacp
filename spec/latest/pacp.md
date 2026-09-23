@@ -104,6 +104,8 @@ Em PACP, `product` PODE incluir os campos descritivos abaixo. Todos são opciona
   - `image` PODE conter `label` (rótulo legível / legenda), `alt` (texto alternativo descritivo para acessibilidade), `position` (inteiro ≥ 0 para ordenação explícita) e `type` (enum: `MAIN`, `DETAIL`, `AMBIANCE`, `TECHNICAL`, `OTHER`).
   - Quando `position` estiver presente em imagens do mesmo conjunto (`product.images` ou `option.images`), consumidores DEVEM ordenar por `position` crescente; quando ausente em todas as imagens relevantes, a ordem do array prevalece.
 
+Ver também §4.10 para mídia adicional (documentos, vídeos) e conteúdo estruturado do produto.
+
 **Dados físicos:**
 
 - `weight` (`measure`): peso do produto. Objeto com `value` (número > 0) e `unit` (string, ex: `kg`).
