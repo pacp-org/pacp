@@ -310,7 +310,7 @@ export type ProductRole = "STANDALONE" | "FAMILY" | "MODULE";
 export type SuggestedRangeStatus = "BELOW" | "WITHIN" | "ABOVE";
 
 /**
- * Sinalização informativa no output do engine: posição do `total` final (após o passo 10)
+ * Sinalização informativa no output do engine: posição do `total` final (após o passo 12)
  * em relação a `suggested_min_price`/`suggested_max_price` do produto. Omitido quando o
  * produto não declara nenhum dos dois campos. Com apenas um limite, o outro lado nunca dispara.
  */
