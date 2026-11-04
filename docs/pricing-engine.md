@@ -13,7 +13,8 @@ Este guia descreve como um engine compatível com PACP DEVE processar um documen
 5. Normalizar quantidade mínima vendável por `sales_unit` usando `CEIL(requested_quantity / quantity_per_sell_unit)`.
 6. Inicializar preço base e aplicar rulesets por target (`BASE`, `SUBTOTAL`, `TOTAL`).
 7. Aplicar operações de pós-processamento (`ROUND`, `CAP`, `FLOOR`) quando configuradas.
-8. Retornar preço final, quantidade mínima vendável e trilha resumida de aplicação (opcional, mas recomendado).
+8. Quando o produto declara `suggested_min_price` e/ou `suggested_max_price`, comparar o `total` final com a faixa (limites inclusivos) e preencher `suggested_range` (`BELOW`/`WITHIN`/`ABOVE`). Somente sinalização: não altera o preço. Ver spec §4.11.
+9. Retornar preço final, quantidade mínima vendável, `suggested_range` (quando aplicável) e trilha resumida de aplicação (opcional, mas recomendado).
 
 ## Ordenação de regras
 

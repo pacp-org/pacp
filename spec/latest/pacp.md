@@ -97,6 +97,12 @@ Em PACP, `product` PODE incluir os campos descritivos abaixo. Todos são opciona
 - `brand` (`string`): marca comercial (pode diferir do fabricante).
 - `description` (`string`): descrição legível do produto.
 
+**Faixa de preço sugerido:**
+
+- `suggested_min_price` (`number`, ≥ 0): preço final mínimo sugerido pela fábrica ao lojista.
+- `suggested_max_price` (`number`, ≥ 0): preço final máximo sugerido pela fábrica ao lojista.
+- Ambos são opcionais e independentes. Semântica normativa na §4.11.
+
 **Imagens:**
 
 - `images` (`array of image`): referências a imagens do produto.
@@ -256,6 +262,25 @@ Regras normativas:
 
 Exemplo: `spec/latest/examples/products/prod_sofa.json` demonstra os seis campos em um produto real (sofá retrátil com ficha técnica em PDF, vídeo de ambientação e manuais de instalação/uso).
 
+### 4.11 Faixa de preço sugerido (`suggested_min_price`, `suggested_max_price`)
+
+Em PACP, `product` PODE declarar uma faixa de preço final sugerida pela fábrica ao lojista. É uma referência comercial: o motor apenas sinaliza onde o `total` calculado se posiciona em relação à faixa.
+
+Regras normativas:
+
+- Ambos os campos são opcionais e independentes: um produto PODE declarar só `suggested_min_price`, só `suggested_max_price`, ou os dois. Valores DEVEM ser números ≥ 0 (`0` é válido); a violação é rejeitada pelo schema.
+- Quando ambos coexistem, `suggested_min_price` DEVE ser ≤ `suggested_max_price` (`min == max` é válido). Caso contrário o validador reporta `INVALID_SUGGESTED_RANGE`.
+- Os valores são fixos por produto: não variam com a configuração (options, atributos, contexto).
+- Os campos são **puramente informativos**: NÃO entram no pipeline de rulesets, NÃO alteram `total` nem `subtotal` e NÃO bloqueiam o cálculo. Consumidores PODEM ignorá-los sem afetar o preço.
+- `role="FAMILY"` NÃO DEVE declarar estes campos (FAMILY é agrupador sem preço próprio); declare-os nos MODULEs. O validador reporta `INVALID_SUGGESTED_RANGE_ON_FAMILY` (esta checagem é do validador, não do schema). `MODULE` e `STANDALONE` PODEM declará-los.
+- **Comparação:** o motor compara o `total` final (após o pós-processamento do passo 12 da §5.2), na moeda da price list, com os limites. Os limites são **inclusivos**: `total == suggested_min_price` e `total == suggested_max_price` resultam em `WITHIN`.
+- Com `sales_unit`, a faixa é expressa na mesma unidade do `total` retornado (o mesmo valor que o consumidor vê no output), sem conversão adicional.
+- **Status:** `BELOW` quando `total < suggested_min_price`; `ABOVE` quando `total > suggested_max_price`; `WITHIN` caso contrário. Com apenas um limite declarado, o outro lado nunca dispara (só min → `BELOW` ou `WITHIN`; só max → `ABOVE` ou `WITHIN`).
+- **Omissão:** quando o produto não declara nenhum dos dois campos, o output NÃO DEVE conter `suggested_range`.
+- Output: `suggested_range: { min?: number, max?: number, status: "BELOW" | "WITHIN" | "ABOVE" }`, onde `min`/`max` ecoam os campos declarados pelo produto (omitidos quando não declarados). Ver §5.2, passo 13.
+
+Exemplo: `spec/latest/examples/products/prod_sofa.json` declara `suggested_min_price` e `suggested_max_price`.
+
 ## 5. Precificação
 
 ### 5.1 Targets
@@ -282,6 +307,7 @@ A execução DEVE seguir esta ordem:
 10. Formação de total.
 11. Aplicação de rulesets de `TOTAL`.
 12. Pós-processamento de arredondamento/limites (`ROUND`, `CAP`, `FLOOR`), quando configurado.
+13. Sinalização da faixa de preço sugerido: quando o produto declara `suggested_min_price` e/ou `suggested_max_price`, o resultado DEVE incluir `suggested_range` (`min?`, `max?`, `status` ∈ `BELOW`/`WITHIN`/`ABOVE`) comparando o `total` final com a faixa, conforme §4.11. Este passo é somente leitura: NÃO altera `total` nem `subtotal`.
 
 Se qualquer constraint bloquear a entrada, o motor DEVE interromper o cálculo e retornar bloqueio determinístico.
 
@@ -498,6 +524,7 @@ Cada manifesto acima referencia seus produtos em subpastas `products/`, com um a
 - `profile`: schema de extensão por vertical que padroniza campos `x-*`.
 - `supplied_material`: insumo declarado em `product.supplied_materials[]` (ex.: tecido, couro), com quantidade necessária e regra de quem fornece.
 - `source` (em supplied_material): valor `FACTORY` (fábrica fornece) ou `CUSTOMER` (cliente fornece) resolvido pelo engine no orçamento.
+- `suggested_range`: sinalização informativa no output do orçamento (`min?`, `max?`, `status`) com a posição do `total` final em relação à faixa `suggested_min_price`/`suggested_max_price` do produto; omitido quando o produto não declara a faixa. Ver §4.11.
 - `supplied_quantities`: lista no output do orçamento com os materiais que a fonte resolveu como `CUSTOMER`, indicando quantidade que o cliente precisa fornecer.
 - `x-fabric_requirements`: subgrupo de `requirements` padronizado pelo profile `moveis` para descrever requisitos de tecido (gramatura, largura, composição, abrasão, inflamabilidade).
 

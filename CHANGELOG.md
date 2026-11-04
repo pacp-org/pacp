@@ -2,6 +2,16 @@
 
 Todas as mudanças relevantes deste projeto serão registradas neste arquivo.
 
+## [3.9.0] - 2026-11-04
+
+**npm:** `@pacp/spec@3.9.0`
+**spec_version:** `3.9.0`
+
+### Added
+
+- **Faixa de preço sugerido** (`product.suggested_min_price`, `product.suggested_max_price`) — dois campos opcionais, aditivos e independentes (`number` ≥ 0) com o preço final mínimo/máximo sugerido pela fábrica ao lojista; valor fixo por produto. São puramente informativos: não entram nos rulesets, não alteram `total`/`subtotal` e não bloqueiam. O output do engine passa a incluir `suggested_range: { min?, max?, status }` (`BELOW`/`WITHIN`/`ABOVE`), comparando o `total` final com a faixa (limites inclusivos; omitido quando o produto não declara a faixa). Novos tipos `SuggestedRange`/`SuggestedRangeStatus` em `@pacp/spec`. Exemplo: `spec/latest/examples/products/prod_sofa.json`. Ver spec §4.11.
+- **Validador** — novos códigos `INVALID_SUGGESTED_RANGE` (`suggested_min_price` > `suggested_max_price`) e `INVALID_SUGGESTED_RANGE_ON_FAMILY` (`role="FAMILY"` não pode declarar a faixa; checagem do validador, não do schema).
+
 ## [3.8.0] - 2026-09-23
 
 **npm:** `@pacp/spec@3.8.0`
