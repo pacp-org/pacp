@@ -674,6 +674,35 @@ function checkProfileExtensions(
   }
 }
 
+function checkSuggestedPriceRange(
+  product: Record<string, unknown>,
+  productPath: string,
+  issues: Issue[]
+): void {
+  const min = product.suggested_min_price;
+  const max = product.suggested_max_price;
+  const hasMin = min !== undefined;
+  const hasMax = max !== undefined;
+  const productId = typeof product.id === "string" ? product.id : "unknown_product";
+
+  if (product.role === "FAMILY" && (hasMin || hasMax)) {
+    const field = hasMin ? "suggested_min_price" : "suggested_max_price";
+    issues.push({
+      code: "INVALID_SUGGESTED_RANGE_ON_FAMILY",
+      path: `${productPath}/${field}`,
+      message: `Produto FAMILY "${productId}" declara ${field}; FAMILY e agrupador sem preco proprio. Fix: remova suggested_min_price/suggested_max_price da FAMILY e declare-os nos MODULEs.`
+    });
+  }
+
+  if (typeof min === "number" && typeof max === "number" && min > max) {
+    issues.push({
+      code: "INVALID_SUGGESTED_RANGE",
+      path: `${productPath}/suggested_min_price`,
+      message: `Produto "${productId}" tem suggested_min_price=${min} maior que suggested_max_price=${max}. Fix: ajuste para min <= max.`
+    });
+  }
+}
+
 function checkFamilyHierarchy(
   products: Record<string, unknown>[],
   issues: Issue[]
@@ -967,8 +996,14 @@ function validatePacp(filePath: string): number {
         checkSuppliedMaterials(p, `/products[${i}]`, pid, issues);
       }
       checkFamilyHierarchy(loadedProducts, issues);
+      for (let i = 0; i < loadedProducts.length; i += 1) {
+        checkSuggestedPriceRange(loadedProducts[i], `/products[${i}]`, issues);
+      }
     } else if (documentType === "PRODUCT") {
       checkProductDocumentSemanticBasics(objectDoc, issues);
+      if (isRecord(objectDoc.product)) {
+        checkSuggestedPriceRange(objectDoc.product, "/product", issues);
+      }
       // Checks auto-contidos sobre os rulesets/tables do proprio documento.
       // Referencias (ruleset_ids/table_id) NAO sao verificadas aqui porque um
       // arquivo PRODUCT isolado pode apontar para tabelas/rulesets de escopo de

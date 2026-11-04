@@ -83,6 +83,8 @@ Coisas que LLMs erram com frequência. Memorize.
 
 8. **Hierarquia família/módulo é opt-in via `product.role`.** Sem `role` (ou `role="STANDALONE"`) o comportamento é o histórico. Quando usar: `FAMILY` é agrupador sem `base_price` e sem `family_product_id`; `MODULE` exige `family_product_id` apontando para a FAMILY no mesmo catálogo; profundidade é 1 (não dá pra aninhar famílias). Ver spec §4.9 e exemplo `family_hierarchy.json`.
 
+9. **Faixa de preço sugerido é informativa.** `suggested_min_price`/`suggested_max_price` (≥ 0, opcionais, valor fixo por produto, não permitidos em `FAMILY`) NÃO entram nos rulesets nem mudam `total`; o engine só devolve `suggested_range: { min?, max?, status: BELOW|WITHIN|ABOVE }` comparando o `total` final (limites inclusivos). Não modele desconto/markup com eles. Ver spec §4.11.
+
 ## Receitas comuns
 
 ### Sofá com tecido fornecido pelo cliente
@@ -229,6 +231,8 @@ if (!result.valid) {
 | `MISSING_FAMILY_PRODUCT` | MODULE com `family_product_id` apontando para ID inexistente | Declare o produto FAMILY ou corrija a referência |
 | `INVALID_FAMILY_TARGET` | MODULE.`family_product_id` aponta para produto que existe mas com role ≠ FAMILY | O alvo precisa ter `role="FAMILY"` |
 | `FAMILY_MEMBER_MISMATCH` | FAMILY.`member_product_ids` lista um módulo que aponta para outra família | Sincronize os dois lados |
+| `INVALID_SUGGESTED_RANGE` | `suggested_min_price` maior que `suggested_max_price` | Ajuste para min <= max (min == max é válido) |
+| `INVALID_SUGGESTED_RANGE_ON_FAMILY` | FAMILY declara `suggested_min_price`/`suggested_max_price` (o schema não pega; só o validador) | Remova da FAMILY e declare nos MODULEs |
 | `UNIT_SALES_UNIT_MISMATCH` | `product.unit` ≠ `sales_unit.requested_unit` | Sincronize |
 | `MISSING_REQUIRED_LOT` | `lot_policy.required=true` mas `context.lot_id` ausente | Forneça lote no `context` |
 | `MISSING_REQUESTED_QUANTITY` | `sales_unit` presente sem `context.requested_quantity` | Adicione no context |
@@ -267,6 +271,6 @@ Quando consumir um catálogo para precificar:
 9. Rulesets de `TOTAL`.
 10. Pós-processamento (`ROUND`/`CAP`/`FLOOR`).
 
-Output do engine inclui: `total`, `subtotal`, e `supplied_quantities[]` (uma entrada por material com fonte = CUSTOMER).
+Output do engine inclui: `total`, `subtotal`, `supplied_quantities[]` (uma entrada por material com fonte = CUSTOMER) e `suggested_range` (só quando o produto declara `suggested_min_price`/`suggested_max_price`).
 
 Detalhes: spec §5.2.

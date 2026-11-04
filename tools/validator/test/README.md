@@ -83,7 +83,16 @@ Garantem que um arquivo `PRODUCT` avulso tem seus `rulesets`/`tables` validados 
 | `product_invalid_media_category.json` | `[SCHEMA]` (enum) | PRODUCT com `documents[0].category="Ilustrativa"` (fora do enum `ILLUSTRATIVE`/`TECHNICAL`); rejeitado pelo schema. |
 | `product_invalid_content_field_uri.json` | `[SCHEMA]` (format uri) | PRODUCT com `installation_manual.document_url="not a uri"` (string que não é URI válida); rejeitado pelo schema. |
 
-## Verificação rápida (todos devem sair exit=2)
+## Fixtures: faixa de preço sugerido
+
+| Arquivo | Código esperado | Notas |
+|---|---|---|
+| `product_invalid_suggested_range_min_gt_max.json` | `INVALID_SUGGESTED_RANGE` | PRODUCT com `suggested_min_price=300` > `suggested_max_price=200`. |
+| `product_invalid_suggested_range_on_family.json` | `INVALID_SUGGESTED_RANGE_ON_FAMILY` | PRODUCT `role=FAMILY` com `suggested_min_price`. |
+| `product_invalid_suggested_price_negative.json` | `[SCHEMA]` (minimum) | PRODUCT com `suggested_min_price=-1`; rejeitado pelo schema. |
+| `product_valid_suggested_min_only.json` | (nenhum, exit 0) | Fixture POSITIVA: só `suggested_min_price` (valor `0`); deve sair exit=0. |
+
+## Verificação rápida (todos devem sair exit=2, exceto `*_valid_*` que saem exit=0)
 
 ```bash
 cd tools/validator

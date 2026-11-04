@@ -23,6 +23,8 @@ export type {
   SupplyOutputEntry,
   Product,
   ProductRole,
+  SuggestedRangeStatus,
+  SuggestedRange,
   Predicate,
   Condition,
   Component,

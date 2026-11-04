@@ -12,6 +12,8 @@
     "collections": ["linha_premium", "lancamento_2026"],
     "gtin": "78912345678901",
     "base_price": 2800,
+    "suggested_min_price": 3500,
+    "suggested_max_price": 4800,
     "weight": { "value": 65, "unit": "kg" },
     "dimensions": { "width": 230, "height": 95, "depth": 100, "unit": "cm" },
     "images": [
