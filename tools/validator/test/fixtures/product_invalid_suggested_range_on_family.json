@@ -1,0 +1,10 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_family_with_suggested",
+    "role": "FAMILY",
+    "suggested_min_price": 100,
+    "options": []
+  }
+}

@@ -306,6 +306,20 @@ export interface SupplyOutputEntry {
  */
 export type ProductRole = "STANDALONE" | "FAMILY" | "MODULE";
 
+/** Posição do `total` em relação à faixa de preço sugerido (limites inclusivos). */
+export type SuggestedRangeStatus = "BELOW" | "WITHIN" | "ABOVE";
+
+/**
+ * Sinalização informativa no output do engine: posição do `total` final (após o passo 10)
+ * em relação a `suggested_min_price`/`suggested_max_price` do produto. Omitido quando o
+ * produto não declara nenhum dos dois campos. Com apenas um limite, o outro lado nunca dispara.
+ */
+export interface SuggestedRange {
+  min?: number;
+  max?: number;
+  status: SuggestedRangeStatus;
+}
+
 /**
  * Produto único do catálogo. Ver spec §4.
  *
@@ -348,6 +362,18 @@ export interface Product {
    * Quando `supplied_materials` está presente, representa o produto SEM os materiais declarados.
    */
   base_price?: number;
+  /**
+   * Preço final mínimo sugerido pela fábrica ao lojista (>= 0). Valor fixo por produto.
+   * Informativo: NÃO entra no pipeline de rulesets nem altera `total`/`subtotal`.
+   * Não permitido em `role="FAMILY"`. Se coexistir com `suggested_max_price`, DEVE ser <= a este.
+   */
+  suggested_min_price?: number;
+  /**
+   * Preço final máximo sugerido pela fábrica ao lojista (>= 0). Valor fixo por produto.
+   * Informativo: NÃO entra no pipeline de rulesets nem altera `total`/`subtotal`.
+   * Não permitido em `role="FAMILY"`.
+   */
+  suggested_max_price?: number;
   /**
    * Unidade base na qual `base_price` é cotado (ex: `un`, `m2`, `kg`). Default implícito: `un`.
    * Quando coexistir com `sales_unit`, `sales_unit.requested_unit` DEVE ser igual a `unit`.

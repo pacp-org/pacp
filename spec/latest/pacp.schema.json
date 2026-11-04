@@ -197,6 +197,16 @@
         },
         "gtin": { "type": "string", "pattern": "^\\d{8,14}$" },
         "base_price": { "type": "number" },
+        "suggested_min_price": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Preço final mínimo sugerido pela fábrica ao lojista. Informativo: não afeta o cálculo. Não permitido em role=FAMILY."
+        },
+        "suggested_max_price": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Preço final máximo sugerido pela fábrica ao lojista. Informativo: não afeta o cálculo. Não permitido em role=FAMILY."
+        },
         "unit": { "type": "string", "minLength": 1 },
         "images": {
           "type": "array",

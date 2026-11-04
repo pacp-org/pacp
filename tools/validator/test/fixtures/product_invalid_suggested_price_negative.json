@@ -1,0 +1,10 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_negative_suggested",
+    "base_price": 100,
+    "suggested_min_price": -1,
+    "options": []
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "document_type": "PRODUCT",
+  "catalog_id": "cat_test",
+  "product": {
+    "id": "prod_suggested_min_only",
+    "base_price": 100,
+    "suggested_min_price": 0,
+    "options": []
+  }
+}
